@@ -17,33 +17,10 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+package one.atpc.fusion
 
-plugins {
-    `java-library`
-    kotlin("jvm") version "1.3.11"
-}
+import org.jetbrains.annotations.Contract
 
-group = "one.atpc"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    api(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.0")
-    implementation("org.jetbrains:annotations:16.0.3")
-    // TODO Hide SwingX with implementation (all the SwingX functionality should be assimilated into Fusion)
-    api("org.swinglabs.swingx:swingx-core:1.6.5-1")
-
-    testCompile("junit", "junit", "4.12")
-}
-
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
+val <T : Throwable> T.name: String
+    @Contract(pure = true)
+    get() = this::class.simpleName!!    // Throw Kotlin NPE if null
