@@ -32,8 +32,9 @@ repositories {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    
+    api(kotlin("stdlib-jdk8"))
+    api("org.swinglabs.swingx:swingx-core:1.6.5-1")
+
     testCompile("junit", "junit", "4.12")
 }
 
