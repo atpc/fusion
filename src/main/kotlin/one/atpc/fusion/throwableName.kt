@@ -21,6 +21,9 @@ package one.atpc.fusion
 
 import org.jetbrains.annotations.Contract
 
+/**
+ * The `Throwable` class name.
+ */
 val <T : Throwable> T.name: String
     @Contract(pure = true)
     get() = this::class.simpleName!!    // Throw Kotlin NPE if null
