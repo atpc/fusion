@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.ui
 
+import one.atpc.fusion.util.NoQBit
 import javax.swing.JComponent
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -37,6 +38,8 @@ typealias SwingComponent = JComponent
  * in the sense of _`"If you click this button, it will [description]"`_.
  * <br>
  * The description should not end with a dot.
+ *
+ * @see isDescriptionVisible
  */
 var <T : SwingComponent> T.description: String? by DescriptionDelegate()
 
@@ -47,7 +50,11 @@ var <T : SwingComponent> T.description: String? by DescriptionDelegate()
  * if the cursor highlights the component for a while.
  * If this property is `false`, the description will not be visible.
  */
-var <T : SwingComponent> T.isDescriptionVisible: Boolean by IsDescriptionVisibleDelegate()
+var <T : SwingComponent> T.isDescriptionVisible: Boolean by IsDescriptionVisibleDelegate<T>()
+
+
+val <T : SwingComponent> T.isControl: Boolean
+    get() = this is AbstractButton || this is XControl
 
 
 private class DescriptionDelegate<R : SwingComponent> : ReadWriteProperty<R, String?> {
@@ -65,16 +72,16 @@ private class DescriptionDelegate<R : SwingComponent> : ReadWriteProperty<R, Str
 }
 
 private class IsDescriptionVisibleDelegate<R : SwingComponent> : ReadWriteProperty<R, Boolean> {
-    private var isDescriptionVisible: Boolean = false
+    private var isDescriptionVisible: NoQBit = NoQBit.SUPER
 
-    override operator fun getValue(thisRef: R, property: KProperty<*>): Boolean = isDescriptionVisible
+    override operator fun getValue(thisRef: R, property: KProperty<*>): Boolean
+            = isDescriptionVisible.collapse(thisRef.isControl)
 
     override operator fun setValue(thisRef: R, property: KProperty<*>, value: Boolean) {
-        this.isDescriptionVisible = value
+        this.isDescriptionVisible = NoQBit(value)
         // Update toolTipText
         thisRef.updateToolTipText()
     }
-
 }
 
 
