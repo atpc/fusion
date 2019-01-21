@@ -39,7 +39,7 @@ interface XView {
     /**
      * Redraws the specified rectangle of this view.
      *
-     * @param rect The rectangle to redraw.
+     * @param rect The rectangular area to redraw.
      * @see draw
      */
     fun redraw(rect: XRectangle)
