@@ -45,6 +45,10 @@ dependencies {
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
+
+val kotlinCompilerArgs = arrayOf("-Xuse-experimental=kotlin.ExperimentalUnsignedTypes")
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.freeCompilerArgs += kotlinCompilerArgs
 }
