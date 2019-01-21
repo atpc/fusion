@@ -28,12 +28,13 @@ typealias SwingComponent = JComponent
 
 /**
  * The view description.
- * If the view is a control (subtype of [XControl]), the description should be _imperative_,
- * otherwise it should be _describing_. Take, for example, an instance of [XText]:<br>
+ * If the view is a control (subtype of [XControl]), the description should be **imperative**,
+ * otherwise it should be **describing**. Take, for example, an instance of [XText]:
+ * <br>
  * It's description of the text should only further describe it's **content**, or the gist of it.
  * An instance of [XButton], in contrast, is carrying out an action, so it's description
  * should describe it's **action** when activated by the user,
- * in the sense of _"If you click this button, it will <Your description>"_.
+ * in the sense of _`"If you click this button, it will [description]"`_.
  * <br>
  * The description should not end with a dot.
  */
