@@ -24,7 +24,7 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 // Base for all Fusion components
-typealias XBase = JComponent
+typealias BaseComponent = JComponent
 
 /**
  * The view description.
@@ -37,7 +37,7 @@ typealias XBase = JComponent
  * <br>
  * The description should not end with a dot.
  */
-var <T : XBase> T.description: String? by DescriptionDelegate()
+var <T : BaseComponent> T.description: String? by DescriptionDelegate()
 
 
 /**
@@ -46,10 +46,10 @@ var <T : XBase> T.description: String? by DescriptionDelegate()
  * if the cursor highlights the component for a while.
  * If this property is `false`, the description will not be visible.
  */
-var <T : XBase> T.isDescriptionVisible: Boolean by IsDescriptionVisibleDelegate()
+var <T : BaseComponent> T.isDescriptionVisible: Boolean by IsDescriptionVisibleDelegate()
 
 
-private class DescriptionDelegate<R : XBase> : ReadWriteProperty<R, String?> {
+private class DescriptionDelegate<R : BaseComponent> : ReadWriteProperty<R, String?> {
     private var description: String? = null
 
     override operator fun getValue(thisRef: R, property: KProperty<*>): String?
@@ -63,7 +63,7 @@ private class DescriptionDelegate<R : XBase> : ReadWriteProperty<R, String?> {
 
 }
 
-private class IsDescriptionVisibleDelegate<R : XBase> : ReadWriteProperty<R, Boolean> {
+private class IsDescriptionVisibleDelegate<R : BaseComponent> : ReadWriteProperty<R, Boolean> {
     private var isDescriptionVisible: Boolean = false
 
     override operator fun getValue(thisRef: R, property: KProperty<*>): Boolean = isDescriptionVisible
@@ -77,30 +77,32 @@ private class IsDescriptionVisibleDelegate<R : XBase> : ReadWriteProperty<R, Boo
 }
 
 
-private fun <T : XBase> T.updateToolTipText() {
-    // if (this is XControl)
-    //    this.updateControlToolTipText()
-    // else
-        this.updateViewToolTipText()
+private fun <T : BaseComponent> T.updateToolTipText() {
+    this.toolTipText = if (this is XControl)
+        makeControlToolTipText(this, this as XControl)
+    else
+        this.makeViewToolTipText()
 }
 
 // Method for re-creating the toolTipText each time the keyShortcut/description is changed
-/*private fun <T : XBase> T.updateControlToolTipText() {
-    this.toolTipText =
-            if (this.isDescriptionVisible) {
-                if (this.keyShortcut != null)
-                    this.description + " (${this.keyShortcut!!.stringSignature})"
-                else
-                    this.description
-            }
-            else
-                null
-}*/
+private fun <T : BaseComponent, U : XControl> makeControlToolTipText(baseRef: T,
+                                                                     controlRef: U): String? =
+    if (baseRef.isDescriptionVisible) {
+        if (controlRef.keyShortcut != null)
+            baseRef.description + " (${controlRef.keyShortcut!!.stringSignature})"
+        else
+            baseRef.description
+    }
+    else
+        null
 
-private fun <T : XBase> T.updateViewToolTipText() {
-    this.toolTipText =
-            if (this.isDescriptionVisible)
-                this.description
-            else
-                null
-}
+// Currently unused overload for a subtype of both BaseComponent and XControl
+@Suppress("unused")
+private fun <T> T.makeControlToolTipText(): String? where T : BaseComponent, T : XControl
+        = makeControlToolTipText(this, this)
+
+private fun <T : BaseComponent> T.makeViewToolTipText(): String? =
+    if (this.isDescriptionVisible)
+        this.description
+    else
+        null
