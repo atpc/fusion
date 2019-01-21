@@ -38,28 +38,21 @@ object SystemInfo {
     const val ARCH_DATA_MODEL   = "sun.arch.data.model"
 
 
-    private var detectedOS: OSType? = null
-
     /**
      * Gets the type of the operating system.
      *
      * @return The type of this operating system.
      */
     @JvmStatic
-    val osType: OSType
-        @Contract(pure = true)
-        get() {
-            if (detectedOS == null) {
-                val os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH)
-                detectedOS = when {
-                    (os.indexOf("mac") >= 0) || (os.indexOf("darwin") >= 0) -> OSType.MacOS
-                    os.indexOf("win") >= 0 -> OSType.Windows
-                    os.indexOf("nux") >= 0 -> OSType.Linux
-                    else -> OSType.Other
-                }
-            }
-            return detectedOS!!
+    val osType: OSType by lazy {
+        val os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH)
+        when {
+            (os.indexOf("mac") >= 0) || (os.indexOf("darwin") >= 0) -> OSType.MacOS
+            os.indexOf("win") >= 0 -> OSType.Windows
+            os.indexOf("nux") >= 0 -> OSType.Linux
+            else -> OSType.Other
         }
+    }
 
     /**
      * Gets the system architecture's data model.
