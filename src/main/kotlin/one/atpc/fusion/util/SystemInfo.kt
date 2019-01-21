@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.util
 
+import org.jetbrains.annotations.Contract
 import java.util.*
 
 /**
@@ -45,18 +46,20 @@ object SystemInfo {
      * @return The type of this operating system.
      */
     @JvmStatic
-    fun getOSType(): OSType {
-        if (detectedOS == null) {
-            val os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH)
-            detectedOS = when {
-                (os.indexOf("mac") >= 0) || (os.indexOf("darwin") >= 0) -> OSType.MacOS
-                os.indexOf("win") >= 0 -> OSType.Windows
-                os.indexOf("nux") >= 0 -> OSType.Linux
-                else -> OSType.Other
+    val osType: OSType
+        @Contract(pure = true)
+        get() {
+            if (detectedOS == null) {
+                val os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH)
+                detectedOS = when {
+                    (os.indexOf("mac") >= 0) || (os.indexOf("darwin") >= 0) -> OSType.MacOS
+                    os.indexOf("win") >= 0 -> OSType.Windows
+                    os.indexOf("nux") >= 0 -> OSType.Linux
+                    else -> OSType.Other
+                }
             }
+            return detectedOS!!
         }
-        return detectedOS!!
-    }
 
     /**
      * Gets the system architecture's data model.
@@ -67,7 +70,9 @@ object SystemInfo {
      *         (usually 32-Bit or 64-Bit).
      */
     @JvmStatic
-    fun getArchitectureDataModel(): UInt = this[ARCH_DATA_MODEL]!!.toUInt()
+    val architectureDataModel: UInt
+        @Contract(pure = true)
+        get() = this[ARCH_DATA_MODEL]!!.toUInt()
 
 
     /**
