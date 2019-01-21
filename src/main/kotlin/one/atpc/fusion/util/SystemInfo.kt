@@ -39,9 +39,7 @@ object SystemInfo {
 
 
     /**
-     * Gets the type of the operating system.
-     *
-     * @return The type of this operating system.
+     * The [OSType] for this system.
      */
     @JvmStatic
     val osType: OSType by lazy {
@@ -55,12 +53,11 @@ object SystemInfo {
     }
 
     /**
-     * Gets the system architecture's data model.
+     * The system architecture's data model.
      *
-     * @throws NullPointerException If the property [ARCH_DATA_MODEL]
-     *                              is not defined.
+     * @throws NullPointerException If `SystemInfo[ARCH_DATA_MODEL]` is not defined.
      * @return The data model of this system's architecture
-     *         (usually 32-Bit or 64-Bit).
+     *         (usually `32`- or `64`-Bit).
      */
     @JvmStatic
     val architectureDataModel: UInt
