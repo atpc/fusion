@@ -27,6 +27,7 @@ import java.math.BigDecimal
  *
  * @return `true` if the number is a floating-point number,
  *          `false` otherwise.
+ * @author Thomas Orlando
  */
 val Number.isFloatingPoint
     @Contract(pure = true)

@@ -22,7 +22,9 @@ package one.atpc.fusion
 import org.jetbrains.annotations.Contract
 
 /**
- * The `Throwable` class name.
+ * The name of the `Throwable` instance's class.
+ *
+ * @author Thomas Orlando
  */
 val <T : Throwable> T.name: String
     @Contract(pure = true)
