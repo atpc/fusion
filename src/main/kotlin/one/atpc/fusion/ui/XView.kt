@@ -19,6 +19,8 @@
 
 package one.atpc.fusion.ui
 
+import java.awt.Graphics
+
 interface XView {
 
     /**
@@ -60,5 +62,46 @@ interface XView {
      * @see draw
      */
     fun redraw(delay: Long, rect: XRectangle)
+
+
+    interface SwingImpl : XView {
+
+        fun repaint()
+
+        fun repaint(delay: Long)
+
+        fun repaint(x: Px, y: Px, width: Px, height: Px)
+
+        fun repaint(delay: Long, x: Px, y: Px, width: Px, height: Px)
+
+
+        override fun redraw() = this.repaint()
+
+        override fun redraw(delay: Long) = this.repaint(delay)
+
+        override fun redraw(rect: XRectangle) {
+            val ir = rect.toInt()
+            this.repaint(ir.x, ir.y, ir.width, ir.height)
+        }
+
+        override fun redraw(delay: Long, rect: XRectangle) {
+            val ir = rect.toInt()
+            this.repaint(delay, ir.x, ir.y, ir.width, ir.height)
+        }
+
+
+        companion object {
+
+            @JvmStatic
+            inline fun <reified R> paintComponent(thisRef: R, g: Graphics?) where R : SwingComponent, R : XView {
+                if (g == null)
+                    throw NullPointerException("Graphics object can not be null!")
+                else
+                    thisRef.draw(g.toXGraphics())
+            }
+
+        }
+
+    }
 
 }
