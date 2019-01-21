@@ -22,6 +22,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     `java-library`
     kotlin("jvm") version "1.3.11"
+    id("org.jetbrains.dokka") version "0.9.17"
 }
 
 group = "one.atpc"
