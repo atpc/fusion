@@ -19,12 +19,24 @@
 
 package one.atpc.fusion.util
 
-inline class NoQBit constructor(private val booleanValue: Boolean?) {
-    companion object {
-        @JvmStatic
-        val SUPER = NoQBit(null)
-    }
+enum class NoQBit(private val booleanValue: Boolean?) {
+    FALSE (false),
+    TRUE (true),
+    SUPER (null)
+    ;
 
     fun collapse(tendency: Boolean): Boolean = booleanValue ?: tendency
+
+    companion object {
+
+        @JvmStatic
+        fun of(value: Boolean?): NoQBit = when (value) {
+            false -> FALSE
+            true -> TRUE
+            else -> SUPER
+        }
+
+
+    }
 
 }

@@ -78,7 +78,7 @@ private class IsDescriptionVisibleDelegate<R : SwingComponent> : ReadWriteProper
             = isDescriptionVisible.collapse(thisRef.isControl)
 
     override operator fun setValue(thisRef: R, property: KProperty<*>, value: Boolean) {
-        this.isDescriptionVisible = NoQBit(value)
+        this.isDescriptionVisible = NoQBit.of(value)
         // Update toolTipText
         thisRef.updateToolTipText()
     }
