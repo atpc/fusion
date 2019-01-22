@@ -19,4 +19,45 @@
 
 package one.atpc.fusion.ui
 
+import java.awt.GraphicsEnvironment
+
 typealias Toolkit = java.awt.Toolkit
+
+
+// Code for handling different pixel densities
+
+/**
+ * The density of the screen, described by [Toolkit].
+ *
+ * @see Toolkit.getScreenSize
+ */
+val Toolkit.screenDensity: Double get() = calculateDensity(this.screenSize.toXDimension())
+
+
+/**
+ * The size of the screen described by [GraphicsEnvironment.getDefaultScreenDevice]
+ * in a multi-screen environment.
+ */
+val Toolkit.multiScreenSize: XDimension.Int get() {
+    val displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
+    return XDimension.Int(displayMode.width, displayMode.height)
+}
+
+/**
+ * The density of the screen described by [GraphicsEnvironment.getDefaultScreenDevice]
+ * in a multi-screen environment.
+ *
+ * @see Toolkit.multiScreenSize
+ */
+val Toolkit.multiScreenDensity: Double get() = calculateDensity(this.multiScreenSize)
+
+
+internal fun calculateDensity(screenSize: XDimension): Double {
+    val a = screenSize.getWidth()
+    val b = screenSize.getHeight()
+
+    return if (a > b)
+        a / b
+    else
+        b / a
+}

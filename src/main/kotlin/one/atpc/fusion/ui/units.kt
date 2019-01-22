@@ -24,3 +24,9 @@ typealias PxDouble = Double
 
 typealias Dp = Double
 typealias DpInt = Int
+
+val density = Toolkit.getDefaultToolkit().multiScreenDensity
+
+fun dp(dp: Dp): PxDouble = dp * density
+
+fun dpInt(dp: Dp): Px = (dp(dp) + 0.5).toInt()
