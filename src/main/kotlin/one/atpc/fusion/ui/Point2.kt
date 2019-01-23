@@ -168,4 +168,4 @@ fun Point2(p: Pair<PxDouble, PxDouble>): Point2.Double = Point2.Double(p)
 
 // Converter function ONLY for the commonly used AWT point class
 
-fun Point.toXPoint(): Point2.Int = Point2.Int(this)
+fun Point.toPoint2(): Point2.Int = Point2.Int(this)

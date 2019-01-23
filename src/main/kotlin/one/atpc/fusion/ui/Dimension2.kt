@@ -193,4 +193,4 @@ fun Dimension2(d: Pair<PxDouble, PxDouble>): Dimension2.Double = Dimension2.Doub
 // Dimension2 converter function ONLY for the commonly used AWT Dimension class
 // No converters for the abstract Dimension2D base class
 
-fun Dimension.toXDimension(): Dimension2.Int = Dimension2.Int(this)
+fun Dimension.toDimension2(): Dimension2.Int = Dimension2.Int(this)

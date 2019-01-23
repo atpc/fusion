@@ -189,4 +189,4 @@ fun Rectangle4(point: Point2D, dimen: Dimension2D): Rectangle4.Double = Rectangl
 
 // Only for AWT Rectangle class:
 
-fun Rectangle.toXRectangle(): Rectangle4.Int = Rectangle4.Int(this.x, this.y, this.width, this.height)
+fun Rectangle.toRectangle4(): Rectangle4.Int = Rectangle4.Int(this.x, this.y, this.width, this.height)

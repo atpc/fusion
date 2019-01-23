@@ -31,7 +31,7 @@ typealias Toolkit = java.awt.Toolkit
  *
  * @see Toolkit.getScreenSize
  */
-val Toolkit.screenDensity: Double get() = calculateDensity(this.screenSize.toXDimension())
+val Toolkit.screenDensity: Double get() = calculateDensity(this.screenSize.toDimension2())
 
 
 /**
