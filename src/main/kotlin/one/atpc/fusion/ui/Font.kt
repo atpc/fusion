@@ -72,7 +72,7 @@ typealias Font = java.awt.Font
  */
 @ConstructorFunction(Font::class)
 @Throws(FontFormatException::class, IOException::class)
-fun XFont(fontFormat: Int, fontStream: InputStream, fontSize: Double): Font
+fun Font(fontFormat: Int, fontStream: InputStream, fontSize: Double): Font
         = Font.createFont(fontFormat, fontStream).deriveFont(fontSize)
 
 // TODO Implement constructor with file
