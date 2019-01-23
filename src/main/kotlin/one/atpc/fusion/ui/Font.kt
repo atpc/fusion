@@ -29,7 +29,7 @@ import java.io.InputStream
 
 /**
  * TODO Improve this documentation
- * `Font` is an immutable type. To change properties, you need to
+ * `Font` is an immutable type. To change it's properties, you need to
  * derive a new font:
  * ```
  * // Here, we derive a font with a new size and style
