@@ -44,7 +44,7 @@ interface XView {
      * @param rect The rectangular area to redraw.
      * @see draw
      */
-    fun redraw(rect: XRectangle)
+    fun redraw(rect: Rectangle4)
 
     /**
      * Redraws this view after the specified delay.
@@ -61,7 +61,7 @@ interface XView {
      * @param rect The rectangle to redraw.
      * @see draw
      */
-    fun redraw(delay: Long, rect: XRectangle)
+    fun redraw(delay: Long, rect: Rectangle4)
 
 
     interface SwingImpl : XView {
@@ -79,12 +79,12 @@ interface XView {
 
         override fun redraw(delay: Long) = this.repaint(delay)
 
-        override fun redraw(rect: XRectangle) {
+        override fun redraw(rect: Rectangle4) {
             val ir = rect.toInt()
             this.repaint(ir.x, ir.y, ir.width, ir.height)
         }
 
-        override fun redraw(delay: Long, rect: XRectangle) {
+        override fun redraw(delay: Long, rect: Rectangle4) {
             val ir = rect.toInt()
             this.repaint(delay, ir.x, ir.y, ir.width, ir.height)
         }

@@ -30,7 +30,7 @@ import java.awt.geom.Point2D
 import java.awt.geom.Rectangle2D
 
 // TODO Create tests
-interface XRectangle : XVector4 {
+interface Rectangle4 : XVector4 {
 
     fun getX(): PxDouble
     fun getY(): PxDouble
@@ -44,36 +44,36 @@ interface XRectangle : XVector4 {
             1 -> this.getY()
             2 -> this.getWidth()
             3 -> this.getHeight()
-            else -> throw IndexOutOfBoundsException("XRectangle vector contains only 4 numbers!")
+            else -> throw IndexOutOfBoundsException("Rectangle4 vector contains only 4 numbers!")
         }
 
     // (No intX/intY/intWidth/[...] methods) //
 
-    fun getLocation(): XPoint
+    fun getLocation(): Point2
 
-    fun getSize(): XDimension
-
-
-    operator fun contains(p: XPoint): Boolean
-
-    operator fun contains(r: XRectangle): Boolean
+    fun getSize(): Dimension2
 
 
-    override fun copy(): XRectangle
+    operator fun contains(p: Point2): Boolean
+
+    operator fun contains(r: Rectangle4): Boolean
 
 
-    // This MUST create a copy, even if it is the XRectangle.Int class
-    fun toInt(): XRectangle.Int = XRectangle.Int(
+    override fun copy(): Rectangle4
+
+
+    // This MUST create a copy, even if it is the Rectangle4.Int class
+    fun toInt(): Rectangle4.Int = Rectangle4.Int(
         this.getX().toInt(),
         this.getY().toInt(),
         this.getWidth().toInt(),
         this.getHeight().toInt()
     )
 
-    fun toDouble(): XRectangle.Double = XRectangle.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight())
+    fun toDouble(): Rectangle4.Double = Rectangle4.Double(this.getX(), this.getY(), this.getWidth(), this.getHeight())
 
 
-    open class Int : XRectangle, Rectangle {
+    open class Int : Rectangle4, Rectangle {
 
         constructor() : super()
 
@@ -90,12 +90,12 @@ interface XRectangle : XVector4 {
         constructor(d: Dimension) : super(d)
 
 
-        override fun getLocation(): XPoint.Int = XPoint.Int(this.x, this.y)
+        override fun getLocation(): Point2.Int = Point2.Int(this.x, this.y)
 
-        override fun getSize(): XDimension.Int = XDimension.Int(this.width, this.height)
+        override fun getSize(): Dimension2.Int = Dimension2.Int(this.width, this.height)
 
 
-        override operator fun contains(p: XPoint): Boolean
+        override operator fun contains(p: Point2): Boolean
                 =
             if (p is Point)
                 this.contains(p as Point)
@@ -103,7 +103,7 @@ interface XRectangle : XVector4 {
                 this.contains(p.getX(), p.getY())
 
 
-        override operator fun contains(r: XRectangle): Boolean
+        override operator fun contains(r: Rectangle4): Boolean
                 =
             if (r is Rectangle)
                 this.contains(r as Rectangle)
@@ -111,9 +111,9 @@ interface XRectangle : XVector4 {
                 this.contains(r.getX(), r.getY(), r.getWidth(), r.getHeight())
 
 
-        override fun copy(): XRectangle.Int = XRectangle.Int(this)
+        override fun copy(): Rectangle4.Int = Rectangle4.Int(this)
 
-        override fun toInt(): XRectangle.Int = XRectangle.Int(
+        override fun toInt(): Rectangle4.Int = Rectangle4.Int(
             this.x,
             this.y,
             this.width,
@@ -123,7 +123,7 @@ interface XRectangle : XVector4 {
     }
 
 
-    open class Double : XRectangle, Rectangle2D.Double {
+    open class Double : Rectangle4, Rectangle2D.Double {
 
         constructor() : super()
 
@@ -136,17 +136,17 @@ interface XRectangle : XVector4 {
         constructor(point: Point2D, dimen: Dimension2D) : this(point.x, point.y, dimen.width, dimen.height)
 
 
-        override fun getLocation(): XPoint.Double = XPoint.Double(this.x, this.y)
+        override fun getLocation(): Point2.Double = Point2.Double(this.x, this.y)
 
-        override fun getSize(): XDimension.Double = XDimension.Double(this.width, this.height)
-
-
-        override operator fun contains(p: XPoint): Boolean = this.contains(p.getX(), p.getY())
-
-        override operator fun contains(r: XRectangle): Boolean = this.contains(r.getX(), r.getY(), r.getWidth(), r.getHeight())
+        override fun getSize(): Dimension2.Double = Dimension2.Double(this.width, this.height)
 
 
-        override fun copy(): XRectangle.Double = XRectangle.Double(this)
+        override operator fun contains(p: Point2): Boolean = this.contains(p.getX(), p.getY())
+
+        override operator fun contains(r: Rectangle4): Boolean = this.contains(r.getX(), r.getY(), r.getWidth(), r.getHeight())
+
+
+        override fun copy(): Rectangle4.Double = Rectangle4.Double(this)
 
     }
 
@@ -155,38 +155,38 @@ interface XRectangle : XVector4 {
 
 // Constructor functions
 
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(): XRectangle = XRectangle.Int()
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(): Rectangle4 = Rectangle4.Int()
 
 
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(rect: Rectangle): XRectangle.Int = XRectangle.Int(rect)
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(rect: Rectangle): Rectangle4.Int = Rectangle4.Int(rect)
 
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(rect: Rectangle2D): XRectangle.Double = XRectangle.Double(rect)
-
-
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(x: Px, y: Px, width: Px, height: Px): XRectangle.Int = XRectangle.Int(x, y, width, height)
-
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(width: Px, height: Px): XRectangle.Int = XRectangle.Int(width, height)
-
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(point: Point, dimen: Dimension): XRectangle.Int = XRectangle.Int(point, dimen)
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(rect: Rectangle2D): Rectangle4.Double = Rectangle4.Double(rect)
 
 
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(x: PxDouble, y: PxDouble, width: PxDouble, height: PxDouble): XRectangle.Double
-        = XRectangle.Double(x, y, width, height)
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(x: Px, y: Px, width: Px, height: Px): Rectangle4.Int = Rectangle4.Int(x, y, width, height)
 
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(width: PxDouble, height: PxDouble): XRectangle.Double = XRectangle.Double(width, height)
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(width: Px, height: Px): Rectangle4.Int = Rectangle4.Int(width, height)
 
-@ConstructorFunction(XRectangle::class)
-fun XRectangle(point: Point2D, dimen: Dimension2D): XRectangle.Double = XRectangle.Double(point, dimen)
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(point: Point, dimen: Dimension): Rectangle4.Int = Rectangle4.Int(point, dimen)
+
+
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(x: PxDouble, y: PxDouble, width: PxDouble, height: PxDouble): Rectangle4.Double
+        = Rectangle4.Double(x, y, width, height)
+
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(width: PxDouble, height: PxDouble): Rectangle4.Double = Rectangle4.Double(width, height)
+
+@ConstructorFunction(Rectangle4::class)
+fun Rectangle4(point: Point2D, dimen: Dimension2D): Rectangle4.Double = Rectangle4.Double(point, dimen)
 
 
 // Only for AWT Rectangle class:
 
-fun Rectangle.toXRectangle(): XRectangle.Int = XRectangle.Int(this.x, this.y, this.width, this.height)
+fun Rectangle.toXRectangle(): Rectangle4.Int = Rectangle4.Int(this.x, this.y, this.width, this.height)

@@ -27,34 +27,34 @@ import java.awt.event.KeyEvent
 import java.util.*
 import javax.swing.KeyStroke
 
-typealias XKeyStroke = KeyStroke
+typealias KeyStroke = KeyStroke
 
 @JvmOverloads
-@ConstructorFunction(XKeyStroke::class)
-fun XKeyStroke(keyChar: Char, modifier: Modifier? = null): XKeyStroke
-        = XKeyStroke.getKeyStroke(keyChar, modifier?.code ?: 0)
+@ConstructorFunction(KeyStroke::class)
+fun KeyStroke(keyChar: Char, modifier: Modifier? = null): KeyStroke
+        = KeyStroke.getKeyStroke(keyChar, modifier?.code ?: 0)
 
-@ConstructorFunction(XKeyStroke::class)
-fun XKeyStroke(keyChar: Char, modifier: Modifier, vararg additionalModifiers: Modifier): KeyStroke {
+@ConstructorFunction(KeyStroke::class)
+fun KeyStroke(keyChar: Char, modifier: Modifier, vararg additionalModifiers: Modifier): KeyStroke {
     var mask = modifier.code
     for (additionalModifier in additionalModifiers)
         mask = mask or additionalModifier.code
 
-    return XKeyStroke.getKeyStroke(keyChar, mask)
+    return KeyStroke.getKeyStroke(keyChar, mask)
 }
 
 @JvmOverloads
-@ConstructorFunction(XKeyStroke::class)
-fun XKeyStroke(keyCode: Int, modifier: Modifier? = null): XKeyStroke
-        = XKeyStroke.getKeyStroke(keyCode, modifier?.code ?: 0)
+@ConstructorFunction(KeyStroke::class)
+fun KeyStroke(keyCode: Int, modifier: Modifier? = null): KeyStroke
+        = KeyStroke.getKeyStroke(keyCode, modifier?.code ?: 0)
 
-@ConstructorFunction(XKeyStroke::class)
-fun XKeyStroke(keyChar: Char, modifiers: Int): XKeyStroke = XKeyStroke.getKeyStroke(keyChar, modifiers)
+@ConstructorFunction(KeyStroke::class)
+fun KeyStroke(keyChar: Char, modifiers: Int): KeyStroke = KeyStroke.getKeyStroke(keyChar, modifiers)
 
 
-private val keyStrokeModifierObjectsMap: MutableMap<XKeyStroke, List<Modifier>> = hashMapOf()
+private val keyStrokeModifierObjectsMap: MutableMap<KeyStroke, List<Modifier>> = hashMapOf()
 
-val XKeyStroke.modifierObjects: List<Modifier> get() {
+val KeyStroke.modifierObjects: List<Modifier> get() {
     val precomputedModifierObjects = keyStrokeModifierObjectsMap[this]
     if (precomputedModifierObjects != null)
         return precomputedModifierObjects
@@ -75,7 +75,7 @@ val XKeyStroke.modifierObjects: List<Modifier> get() {
     }
 }
 
-val XKeyStroke.stringSignature: String get() {
+val KeyStroke.stringSignature: String get() {
     val builder = StringBuilder()
 
     for (modifier in modifierObjects) {

@@ -26,7 +26,7 @@ import java.awt.Dimension
 import java.awt.geom.Dimension2D
 
 // Immutable
-interface XDimension : XVector2 {
+interface Dimension2 : XVector2 {
 
     // Necessary to comply with Dimension2D
     fun getWidth(): kotlin.Double
@@ -35,13 +35,13 @@ interface XDimension : XVector2 {
     val intWidth: Px
     val intHeight: Px
 
-    operator fun plus(d: XDimension): XDimension
+    operator fun plus(d: Dimension2): Dimension2
 
-    operator fun minus(d: XDimension): XDimension
+    operator fun minus(d: Dimension2): Dimension2
 
     // TODO times()
 
-    override fun copy(): XDimension
+    override fun copy(): Dimension2
 
 
     // XVector2 implementation
@@ -49,18 +49,18 @@ interface XDimension : XVector2 {
         when (index) {
             0 -> this.getWidth()
             1 -> this.getHeight()
-            else -> throw IndexOutOfBoundsException("XDimension vector contains only 2 numbers!")
+            else -> throw IndexOutOfBoundsException("Dimension2 vector contains only 2 numbers!")
         }
 
 
-    fun toInt(): XDimension.Int
-            = XDimension.Int(this.intWidth, this.intHeight)
+    fun toInt(): Dimension2.Int
+            = Dimension2.Int(this.intWidth, this.intHeight)
 
-    fun toDouble(): XDimension.Double
-            = XDimension.Double(this.getWidth(), this.getHeight())
+    fun toDouble(): Dimension2.Double
+            = Dimension2.Double(this.getWidth(), this.getHeight())
 
 
-    fun defaultEquals(other: XDimension)
+    fun defaultEquals(other: Dimension2)
             = this.getWidth() == other.getWidth() && this.getHeight() == other.getHeight()
 
     fun defaultHashCode(): kotlin.Int {
@@ -69,7 +69,7 @@ interface XDimension : XVector2 {
     }
 
 
-    open class Int : XDimension, Dimension {
+    open class Int : Dimension2, Dimension {
 
         constructor() : super()
 
@@ -84,31 +84,31 @@ interface XDimension : XVector2 {
         override val intHeight: Px
             get() = this.height
 
-        override operator fun plus(d: XDimension): XDimension
-                = XDimension.Double(this.width + d.getWidth(), this.height + d.getHeight())
+        override operator fun plus(d: Dimension2): Dimension2
+                = Dimension2.Double(this.width + d.getWidth(), this.height + d.getHeight())
 
-        operator fun plus(d: XDimension.Int): XDimension.Int
+        operator fun plus(d: Dimension2.Int): Dimension2.Int
                 = this.plus(d as Dimension)
 
-        operator fun plus(d: Dimension): XDimension.Int
-                = XDimension.Int(this.width + d.width, this.height + d.height)
+        operator fun plus(d: Dimension): Dimension2.Int
+                = Dimension2.Int(this.width + d.width, this.height + d.height)
 
-        override operator fun minus(d: XDimension): XDimension
-                = XDimension.Double(this.width - d.getWidth(), this.height - d.getHeight())
+        override operator fun minus(d: Dimension2): Dimension2
+                = Dimension2.Double(this.width - d.getWidth(), this.height - d.getHeight())
 
-        operator fun minus(d: XDimension.Int): XDimension.Int
+        operator fun minus(d: Dimension2.Int): Dimension2.Int
                 = this.minus(d as Dimension)
 
-        operator fun minus(d: Dimension): XDimension.Int
-                = XDimension.Int(this.width - d.width, this.height - d.height)
+        operator fun minus(d: Dimension): Dimension2.Int
+                = Dimension2.Int(this.width - d.width, this.height - d.height)
 
-        override fun copy(): XDimension.Int = XDimension.Int(this.width, this.height)
+        override fun copy(): Dimension2.Int = Dimension2.Int(this.width, this.height)
 
         override fun equals(other: Any?): Boolean {
             return when (other) {
                 is Dimension -> super.equals(other)
                 // Do not check for Dimension2D
-                is XDimension -> super.defaultEquals(other)
+                is Dimension2 -> super.defaultEquals(other)
                 else -> false
             }
         }
@@ -118,7 +118,7 @@ interface XDimension : XVector2 {
 
     }
 
-    open class Double(@JvmField var width: PxDouble, @JvmField var height: PxDouble) : XDimension, Dimension2D() {
+    open class Double(@JvmField var width: PxDouble, @JvmField var height: PxDouble) : Dimension2, Dimension2D() {
 
         constructor() : this(0.0, 0.0)
 
@@ -140,19 +140,19 @@ interface XDimension : XVector2 {
             this.height = height
         }
 
-        override operator fun plus(d: XDimension): XDimension.Double
-                = XDimension.Double(this.width + d.getWidth(), this.height + d.getHeight())
+        override operator fun plus(d: Dimension2): Dimension2.Double
+                = Dimension2.Double(this.width + d.getWidth(), this.height + d.getHeight())
 
-        override operator fun minus(d: XDimension): XDimension.Double
-                = XDimension.Double(this.width - d.getWidth(), this.height - d.getHeight())
+        override operator fun minus(d: Dimension2): Dimension2.Double
+                = Dimension2.Double(this.width - d.getWidth(), this.height - d.getHeight())
 
-        override fun copy(): XDimension.Double = XDimension.Double(this.width, this.height)
+        override fun copy(): Dimension2.Double = Dimension2.Double(this.width, this.height)
 
         override fun equals(other: Any?): Boolean {
             return when (other) {
                 is Dimension2D -> this.getWidth() == other.width && this.getHeight() == other.height
                 // Do not check for Dimension2D
-                is XDimension -> super.defaultEquals(other)
+                is Dimension2 -> super.defaultEquals(other)
                 else -> false
             }
         }
@@ -163,34 +163,34 @@ interface XDimension : XVector2 {
 
 }
 
-// XDimension "constructors"
+// Dimension2 "constructors"
 
-@ConstructorFunction(XDimension::class)
-fun XDimension(): XDimension = XDimension.Int()
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(): Dimension2 = Dimension2.Int()
 
-@ConstructorFunction(XDimension::class)
-fun XDimension(d: Dimension): XDimension.Int = XDimension.Int(d)
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(d: Dimension): Dimension2.Int = Dimension2.Int(d)
 
-@ConstructorFunction(XDimension::class)
-fun XDimension(d: Dimension2D): XDimension
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(d: Dimension2D): Dimension2
 // Use Double per default
-        = XDimension.Double(d.width, d.height)
+        = Dimension2.Double(d.width, d.height)
 
-@ConstructorFunction(XDimension::class)
-fun XDimension(width: Px, height: Px): XDimension.Int = XDimension.Int(width, height)
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(width: Px, height: Px): Dimension2.Int = Dimension2.Int(width, height)
 
-@ConstructorFunction(XDimension::class)
-fun XDimension(width: PxDouble, height: PxDouble): XDimension.Double = XDimension.Double(width, height)
-
-
-@ConstructorFunction(XDimension::class)
-fun XDimension(d: Pair<Px, Px>): XDimension.Int = XDimension.Int(d)
-
-@ConstructorFunction(XDimension::class)
-fun XDimension(d: Pair<PxDouble, PxDouble>): XDimension.Double = XDimension.Double(d)
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(width: PxDouble, height: PxDouble): Dimension2.Double = Dimension2.Double(width, height)
 
 
-// XDimension converter function ONLY for the commonly used AWT Dimension class
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(d: Pair<Px, Px>): Dimension2.Int = Dimension2.Int(d)
+
+@ConstructorFunction(Dimension2::class)
+fun Dimension2(d: Pair<PxDouble, PxDouble>): Dimension2.Double = Dimension2.Double(d)
+
+
+// Dimension2 converter function ONLY for the commonly used AWT Dimension class
 // No converters for the abstract Dimension2D base class
 
-fun Dimension.toXDimension(): XDimension.Int = XDimension.Int(this)
+fun Dimension.toXDimension(): Dimension2.Int = Dimension2.Int(this)

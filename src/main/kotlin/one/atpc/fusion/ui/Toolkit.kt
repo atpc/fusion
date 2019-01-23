@@ -38,9 +38,9 @@ val Toolkit.screenDensity: Double get() = calculateDensity(this.screenSize.toXDi
  * The size of the screen described by [GraphicsEnvironment.getDefaultScreenDevice]
  * in a multi-screen environment.
  */
-val Toolkit.multiScreenSize: XDimension.Int get() {
+val Toolkit.multiScreenSize: Dimension2.Int get() {
     val displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
-    return XDimension.Int(displayMode.width, displayMode.height)
+    return Dimension2.Int(displayMode.width, displayMode.height)
 }
 
 /**
@@ -52,7 +52,7 @@ val Toolkit.multiScreenSize: XDimension.Int get() {
 val Toolkit.multiScreenDensity: Double get() = calculateDensity(this.multiScreenSize)
 
 
-internal fun calculateDensity(screenSize: XDimension): Double {
+internal fun calculateDensity(screenSize: Dimension2): Double {
     val a = screenSize.getWidth()
     val b = screenSize.getHeight()
 

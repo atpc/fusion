@@ -26,7 +26,7 @@ interface XControl : XView {
      * This is an optional property. The default implementation is returns `null`.
      */
     @Suppress("UNUSED_PARAMETER")
-    var keyShortcut: XKeyStroke?
+    var keyShortcut: KeyStroke?
         get() = null
         set(value) = throw UnsupportedOperationException()
 

@@ -22,7 +22,6 @@
 package one.atpc.fusion.ui
 
 import one.atpc.fusion.ConstructorFunction
-import java.awt.Font
 import java.awt.FontFormatException
 import java.awt.font.TextAttribute
 import java.io.IOException
@@ -30,7 +29,7 @@ import java.io.InputStream
 
 /**
  * TODO Improve this documentation
- * `XFont` is an immutable type. To change properties, you need to
+ * `Font` is an immutable type. To change properties, you need to
  * derive a new font:
  * ```
  * // Here, we derive a font with a new size and style
@@ -39,54 +38,54 @@ import java.io.InputStream
  * val boldFont = textFont.deriveFont(Font.BOLD)
  * ```
  */
-typealias XFont = Font
+typealias Font = java.awt.Font
 
 
 // Font extensions & code
 
 /**
- * Returns a new [XFont] using the specified font format
- * and input data.  The new `XFont` is
+ * Returns a new [Font] using the specified font format
+ * and input data.  The new `Font` is
  * created with the specified point size and style [Font.PLAIN].
- * This base font can then be used with the [XFont.deriveFont]
- * methods in this class to derive new `XFont` objects with
+ * This base font can then be used with the [Font.deriveFont]
+ * methods in this class to derive new `Font` objects with
  * varying sizes, styles, transforms and font features.  This
  * method does not close the [InputStream].
  * <p>
- * To make the `XFont` available to `XFont` constructors the
- * returned `XFont` must be registered in the
+ * To make the `Font` available to `Font` constructors the
+ * returned `Font` must be registered in the
  * [java.awt.GraphicsEnvironment] by calling
  * [java.awt.GraphicsEnvironment.registerFont].
- * @param fontFormat The type of the `XFont`, which is
+ * @param fontFormat The type of the `Font`, which is
  *     [Font.TRUETYPE_FONT] if a TrueType resource is specified,
  *     or [Font.TYPE1_FONT] if a Type 1 resource is specified.
  * @param fontStream An `InputStream` object representing the
  *     input data for the font.
- * @return A new `XFont` created with the specified [fontFormat] and [fontSize].
+ * @return A new `Font` created with the specified [fontFormat] and [fontSize].
  * @throws IllegalArgumentException If [fontFormat] is not
  *     [Font.TRUETYPE_FONT] or [Font.TYPE1_FONT].
  * @throws FontFormatException If the [fontStream] data does
  *     not contain the required font tables for the specified [fontFormat].
  * @throws IOException If the [fontStream] cannot be completely read.
  * @see Font.createFont
- * @see XFont.deriveFont
+ * @see Font.deriveFont
  */
-@ConstructorFunction(XFont::class)
+@ConstructorFunction(Font::class)
 @Throws(FontFormatException::class, IOException::class)
-fun XFont(fontFormat: Int, fontStream: InputStream, fontSize: Double): XFont
+fun XFont(fontFormat: Int, fontStream: InputStream, fontSize: Double): Font
         = Font.createFont(fontFormat, fontStream).deriveFont(fontSize)
 
 // TODO Implement constructor with file
 
-fun XFont.deriveFont(size: Double): XFont = this.deriveFont(size.toFloat())
+fun Font.deriveFont(size: Double): Font = this.deriveFont(size.toFloat())
 
-fun XFont.deriveFont(style: Int, fontSize: Double): XFont = this.deriveFont(style, fontSize.toFloat())
+fun Font.deriveFont(style: Int, fontSize: Double): Font = this.deriveFont(style, fontSize.toFloat())
 
 private const val KERNING_OFF = 0
-fun XFont.deriveWithKerning(enabled: Boolean = true) = this.deriveFont(
+fun Font.deriveWithKerning(enabled: Boolean = true) = this.deriveFont(
     mapOf(Pair(TextAttribute.KERNING, if (enabled) TextAttribute.KERNING_ON else KERNING_OFF))
 )
 
-fun XFont.deriveWithLetterSpacing(letterSpacing: Float) = this.deriveFont(
+fun Font.deriveWithLetterSpacing(letterSpacing: Float) = this.deriveFont(
     mapOf(Pair(TextAttribute.TRACKING, letterSpacing))
 )
