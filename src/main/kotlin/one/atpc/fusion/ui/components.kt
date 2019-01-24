@@ -29,7 +29,6 @@ import javax.swing.JPanel
 typealias AbstractButton = javax.swing.AbstractButton
 
 // Widget components
-typealias XText = JXLabel
 
 // Control widgets
 typealias XButton = JXButton
