@@ -19,11 +19,13 @@
 
 package one.atpc.fusion.ui
 
-// Abstract compontents
-typealias AbstractButton = javax.swing.AbstractButton
+import java.awt.Graphics
+import javax.swing.JPanel
 
-// Widget components
+open class XPanel : JPanel(), XContainer, XContainer.SwingImpl {
 
-// Control widgets
+    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
 
-// Containers
+    override fun draw(g: XGraphics) = super.paintComponent(g)
+
+}
