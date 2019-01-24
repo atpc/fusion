@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.ui
 
+import java.awt.Component
 import javax.swing.Icon
 
 interface XContainer {
@@ -50,5 +51,22 @@ interface XContainer {
     fun button(icon: Icon): XButton = this.add(XButton(icon))
 
     fun button(text: String, icon: Icon): XButton = this.add(XButton(text, icon))
+
+
+    interface SwingImpl : XContainer, XView.SwingImpl {
+
+        fun add(comp: Component): Component
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : XView> add(view: T): T {
+            try {
+                return this.add(view as Component) as T
+            }
+            catch (e: ClassCastException) {
+                throw XException("Could not add view: Not a subtype of Component!", e)
+            }
+        }
+
+    }
 
 }
