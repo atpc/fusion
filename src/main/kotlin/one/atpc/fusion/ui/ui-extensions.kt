@@ -85,14 +85,15 @@ private class IsDescriptionVisibleDelegate<R : SwingComponent> : ReadWriteProper
 }
 
 
-private fun <T : SwingComponent> T.updateToolTipText() {
+fun <T : SwingComponent> T.updateToolTipText() {
     this.toolTipText = if (this is XControl)
         makeControlToolTipText(this, this as XControl)
     else
         this.makeViewToolTipText()
 }
 
-// Method for re-creating the toolTipText each time the keyShortcut/description is changed
+// Re-creates the toolTipText for instances of XControl
+// each time the keyShortcut/description is changed
 private fun <T : SwingComponent, U : XControl> makeControlToolTipText(baseRef: T,
                                                                       controlRef: U): String? =
     if (baseRef.isDescriptionVisible) {
@@ -104,6 +105,8 @@ private fun <T : SwingComponent, U : XControl> makeControlToolTipText(baseRef: T
     else
         null
 
+// Re-creates the toolTipText for instances of XView
+// each time the description is changed
 private fun <T : SwingComponent> T.makeViewToolTipText(): String? =
     if (this.isDescriptionVisible)
         this.description
