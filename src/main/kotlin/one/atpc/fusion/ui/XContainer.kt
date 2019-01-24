@@ -27,7 +27,7 @@ interface XContainer {
      * Adds the specified [view] to this container.
      *
      * @param view The view to add.
-     * @return The added `view`.
+     * @return The added [view].
      */
     fun <T : XView> add(view: T): T
 
