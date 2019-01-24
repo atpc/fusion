@@ -22,8 +22,8 @@ package one.atpc.fusion.ui
 typealias Action = javax.swing.Action
 
 @Suppress("UNCHECKED_CAST")
-operator fun <T> Action.get(key: String): T
+operator fun <T> Action.get(key: String): T?
         = this.getValue(key) as T
 
-operator fun <T> Action.set(key: String, value: T)
+operator fun <T> Action.set(key: String, value: T?)
         = this.putValue(key, value)
