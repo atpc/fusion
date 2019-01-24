@@ -41,7 +41,7 @@ open class XText : JXLabel, XView, XView.SwingImpl {
     final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
- 
+
 
     // Ensure a constant height
     // TODO Make this optional (with a property)
