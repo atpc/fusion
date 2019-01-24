@@ -53,7 +53,14 @@ interface XContainer {
     fun button(text: String, icon: Icon): XButton = this.add(XButton(text, icon))
 
 
+    fun panel(): XPanel = this.add(XPanel())
+
+
     interface SwingImpl : XContainer, XView.SwingImpl {
+
+        // TODO The SwingImpl could also provide construction methods for not yet implemented components
+        // (Only exist as typealias)
+
 
         fun add(comp: Component): Component
 
