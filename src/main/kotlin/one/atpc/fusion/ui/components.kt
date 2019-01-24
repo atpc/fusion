@@ -31,7 +31,6 @@ typealias AbstractButton = javax.swing.AbstractButton
 // Widget components
 
 // Control widgets
-typealias XButton = JXButton
 
 // Containers
 typealias XPanel = JPanel
