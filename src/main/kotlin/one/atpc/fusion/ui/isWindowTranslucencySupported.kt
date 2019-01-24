@@ -26,15 +26,16 @@ typealias WindowTranslucency = java.awt.GraphicsDevice.WindowTranslucency
 
 // TODO Add XWindow.setOpacity(), XFrame and XDialog to @see
 /**
- * Determines whether the systems has the specified window [translucency] capabilities.
- * It is best practice to test the systems support for window translucency before
+ * Determines whether the system supports the specified window [translucency] capabilities.
+ * It is best practice to test the system's support for window translucency before
  * attempting to set a window's opacity.
- * <br>
+ *
  * **See also:** [Oracle Docs > How to Create Translucent and Shaped Windows](https://docs.oracle.com/javase/tutorial/uiswing/misc/trans_shaped_windows.html)
  *
  * @param translucency The translucency capabilities to test for.
  *                     Either `PERPIXEL_TRANSPARENT`, `TRANSLUCENT` or `PERPIXEL_TRANSLUCENT`.
- * @return `true`, if the systems supports the specified translucency capabilities, `false` otherwise.
+ * @return `true`, if the systems supports the specified window translucency capabilities,
+ *              `false` otherwise.
  * @author Thomas Orlando
  */
 fun isWindowTranslucencySupported(translucency: WindowTranslucency): Boolean
