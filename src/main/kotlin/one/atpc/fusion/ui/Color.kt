@@ -65,17 +65,17 @@ open class Color : java.awt.Color {
 
         /**
          * Creates a `Color` object based on the specified values
-         * for the HSB color model.
-         * <br>
-         * The `s` and `v` components should be
+         * for the HSV (HSB) color model.
+         *
+         * The [s] and [v] components should be
          * floating-point values between zero and one
-         * (numbers in the range `0..1`).  The `h` component
+         * (numbers in the range `0..1`).  The [h] component
          * can be any floating-point number.  The floor of this number is
          * subtracted from it to create a fraction between `0` and `1`.  This
          * fractional number is then multiplied by `360` to produce the hue
          * angle in the HSV color model.
          *
-         * @param h The hue component.
+         * @param h The hue component of the color.
          * @param s The saturation of the color (`0..1`).
          * @param v The value (brightness) of the color (`0..1`).
          * @return  A `Color` object with the specified hue,
