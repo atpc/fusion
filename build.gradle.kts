@@ -40,6 +40,7 @@ dependencies {
     api("org.swinglabs.swingx:swingx-core:1.6.5-1")
 
     testCompile("junit", "junit", "4.12")
+    testImplementation("org.reflections:reflections:0.9.11")
 }
 
 configure<JavaPluginConvention> {
