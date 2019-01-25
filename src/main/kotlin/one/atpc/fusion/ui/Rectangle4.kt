@@ -30,7 +30,7 @@ import java.awt.geom.Point2D
 import java.awt.geom.Rectangle2D
 
 // TODO Create tests
-interface Rectangle4 : XVector4 {
+interface Rectangle4 : Vector4 {
 
     fun getX(): PxDouble
     fun getY(): PxDouble

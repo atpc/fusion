@@ -26,7 +26,7 @@ import java.awt.Dimension
 import java.awt.geom.Dimension2D
 
 // Immutable
-interface Dimension2 : XVector2 {
+interface Dimension2 : Vector2 {
 
     // Necessary to comply with Dimension2D
     fun getWidth(): kotlin.Double
@@ -44,7 +44,7 @@ interface Dimension2 : XVector2 {
     override fun copy(): Dimension2
 
 
-    // XVector2 implementation
+    // Vector2 implementation
     override operator fun get(index: kotlin.Int): kotlin.Double =
         when (index) {
             0 -> this.getWidth()

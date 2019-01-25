@@ -28,7 +28,7 @@ import one.atpc.fusion.Copyable
  *
  * @author Thomas Orlando
  */
-interface XVector : Copyable {
+interface Vector : Copyable {
 
     /**
      * The size (dimensions) of this vector.
@@ -41,7 +41,7 @@ interface XVector : Copyable {
     // it would be misleading if you could add e.g. Points and Dimensions together
     // (strong types)
 
-    override fun copy(): XVector
+    override fun copy(): Vector
 
 }
 
@@ -50,11 +50,11 @@ interface XVector : Copyable {
  *
  * @author Thomas Orlando
  */
-interface XVector2 : XVector {
+interface Vector2 : Vector {
 
     override val size: Int get() = 2
 
-    override fun copy(): XVector2
+    override fun copy(): Vector2
 
 }
 
@@ -63,10 +63,10 @@ interface XVector2 : XVector {
  *
  * @author Thomas Orlando
  */
-interface XVector4 : XVector {
+interface Vector4 : Vector {
 
     override val size: Int get() = 4
 
-    override fun copy(): XVector4
+    override fun copy(): Vector4
 
 }

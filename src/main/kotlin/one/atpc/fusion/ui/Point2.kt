@@ -26,7 +26,7 @@ import java.awt.Point
 import java.awt.geom.Point2D
 
 // Immutable
-interface Point2 : XVector2 {
+interface Point2 : Vector2 {
 
     // Necessary to comply with Point2D
     fun getX(): PxDouble
