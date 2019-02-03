@@ -19,21 +19,28 @@
 
 package one.atpc.fusion.util
 
-enum class NoQBit(private val booleanValue: Boolean?) {
-    FALSE (false),
-    TRUE (true),
-    SUPER (null)
+// Uncertain bit
+enum class UnBit {
+    FALSE {
+        override fun collapse(tendency: Boolean): Boolean = false
+    },
+    TRUE {
+        override fun collapse(tendency: Boolean): Boolean = true
+    },
+    UNCERTAIN {
+        override fun collapse(tendency: Boolean): Boolean = tendency
+    }
     ;
 
-    fun collapse(tendency: Boolean): Boolean = booleanValue ?: tendency
+    abstract fun collapse(tendency: Boolean): Boolean
 
     companion object {
 
         @JvmStatic
-        fun of(value: Boolean?): NoQBit = when (value) {
+        fun of(value: Boolean?): UnBit = when (value) {
             false -> FALSE
             true -> TRUE
-            else -> SUPER
+            else -> UNCERTAIN
         }
 
 
