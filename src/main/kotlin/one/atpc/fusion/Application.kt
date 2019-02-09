@@ -29,21 +29,28 @@ abstract class Application(args: Array<String>) : Runnable {
     val resources: Resources = Resources(this.javaClass.`package`)
 
 
-    fun addEventListener(listener: GlobalEventListener<Application>) {
+    /**
+     * Determines whether this `Application` is a graphical application.
+     * `true`, if the application employs a GUI (Graphical User Interface).
+     */
+    open val isGraphical: Boolean = false
+
+
+    open fun addEventListener(listener: GlobalEventListener<Application>) {
         this.listeners.add(listener)
     }
 
-    fun removeEventListener(listener: GlobalEventListener<Application>) {
+    open fun removeEventListener(listener: GlobalEventListener<Application>) {
         this.listeners.remove(listener)
     }
 
-    fun onEventTriggered(action: (GlobalEvent<Application>) -> Unit)
+    open fun onEventTriggered(action: (GlobalEvent<Application>) -> Unit)
             = this.addEventListener(object : GlobalEventListener<Application> {
         override fun eventTriggered(event: GlobalEvent<Application>) = action(event)
     })
 
 
-    protected fun fireEvent(descriptor: Any) {
+    protected open fun fireEvent(descriptor: Any) {
         val event = GlobalEvent(this, descriptor)
         for (listener in listeners) {
             listener.eventTriggered(event)
