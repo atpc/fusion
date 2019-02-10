@@ -21,46 +21,13 @@ package one.atpc.fusion.ui
 
 import one.atpc.fusion.assertThrown
 import org.junit.Assert.assertTrue
-import org.junit.Assume.assumeTrue
 import org.junit.Test
-import java.awt.Graphics
 
 class XWindowTest : XContainerTest {
 
     @Test
     override fun testXViewImplementation() {
         // => No paintComponentFinality assertion necessary
-
-        // Ensure draw() throws an exception
-
-        val window = object : XWindow() {
-            override fun paint(g: Graphics?) {
-                super.paint(g)
-
-                if (g != null)
-                    this.draw(g.toXGraphics())
-            }
-        }
-
-        // Test if the graphics environment is not headless
-        // before we make the window visible
-        assumeTrue(!isHeadless())
-
-        window.pack()
-        window.isAlwaysOnTop = true
-        window.size = Dimension2(20, 20)
-        assertThrown<Throwable> { window.isVisible = true }
-
-        assertTrue(window.isVisible)    // The window should be visible by now
-        // Ensure redraw() throws
-        assertThrown<Throwable>(info = "redraw()") { window.redraw() }
-        // Ensure repaint() throws
-        assertThrown<Throwable>(info = "repaint()") { window.repaint() }
-
-        // Dispose of the window (and also test it when we're at it already)
-        //window.isVisible = false
-        //assertFalse(window.isVisible)
-        //window.dispose()
     }
 
     @Test
