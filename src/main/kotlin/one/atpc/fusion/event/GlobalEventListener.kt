@@ -17,26 +17,13 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package one.atpc.fusion.util
+package one.atpc.fusion.event
 
-enum class NoQBit(private val booleanValue: Boolean?) {
-    FALSE (false),
-    TRUE (true),
-    SUPER (null)
-    ;
+import java.util.*
 
-    fun collapse(tendency: Boolean): Boolean = booleanValue ?: tendency
+@FunctionalInterface
+interface GlobalEventListener<T> : EventListener {
 
-    companion object {
-
-        @JvmStatic
-        fun of(value: Boolean?): NoQBit = when (value) {
-            false -> FALSE
-            true -> TRUE
-            else -> SUPER
-        }
-
-
-    }
+    fun eventTriggered(event: GlobalEvent<T>)
 
 }
