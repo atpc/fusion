@@ -42,8 +42,8 @@ class ColorTest {
         assertEquals(0xab, transparentBlackColor.alpha)
 
         val blackColor = Color.rgb(0)
-        assertNotEquals(blackColor.rgb, transparentBlackColor.rgb)  // Ensure the transparent is not equal to the opaque
-        assertEquals(blackColor.rgb.toUInt(), transparentBlackColor.rgb.toUInt() or 0xFF000000_u)
+        assertNotEquals(blackColor.rgba, transparentBlackColor.rgba)  // Ensure the transparent is not equal to the opaque
+        assertEquals(blackColor.rgba.toUInt(), transparentBlackColor.rgba.toUInt() or 0xFF000000_u)
 
         assertMultiEquals(Color.rgb(0xabcdef), Color.rgb(0xabcdefU),
                           Color.rgb(0xab, 0xcd, 0xef), Color.rgb(0xabU, 0xcdU, 0xefU))
@@ -94,7 +94,6 @@ class ColorTest {
             Double.POSITIVE_INFINITY,
             Double.NaN
         ).forEach {
-                it ->
             assertThrownGeneric<IllegalArgumentException, Any>("($it)::class = ${it::class.qualifiedName}",
                 when(it) {
                     is Int -> {{ black.deriveAlpha(it) }}
@@ -115,7 +114,7 @@ class ColorTest {
 
     @Test
     fun testToString() {
-        assertEquals("one.atpc.fusion.ui.Color[r=255,g=255,b=255,a=255]", Color.rgb(0xfffffff).toString())
+        assertEquals("one.atpc.fusion.ui.Color[r=255,g=255,b=255,a=255]", Color.rgb(0xff_ff_ff).toString())
     }
 
     @Test
@@ -130,6 +129,15 @@ class ColorTest {
         testRandom({ Random.nextUInt() }) {
                 r -> assertEquals(java.awt.Color(r.toInt(), true), Color.rgba(r))
         }
+    }
+
+    @Test
+    fun testColorConstants() {
+        assertEquals(0xff_ff_ff_ffu, Color.white.rgba)
+        assertEquals(0xff_00_00_00u, Color.black.rgba)
+
+        // Additional test
+        assertEquals(0xff_ff_ff_ffu, Color.white.rgba or Color.black.rgba)
     }
 
 }
