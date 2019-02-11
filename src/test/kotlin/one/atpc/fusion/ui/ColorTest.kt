@@ -131,6 +131,19 @@ class ColorTest {
         }
     }
 
+    @Suppress("DEPRECATION")
+    @Test
+    fun testRGBAProperty() {
+        val colorValue = 0xff_d9_00
+        val color = Color.rgb(colorValue)
+        assertEquals(color.rgb.toUInt(), color.rgba)
+
+        // Ensure original implementation is used for getRGB()
+        // (Even though it's deprecated)
+        val awtColor = java.awt.Color(colorValue)
+        assertEquals(awtColor.rgb, color.rgb)
+    }
+
     @Test
     fun testColorConstants() {
         assertEquals(0xff_ff_ff_ffu, Color.white.rgba)
