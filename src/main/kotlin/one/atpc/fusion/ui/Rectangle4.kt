@@ -61,6 +61,11 @@ interface Rectangle4 : Vector4 {
 
     override fun copy(): Rectangle4
 
+    // TODO Add conversion methods
+
+
+    override fun map(f: (Number) -> Number): Rectangle4
+
 
     // This MUST create a copy, even if it is the Rectangle4.Int class
     fun toInt(): Rectangle4.Int = Rectangle4.Int(
@@ -120,6 +125,16 @@ interface Rectangle4 : Vector4 {
             this.height
         )
 
+
+        override fun map(f: (Number) -> Number): Rectangle4.Int = this.map0 { x -> f(x).toInt() }
+
+        inline fun map0(f: (kotlin.Int) -> kotlin.Int): Rectangle4.Int = Rectangle4.Int(
+            f(x),
+            f(y),
+            f(width),
+            f(height)
+        )
+
     }
 
 
@@ -147,6 +162,16 @@ interface Rectangle4 : Vector4 {
 
 
         override fun copy(): Rectangle4.Double = Rectangle4.Double(this)
+
+
+        override fun map(f: (Number) -> Number): Rectangle4.Double = this.map0 { x -> f(x).toDouble() }
+
+        inline fun map0(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
+            f(x),
+            f(y),
+            f(width),
+            f(height)
+        )
 
     }
 

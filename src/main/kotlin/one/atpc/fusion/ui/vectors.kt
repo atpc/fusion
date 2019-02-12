@@ -44,6 +44,9 @@ interface Vector : Copyable {
 
     override fun copy(): Vector
 
+
+    fun map(f: (Number) -> Number): Vector
+
 }
 
 /**
@@ -57,6 +60,8 @@ interface Vector2 : Vector {
 
     override fun copy(): Vector2
 
+    override fun map(f: (Number) -> Number): Vector2
+
 }
 
 /**
@@ -69,5 +74,7 @@ interface Vector4 : Vector {
     override val size: Int get() = 4
 
     override fun copy(): Vector4
+
+    override fun map(f: (Number) -> Number): Vector4
 
 }

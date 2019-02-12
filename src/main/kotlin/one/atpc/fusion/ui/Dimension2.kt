@@ -44,6 +44,9 @@ interface Dimension2 : Vector2 {
     override fun copy(): Dimension2
 
 
+    override fun map(f: (Number) -> Number): Dimension2
+
+
     // Vector2 implementation
     override operator fun get(index: kotlin.Int): kotlin.Double =
         when (index) {
@@ -116,6 +119,14 @@ interface Dimension2 : Vector2 {
         @Suppress("RemoveExplicitSuperQualifier")
         override fun hashCode(): kotlin.Int = super<Dimension>.hashCode()
 
+
+        override fun map(f: (Number) -> Number): Dimension2.Int = this.map0 { x -> f(x).toInt() }
+
+        inline fun map0(f: (kotlin.Int) -> kotlin.Int): Dimension2.Int = Dimension2.Int(
+            f(width),
+            f(height)
+        )
+
     }
 
     open class Double(@JvmField var width: PxDouble, @JvmField var height: PxDouble) : Dimension2, Dimension2D() {
@@ -158,6 +169,14 @@ interface Dimension2 : Vector2 {
         }
 
         override fun hashCode(): kotlin.Int = super.defaultHashCode()
+
+
+        override fun map(f: (Number) -> Number): Dimension2.Double = this.map0 { x -> f(x).toDouble() }
+
+        inline fun map0(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
+            f(width),
+            f(height)
+        )
 
     }
 

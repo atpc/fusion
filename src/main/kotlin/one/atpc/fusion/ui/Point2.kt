@@ -55,6 +55,9 @@ interface Point2 : Vector2 {
     override fun copy(): Point2
 
 
+    override fun map(f: (Number) -> Number): Point2
+
+
     // Equals is built-in to the Point2D subtypes of Point2
 
     open class Int : Point2, Point {
@@ -105,6 +108,14 @@ interface Point2 : Vector2 {
 
         override fun copy(): Point2.Int = Point2.Int(this)
 
+
+        override fun map(f: (Number) -> Number): Point2.Int = this.map0 { x -> f(x).toInt() }
+
+        inline fun map0(f: (kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
+            f(x),
+            f(y)
+        )
+
     }
 
     open class Double : Point2, Point2D.Double {
@@ -132,6 +143,14 @@ interface Point2 : Vector2 {
 
 
         override fun copy(): Point2.Double = Point2.Double(this)
+
+
+        override fun map(f: (Number) -> Number): Point2.Double = this.map0 { x -> f(x).toDouble() }
+
+        inline fun map0(f: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
+            f(x),
+            f(y)
+        )
 
     }
 
