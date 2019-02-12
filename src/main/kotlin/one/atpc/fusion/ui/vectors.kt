@@ -29,7 +29,7 @@ import one.atpc.fusion.Copyable
  * @author Thomas Orlando
  */
 // TODO Add map(), fold() and filter() to vectors (with type aligning for the subtypes)
-interface Vector : Copyable {
+interface Vector : Copyable, Iterable<Double> {
 
     /**
      * The size (dimensions) of this vector.
@@ -40,9 +40,17 @@ interface Vector : Copyable {
 
     // Do not add operator functions like + and -,
     // it would be misleading if you could add e.g. Points and Dimensions together
-    // (strong types)
+    // (strong typing, Kotlin-style)
 
     override fun copy(): Vector
+
+    override fun iterator(): Iterator<Double> = object : Iterator<Double> {
+        private var index: Int = 0
+
+        override fun hasNext(): Boolean = index < this@Vector.size
+
+        override fun next(): Double = this@Vector[index++]
+    }
 
 
     fun map(f: (Double) -> Double): Vector
