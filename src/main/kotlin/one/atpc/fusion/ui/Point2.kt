@@ -55,12 +55,12 @@ interface Point2 : Vector2 {
     override fun copy(): Point2
 
 
-    override fun map(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
+    override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
         transform(getX()),
         transform(getY())
     )
 
-    override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+    override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
             = Point2.Double(
         transform(0, getX()),
         transform(1, getY())
@@ -118,12 +118,12 @@ interface Point2 : Vector2 {
         override fun copy(): Point2.Int = Point2.Int(this)
 
 
-        inline fun map0(f: (kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
+        inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
             f(x),
             f(y)
         )
 
-        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
             transform(0, x),
             transform(1, y)
         )
@@ -157,18 +157,18 @@ interface Point2 : Vector2 {
         override fun copy(): Point2.Double = Point2.Double(this)
 
 
-        override fun map(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = this.map0(transform)
+        override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = this.vmap0(transform)
 
-        // map0 is still relevant since it can be inlined
-        inline fun map0(f: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
+        // vmap0 is still relevant since it can be inlined
+        inline fun vmap0(f: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
             f(x),
             f(y)
         )
 
-        override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
-                = mapIndexed0(transform)
+        override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+                = vmapIndexed0(transform)
 
-        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
                 = Point2.Double(
             transform(0, x),
             transform(1, y)

@@ -42,7 +42,7 @@ interface VectorTest {
         fun testMap(vector: Vector) {
             val f = { x: Double -> x*x }
 
-            val result = vector.map(f)
+            val result = vector.vmap(f)
 
             vector.forEachIndexed { index, elem ->
                 assertEquals(f(elem), result[index], 0.0)

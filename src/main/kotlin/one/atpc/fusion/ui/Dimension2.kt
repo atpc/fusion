@@ -44,12 +44,12 @@ interface Dimension2 : Vector2 {
     override fun copy(): Dimension2
 
 
-    override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
+    override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
         transform(getWidth()),
         transform(getHeight())
     )
 
-    override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+    override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
             = Dimension2.Double(
         transform(0, getWidth()),
         transform(1, getHeight())
@@ -129,12 +129,12 @@ interface Dimension2 : Vector2 {
         override fun hashCode(): kotlin.Int = super<Dimension>.hashCode()
 
 
-        inline fun map0(f: (kotlin.Int) -> kotlin.Int): Dimension2.Int = Dimension2.Int(
+        inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Dimension2.Int = Dimension2.Int(
             f(width),
             f(height)
         )
 
-        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Dimension2.Int
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Dimension2.Int
                 = Dimension2.Int(
             transform(0, width),
             transform(1, height)
@@ -184,17 +184,17 @@ interface Dimension2 : Vector2 {
         override fun hashCode(): kotlin.Int = super.defaultHashCode()
 
 
-        override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = this.map0(transform)
+        override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = this.vmap0(transform)
 
-        inline fun map0(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
+        inline fun vmap0(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
             f(width),
             f(height)
         )
 
-        override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
-                = mapIndexed0(transform)
+        override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+                = vmapIndexed0(transform)
 
-        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
                 = Dimension2.Double(
             transform(0, width),
             transform(1, height)

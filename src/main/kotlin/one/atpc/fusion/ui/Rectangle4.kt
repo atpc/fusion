@@ -62,14 +62,14 @@ interface Rectangle4 : Vector4 {
     override fun copy(): Rectangle4
 
 
-    override fun map(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
+    override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
         transform(getX()),
         transform(getY()),
         transform(getWidth()),
         transform(getHeight())
     )
 
-    override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+    override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
             = Rectangle4.Double(
         transform(0, getX()),
         transform(1, getY()),
@@ -137,14 +137,14 @@ interface Rectangle4 : Vector4 {
         )
 
 
-        inline fun map0(f: (kotlin.Int) -> kotlin.Int): Rectangle4.Int = Rectangle4.Int(
+        inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Rectangle4.Int = Rectangle4.Int(
             f(x),
             f(y),
             f(width),
             f(height)
         )
 
-        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Rectangle4.Int
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Rectangle4.Int
                 = Rectangle4.Int(
             transform(0, x),
             transform(1, y),
@@ -181,19 +181,19 @@ interface Rectangle4 : Vector4 {
         override fun copy(): Rectangle4.Double = Rectangle4.Double(this)
 
 
-        override fun map(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = this.map0(transform)
+        override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = this.vmap0(transform)
 
-        inline fun map0(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
+        inline fun vmap0(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
             f(x),
             f(y),
             f(width),
             f(height)
         )
 
-        override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
-                = mapIndexed0(transform)
+        override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+                = vmapIndexed0(transform)
 
-        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
                 = Rectangle4.Double(
             transform(0, x),
             transform(1, y),
