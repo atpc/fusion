@@ -39,7 +39,7 @@ interface VectorTest {
         }
 
         @JvmStatic
-        fun testMap(vector: Vector) {
+        fun testVMap(vector: Vector) {
             val f = { x: Double -> x*x }
 
             val result = vector.vmap(f)
@@ -55,6 +55,6 @@ interface VectorTest {
     fun testXVectorImplementation()
 
     @Test
-    fun testMap()
+    fun testVMap()
 
 }
