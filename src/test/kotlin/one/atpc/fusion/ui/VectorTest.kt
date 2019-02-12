@@ -74,7 +74,7 @@ interface VectorTest {
 
     }
 
-    
+
     @Test
     fun testXVectorImplementation()
 

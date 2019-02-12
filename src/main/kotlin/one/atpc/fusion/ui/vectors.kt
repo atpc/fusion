@@ -28,7 +28,6 @@ import one.atpc.fusion.Copyable
  *
  * @author Thomas Orlando
  */
-// TODO Add map(), fold() and filter() to vectors (with type aligning for the subtypes)
 // Vector should not be a list (but maybe add a conversion method toList())
 interface Vector : Copyable, Iterable<Double> {
 
