@@ -35,6 +35,7 @@ class XApplicationTest {
         assertFalse(testApp.isVisible)
     }
 
+
     object TestRun {
         // Test function entry
         @Suppress("UnusedMainParameter")
@@ -43,6 +44,7 @@ class XApplicationTest {
             testApp.run()
         }
     }
+
 
     class UIConfigurationTest {
 
