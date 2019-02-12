@@ -118,4 +118,7 @@ class Dimension2Test : VectorTest {
     @Test
     override fun testVMap() = implementations.forEach(VectorTest.Companion::testVMap)
 
+    @Test
+    override fun testVMapIndexed() = implementations.forEach(VectorTest.Companion::testVMap)
+
 }

@@ -49,6 +49,17 @@ interface VectorTest {
             }
         }
 
+        @JvmStatic
+        fun testVMapIndexed(vector: Vector) {
+            val g = { n: Int, x: Double -> n*x + x - n }
+
+            val result = vector.vmapIndexed(g)
+
+            vector.forEachIndexed { index, elem ->
+                assertEquals(g(index, elem), result[index], 0.0)
+            }
+        }
+
     }
 
     @Test
@@ -56,5 +67,8 @@ interface VectorTest {
 
     @Test
     fun testVMap()
+
+    @Test
+    fun testVMapIndexed()
 
 }

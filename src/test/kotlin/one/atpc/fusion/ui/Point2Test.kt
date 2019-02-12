@@ -179,6 +179,9 @@ class Point2Test : VectorTest {
     @Test
     override fun testVMap() = implementations.forEach(VectorTest.Companion::testVMap)
 
+    @Test
+    override fun testVMapIndexed() = implementations.forEach(VectorTest.Companion::testVMap)
+
 }
 
 private fun <T> assertThreeEquals(ab: Pair<T, T>, c: T)
