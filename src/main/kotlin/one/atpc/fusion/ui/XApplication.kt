@@ -22,16 +22,12 @@ package one.atpc.fusion.ui
 import one.atpc.fusion.Application
 import one.atpc.fusion.FatalException
 import one.atpc.fusion.name
-import one.atpc.fusion.util.OSType
-import one.atpc.fusion.util.SystemInfo
 import java.awt.Container
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.LinkOption
 import java.util.*
 import javax.swing.LookAndFeel
 import javax.swing.SwingUtilities
@@ -100,30 +96,6 @@ abstract class XApplication(args: Array<String>) : Application(args) {
         }
     }
 
-}
-
-
-
-private val fusionDirectory: File = SystemInfo.userDirectory.resolve(".fusion/")
-
-// TODO Perform the check automatically
-fun checkFusionDirectory() {
-    when {
-        !fusionDirectory.exists() -> {
-            // Create directory
-            if (!fusionDirectory.mkdirs())
-                throw IOException("Fusion: Could not create directories: '$fusionDirectory'!")
-        }
-        !fusionDirectory.isDirectory -> {
-            // Throw exception
-            throw IOException("Fusion: Directory '$fusionDirectory' is not a directory!")
-        }
-    }
-    // If fusion directory is not hidden and we're on windows
-    if (!fusionDirectory.isHidden && SystemInfo.osType == OSType.Windows) {
-        // Hide it, windows style
-        Files.setAttribute(fusionDirectory.toPath(), "dos:hidden", true, LinkOption.NOFOLLOW_LINKS)
-    }
 }
 
 
@@ -250,8 +222,6 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
             val saveDirectory: File = containerPropertiesFileResults.first
             val containerPropsFile: File = containerPropertiesFileResults.second
 
-            // Check fusion directory
-            checkFusionDirectory()
             // Check save directory
             if (!saveDirectory.exists()) {
                 if (!saveDirectory.mkdirs())
@@ -280,7 +250,7 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
 
         @JvmStatic
         private fun getContainerPropertiesFile(applicationClass: Class<XApplication>): Pair<File, File> {
-            val saveDirectory = fusionDirectory.resolve(
+            val saveDirectory = one.atpc.fusion.directory.resolve(
                 // Example: .fusion/org/generic/app
                 applicationClass.`package`.name.replace('.', '/')
             )
