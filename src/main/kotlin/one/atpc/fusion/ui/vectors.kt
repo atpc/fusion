@@ -28,6 +28,7 @@ import one.atpc.fusion.Copyable
  *
  * @author Thomas Orlando
  */
+// TODO Add map(), fold() and filter() to vectors (with type aligning for the subtypes)
 interface Vector : Copyable {
 
     /**
