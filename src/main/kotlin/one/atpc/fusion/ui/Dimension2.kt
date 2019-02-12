@@ -44,7 +44,10 @@ interface Dimension2 : Vector2 {
     override fun copy(): Dimension2
 
 
-    override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2
+    override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
+        transform(getWidth()),
+        transform(getHeight())
+    )
 
 
     // Vector2 implementation
@@ -119,10 +122,6 @@ interface Dimension2 : Vector2 {
         @Suppress("RemoveExplicitSuperQualifier")
         override fun hashCode(): kotlin.Int = super<Dimension>.hashCode()
 
-
-        override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Int = this.map0 {
-                x -> transform(x.toDouble()).toInt()
-        }
 
         inline fun map0(f: (kotlin.Int) -> kotlin.Int): Dimension2.Int = Dimension2.Int(
             f(width),
