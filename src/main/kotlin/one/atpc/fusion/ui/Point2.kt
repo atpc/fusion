@@ -60,6 +60,12 @@ interface Point2 : Vector2 {
         transform(getY())
     )
 
+    override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+            = Point2.Double(
+        transform(0, getX()),
+        transform(1, getY())
+    )
+
 
     // Equals is built-in to the Point2D subtypes of Point2
 
@@ -117,6 +123,11 @@ interface Point2 : Vector2 {
             f(y)
         )
 
+        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
+            transform(0, x),
+            transform(1, y)
+        )
+
     }
 
     open class Double : Point2, Point2D.Double {
@@ -152,6 +163,15 @@ interface Point2 : Vector2 {
         inline fun map0(f: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
             f(x),
             f(y)
+        )
+
+        override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+                = mapIndexed0(transform)
+
+        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+                = Point2.Double(
+            transform(0, x),
+            transform(1, y)
         )
 
     }

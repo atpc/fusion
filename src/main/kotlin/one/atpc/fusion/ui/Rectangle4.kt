@@ -47,7 +47,7 @@ interface Rectangle4 : Vector4 {
             else -> throw IndexOutOfBoundsException("Rectangle4 vector contains only 4 numbers!")
         }
 
-    // (No intX/intY/intWidth/[...] methods) //
+    // (No intX/intY/intWidth/[...] properties) //
 
     fun getLocation(): Point2
 
@@ -67,6 +67,14 @@ interface Rectangle4 : Vector4 {
         transform(getY()),
         transform(getWidth()),
         transform(getHeight())
+    )
+
+    override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+            = Rectangle4.Double(
+        transform(0, getX()),
+        transform(1, getY()),
+        transform(2, getWidth()),
+        transform(3, getHeight())
     )
 
 
@@ -136,6 +144,14 @@ interface Rectangle4 : Vector4 {
             f(height)
         )
 
+        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Rectangle4.Int
+                = Rectangle4.Int(
+            transform(0, x),
+            transform(1, y),
+            transform(2, width),
+            transform(3, height)
+        )
+
     }
 
 
@@ -172,6 +188,17 @@ interface Rectangle4 : Vector4 {
             f(y),
             f(width),
             f(height)
+        )
+
+        override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+                = mapIndexed0(transform)
+
+        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+                = Rectangle4.Double(
+            transform(0, x),
+            transform(1, y),
+            transform(2, width),
+            transform(3, height)
         )
 
     }

@@ -56,6 +56,8 @@ interface Vector : Copyable, Iterable<Double> {
 
     fun map(transform: (Double) -> Double): Vector
 
+    fun mapIndexed(transform: (index: Int, Double) -> Double): Vector
+
 }
 
 /**
@@ -71,6 +73,8 @@ interface Vector2 : Vector {
 
     override fun map(transform: (Double) -> Double): Vector2
 
+    override fun mapIndexed(transform: (index: Int, Double) -> Double): Vector2
+
 }
 
 /**
@@ -85,5 +89,7 @@ interface Vector4 : Vector {
     override fun copy(): Vector4
 
     override fun map(transform: (Double) -> Double): Vector4
+
+    override fun mapIndexed(transform: (index: Int, Double) -> Double): Vector4
 
 }

@@ -49,6 +49,12 @@ interface Dimension2 : Vector2 {
         transform(getHeight())
     )
 
+    override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+            = Dimension2.Double(
+        transform(0, getWidth()),
+        transform(1, getHeight())
+    )
+
 
     // Vector2 implementation
     override operator fun get(index: kotlin.Int): kotlin.Double =
@@ -128,6 +134,12 @@ interface Dimension2 : Vector2 {
             f(height)
         )
 
+        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Dimension2.Int
+                = Dimension2.Int(
+            transform(0, width),
+            transform(1, height)
+        )
+
     }
 
     open class Double(@JvmField var width: PxDouble, @JvmField var height: PxDouble) : Dimension2, Dimension2D() {
@@ -177,6 +189,15 @@ interface Dimension2 : Vector2 {
         inline fun map0(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
             f(width),
             f(height)
+        )
+
+        override fun mapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+                = mapIndexed0(transform)
+
+        inline fun mapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+                = Dimension2.Double(
+            transform(0, width),
+            transform(1, height)
         )
 
     }
