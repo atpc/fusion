@@ -64,7 +64,7 @@ interface Rectangle4 : Vector4 {
     // TODO Add conversion methods
 
 
-    override fun map(f: (kotlin.Double) -> kotlin.Double): Rectangle4
+    override fun map(transform: (kotlin.Double) -> kotlin.Double): Rectangle4
 
 
     // This MUST create a copy, even if it is the Rectangle4.Int class
@@ -126,7 +126,9 @@ interface Rectangle4 : Vector4 {
         )
 
 
-        override fun map(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Int = this.map0 { x -> f(x.toDouble()).toInt() }
+        override fun map(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Int = this.map0 {
+                x -> transform(x.toDouble()).toInt()
+        }
 
         inline fun map0(f: (kotlin.Int) -> kotlin.Int): Rectangle4.Int = Rectangle4.Int(
             f(x),
@@ -164,7 +166,7 @@ interface Rectangle4 : Vector4 {
         override fun copy(): Rectangle4.Double = Rectangle4.Double(this)
 
 
-        override fun map(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = this.map0(f)
+        override fun map(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = this.map0(transform)
 
         inline fun map0(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
             f(x),

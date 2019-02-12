@@ -44,7 +44,7 @@ interface Dimension2 : Vector2 {
     override fun copy(): Dimension2
 
 
-    override fun map(f: (kotlin.Double) -> kotlin.Double): Dimension2
+    override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2
 
 
     // Vector2 implementation
@@ -120,7 +120,9 @@ interface Dimension2 : Vector2 {
         override fun hashCode(): kotlin.Int = super<Dimension>.hashCode()
 
 
-        override fun map(f: (kotlin.Double) -> kotlin.Double): Dimension2.Int = this.map0 { x -> f(x.toDouble()).toInt() }
+        override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Int = this.map0 {
+                x -> transform(x.toDouble()).toInt()
+        }
 
         inline fun map0(f: (kotlin.Int) -> kotlin.Int): Dimension2.Int = Dimension2.Int(
             f(width),
@@ -171,7 +173,7 @@ interface Dimension2 : Vector2 {
         override fun hashCode(): kotlin.Int = super.defaultHashCode()
 
 
-        override fun map(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = this.map0(f)
+        override fun map(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = this.map0(transform)
 
         inline fun map0(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
             f(width),
