@@ -30,7 +30,7 @@ import java.awt.geom.Point2D
 import kotlin.math.max
 
 class Point2Test : VectorTest {
-    private val implementations: Array<Point2> = arrayOf(
+    private val implementations: List<Point2> = listOf(
         Point2.Int(10, 20),
         Point2.Double(10.0, 20.0)
     )
@@ -177,10 +177,10 @@ class Point2Test : VectorTest {
     }
 
     @Test
-    override fun testVMap() = implementations.forEach(VectorTest.Companion::testVMap)
+    override fun testVMap() = VectorTest.Automatic.testVMap(implementations)
 
     @Test
-    override fun testVMapIndexed() = implementations.forEach(VectorTest.Companion::testVMap)
+    override fun testVMapIndexed() = VectorTest.Automatic.testVMapIndexed(implementations)
 
 }
 

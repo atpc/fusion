@@ -62,6 +62,19 @@ interface VectorTest {
 
     }
 
+    object Automatic {
+
+        @JvmStatic
+        fun <T : Vector> testVMap(vectors: Iterable<T>)
+                = vectors.forEach(VectorTest.Companion::testVMap)
+
+        @JvmStatic
+        fun <T : Vector> testVMapIndexed(vectors: Iterable<T>)
+                = vectors.forEach(VectorTest.Companion::testVMapIndexed)
+
+    }
+
+    
     @Test
     fun testXVectorImplementation()
 
