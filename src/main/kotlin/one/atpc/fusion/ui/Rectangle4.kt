@@ -61,8 +61,6 @@ interface Rectangle4 : Vector4 {
 
     override fun copy(): Rectangle4
 
-    // TODO Add conversion methods
-
 
     override fun map(transform: (kotlin.Double) -> kotlin.Double): Rectangle4
 
