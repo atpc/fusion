@@ -39,7 +39,7 @@ interface Dimension2 : Vector2 {
 
     operator fun minus(d: Dimension2): Dimension2
 
-    // TODO times()
+    // TODO times(scalar)
 
     override fun copy(): Dimension2
 

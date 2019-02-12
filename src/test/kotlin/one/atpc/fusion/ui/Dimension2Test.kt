@@ -115,4 +115,7 @@ class Dimension2Test : VectorTest {
         }
     }
 
+    @Test
+    override fun testMap() = implementations.forEach(VectorTest.Companion::testMap)
+
 }

@@ -20,6 +20,7 @@
 package one.atpc.fusion.ui
 
 import one.atpc.fusion.assertThrown
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 interface VectorTest {
@@ -37,9 +38,23 @@ interface VectorTest {
             assertThrown<IndexOutOfBoundsException> { vector[vector.size] }
         }
 
+        @JvmStatic
+        fun testMap(vector: Vector) {
+            val f = { x: Double -> x*x }
+
+            val result = vector.map(f)
+
+            vector.forEachIndexed { index, elem ->
+                assertEquals(f(elem), result[index], 0.0)
+            }
+        }
+
     }
 
     @Test
     fun testXVectorImplementation()
+
+    @Test
+    fun testMap()
 
 }
