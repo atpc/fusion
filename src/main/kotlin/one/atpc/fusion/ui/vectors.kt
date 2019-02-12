@@ -45,7 +45,7 @@ interface Vector : Copyable {
     override fun copy(): Vector
 
 
-    fun map(f: (Number) -> Number): Vector
+    fun map(f: (Double) -> Double): Vector
 
 }
 
@@ -60,7 +60,7 @@ interface Vector2 : Vector {
 
     override fun copy(): Vector2
 
-    override fun map(f: (Number) -> Number): Vector2
+    override fun map(f: (Double) -> Double): Vector2
 
 }
 
@@ -75,6 +75,6 @@ interface Vector4 : Vector {
 
     override fun copy(): Vector4
 
-    override fun map(f: (Number) -> Number): Vector4
+    override fun map(f: (Double) -> Double): Vector4
 
 }
