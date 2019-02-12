@@ -26,7 +26,7 @@ interface VectorTest {
     companion object {
 
         @JvmStatic
-        fun assertVectorBounds(vector: Vector2) {
+        fun assertVectorBounds(vector: Vector) {
             // Make sure everything withing the vector bounds goes without complications
             for (i in 0 until vector.size) {
                 vector[i]
