@@ -29,11 +29,15 @@ import java.awt.geom.Point2D
 interface Point2 : Vector2 {
 
     // Necessary to comply with Point2D
-    fun getX(): PxDouble
-    fun getY(): PxDouble
+    @Px
+    fun getX(): kotlin.Double
+    @Px
+    fun getY(): kotlin.Double
 
-    val intX: Px
-    val intY: Px
+    @Px
+    val intX: kotlin.Int
+    @Px
+    val intY: kotlin.Int
 
     override operator fun get(index: kotlin.Int) =
         when(index) {
@@ -73,15 +77,17 @@ interface Point2 : Vector2 {
 
         constructor() : super()
 
-        constructor(x: Px, y: Px) : super(x, y)
+        constructor(@Px x: kotlin.Int, @Px y: kotlin.Int) : super(x, y)
 
-        constructor(p: Pair<Px, Px>) : super(p.first, p.second)
+        constructor(@Px p: Pair<kotlin.Int, kotlin.Int>) : super(p.first, p.second)
 
         constructor(p: Point) : super(p)
 
-        override val intX: Px
+        @Px
+        override val intX: kotlin.Int
             get() = this.x
-        override val intY: Px
+        @Px
+        override val intY: kotlin.Int
             get() = this.y
 
 
@@ -145,15 +151,17 @@ interface Point2 : Vector2 {
 
         constructor() : super()
 
-        constructor(x: PxDouble, y: PxDouble) : super(x, y)
+        constructor(@Px x: kotlin.Double, @Px y: kotlin.Double) : super(x, y)
 
-        constructor(p: Pair<PxDouble, PxDouble>) : super(p.first, p.second)
+        constructor(@Px p: Pair<kotlin.Double, kotlin.Double>) : super(p.first, p.second)
 
         constructor(p: Point2D.Double) : super(p.x, p.y)
 
-        override val intX: Px
+        @Px
+        override val intX: kotlin.Int
             get() = this.x.toInt()
-        override val intY: Px
+        @Px
+        override val intY: kotlin.Int
             get() = this.y.toInt()
 
 
@@ -216,17 +224,17 @@ fun Point2(p: Point2D): Point2 = Point2.Double(p.x, p.y)
 
 
 @ConstructorFunction(Point2::class)
-fun Point2(x: Px, y: Px): Point2.Int = Point2.Int(x, y)
+fun Point2(@Px x: kotlin.Int, @Px y: kotlin.Int): Point2.Int = Point2.Int(x, y)
 
 @ConstructorFunction(Point2::class)
-fun Point2(x: PxDouble, y: PxDouble): Point2.Double = Point2.Double(x, y)
+fun Point2(@Px x: kotlin.Double, @Px y: kotlin.Double): Point2.Double = Point2.Double(x, y)
 
 
 @ConstructorFunction(Point2::class)
-fun Point2(p: Pair<Px, Px>): Point2.Int = Point2.Int(p)
+fun Point2(@Px p: Pair<kotlin.Int, kotlin.Int>): Point2.Int = Point2.Int(p)
 
 @ConstructorFunction(Point2::class)
-fun Point2(p: Pair<PxDouble, PxDouble>): Point2.Double = Point2.Double(p)
+fun Point2(@Px p: Pair<kotlin.Double, kotlin.Double>): Point2.Double = Point2.Double(p)
 
 
 // Converter function ONLY for the commonly used AWT point class

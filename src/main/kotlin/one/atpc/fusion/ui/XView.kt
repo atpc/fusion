@@ -70,9 +70,9 @@ interface XView {
 
         fun repaint(delay: Long)
 
-        fun repaint(x: Px, y: Px, width: Px, height: Px)
+        fun repaint(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
 
-        fun repaint(delay: Long, x: Px, y: Px, width: Px, height: Px)
+        fun repaint(delay: Long, @Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
 
 
         override fun redraw() = this.repaint()

@@ -70,13 +70,13 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun drawPolyline(xPoints: IntArray?, yPoints: IntArray?, nPoints: Int)
             = g2d.drawPolyline(xPoints, yPoints, nPoints)
 
-    override fun rotate(theta: PxDouble) = g2d.rotate(theta)
+    override fun rotate(@Px theta: Double) = g2d.rotate(theta)
 
-    override fun rotate(theta: PxDouble, x: PxDouble, y: PxDouble) = g2d.rotate(theta, x, y)
+    override fun rotate(@Px theta: Double, @Px x: Double, @Px y: Double) = g2d.rotate(theta, x, y)
 
-    override fun drawLine(x1: Px, y1: Px, x2: Px, y2: Px) = g2d.drawLine(x1, y1, x2, y2)
+    override fun drawLine(@Px x1: Int, @Px y1: Int, @Px x2: Int, @Px y2: Int) = g2d.drawLine(x1, y1, x2, y2)
 
-    override fun copyArea(x: Px, y: Px, width: Px, height: Px, dx: Px, dy: Px)
+    override fun copyArea(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int, @Px dx: Int, @Px dy: Int)
             = g2d.copyArea(x, y, width, height, dx, dy)
 
     override fun draw(s: Shape?) = g2d.draw(s)
@@ -85,7 +85,7 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
 
     override fun getComposite(): Composite = g2d.composite
 
-    override fun fillArc(x: Px, y: Px, width: Px, height: Px, startAngle: Int, arcAngle: Int)
+    override fun fillArc(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int, startAngle: Int, arcAngle: Int)
             = g2d.fillArc(x, y, width, height, startAngle, arcAngle)
 
     override fun fill(s: Shape?) = g2d.fill(s)
@@ -98,24 +98,24 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
 
     override fun setPaint(paint: Paint?) = g2d.setPaint(paint)
 
-    override fun drawString(str: String?, x: Px, y: Px) = g2d.drawString(str, x, y)
+    override fun drawString(str: String?, @Px x: Int, @Px y: Int) = g2d.drawString(str, x, y)
 
     override fun drawString(str: String?, x: Float, y: Float) = g2d.drawString(str, x, y)
 
-    fun drawString(str: String?, x: PxDouble, y: PxDouble) = this.drawString(str, x.toFloat(), y.toFloat())
+    fun drawString(str: String?, @Px x: Double, @Px y: Double) = this.drawString(str, x.toFloat(), y.toFloat())
 
-    override fun drawString(iterator: AttributedCharacterIterator?, x: Px, y: Px)
+    override fun drawString(iterator: AttributedCharacterIterator?, x: Int, y: Int)
             = g2d.drawString(iterator, x, y)
 
     override fun drawString(iterator: AttributedCharacterIterator?, x: Float, y: Float)
             = g2d.drawString(iterator, x, y)
 
-    fun drawString(iterator: AttributedCharacterIterator?, x: PxDouble, y: PxDouble)
+    fun drawString(iterator: AttributedCharacterIterator?, @Px x: Double, @Px y: Double)
             = this.drawString(iterator, x.toFloat(), y.toFloat())
 
-    override fun clipRect(x: Px, y: Px, width: Px, height: Px) = g2d.clipRect(x, y, width, height)
+    override fun clipRect(@Px x: Int, @Px y: Int, width: Int, height: Int) = g2d.clipRect(x, y, width, height)
 
-    override fun shear(shx: PxDouble, shy: PxDouble) = g2d.shear(shx, shy)
+    override fun shear(@Px shx: Double, @Px shy: Double) = g2d.shear(shx, shy)
 
     override fun transform(Tx: AffineTransform?) = g2d.transform(Tx)
 
@@ -123,29 +123,29 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
 
     override fun getColor(): java.awt.Color = g2d.color
 
-    override fun scale(sx: PxDouble, sy: PxDouble) = g2d.scale(sx, sy)
+    override fun scale(@Px sx: Double, @Px sy: Double) = g2d.scale(sx, sy)
 
     override fun drawImage(img: Image?, xform: AffineTransform?, obs: ImageObserver?): Boolean
             = g2d.drawImage(img, xform, obs)
 
-    override fun drawImage(img: BufferedImage?, op: BufferedImageOp?, x: Px, y: Px)
+    override fun drawImage(img: BufferedImage?, op: BufferedImageOp?, @Px x: Int, @Px y: Int)
             = g2d.drawImage(img, op, x, y)
 
-    override fun drawImage(img: Image?, x: Px, y: Px, observer: ImageObserver?): Boolean
+    override fun drawImage(img: Image?, @Px x: Int, @Px y: Int, observer: ImageObserver?): Boolean
             = g2d.drawImage(img, x, y, observer)
 
-    override fun drawImage(img: Image?, x: Px, y: Px, width: Px, height: Px, observer: ImageObserver?): Boolean
+    override fun drawImage(img: Image?, @Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int, observer: ImageObserver?): Boolean
             = g2d.drawImage(img, x, y, width, height, observer)
 
-    override fun drawImage(img: Image?, x: Px, y: Px, bgcolor: java.awt.Color?, observer: ImageObserver?): Boolean
+    override fun drawImage(img: Image?, @Px x: Int, @Px y: Int, bgcolor: java.awt.Color?, observer: ImageObserver?): Boolean
             = g2d.drawImage(img, x, y, bgcolor, observer)
 
     override fun drawImage(
         img: Image?,
-        x: Px,
-        y: Px,
-        width: Px,
-        height: Px,
+        @Px x: Int,
+        @Px y: Int,
+        width: Int,
+        height: Int,
         bgcolor: java.awt.Color?,
         observer: ImageObserver?
     ): Boolean
@@ -192,10 +192,10 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun getRenderingHints(): RenderingHints
             = g2d.renderingHints
 
-    override fun translate(x: Px, y: Px)
+    override fun translate(@Px x: Int, @Px y: Int)
             = g2d.translate(x, y)
 
-    override fun translate(tx: PxDouble, ty: PxDouble)
+    override fun translate(@Px tx: Double, @Px ty: Double)
             = g2d.translate(tx, ty)
 
     override fun setFont(font: Font?)
@@ -207,7 +207,7 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun getStroke(): Stroke
             = g2d.stroke
 
-    override fun fillOval(x: Px, y: Px, width: Px, height: Px)
+    override fun fillOval(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
             = g2d.fillOval(x, y, width, height)
 
     override fun getClip(): Shape
@@ -219,7 +219,7 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun dispose()
             = g2d.dispose()
 
-    override fun setClip(x: Px, y: Px, width: Px, height: Px)
+    override fun setClip(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
             = g2d.setClip(x, y, width, height)
 
     override fun setClip(clip: Shape?)
@@ -234,7 +234,7 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun create(): Graphics
             = g2d.create()
 
-    override fun drawOval(x: Px, y: Px, width: Px, height: Px)
+    override fun drawOval(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
             = g2d.drawOval(x, y, width, height)
 
     override fun drawRenderableImage(img: RenderableImage?, xform: AffineTransform?)
@@ -243,7 +243,7 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun setComposite(comp: Composite?)
             = g2d.setComposite(comp)
 
-    override fun clearRect(x: Px, y: Px, width: Px, height: Px)
+    override fun clearRect(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
             = g2d.clearRect(x, y, width, height)
 
     override fun drawPolygon(xPoints: IntArray?, yPoints: IntArray?, nPoints: Int)
@@ -255,16 +255,16 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun getPaint(): Paint
             = g2d.paint
 
-    override fun fillRect(x: Px, y: Px, width: Px, height: Px)
+    override fun fillRect(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int)
             = g2d.fillRect(x, y, width, height)
 
     override fun drawGlyphVector(g: GlyphVector?, x: Float, y: Float)
             = g2d.drawGlyphVector(g, x, y)
 
-    fun drawGlyphVector(g: GlyphVector?, x: PxDouble, y: PxDouble)
+    fun drawGlyphVector(g: GlyphVector?, @Px x: Double, @Px y: Double)
             = this.drawGlyphVector(g, x.toFloat(), y.toFloat())
 
-    override fun drawRoundRect(x: Px, y: Px, width: Px, height: Px, arcWidth: Px, arcHeight: Px)
+    override fun drawRoundRect(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int, @Px arcWidth: Int, @Px arcHeight: Int)
             = g2d.drawRoundRect(x, y, width, height, arcWidth, arcHeight)
 
     override fun getFontMetrics(f: Font?): FontMetrics
@@ -279,10 +279,10 @@ open class XGraphics internal constructor(private val g2d: Graphics2D) : Graphic
     override fun setRenderingHint(hintKey: RenderingHints.Key?, hintValue: Any?)
             = g2d.setRenderingHint(hintKey, hintValue)
 
-    override fun fillRoundRect(x: Px, y: Px, width: Px, height: Px, arcWidth: Px, arcHeight: Px)
+    override fun fillRoundRect(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int, @Px arcWidth: Int, @Px arcHeight: Int)
             = g2d.fillRoundRect(x, y, width, height, arcWidth, arcHeight)
 
-    override fun drawArc(x: Px, y: Px, width: Px, height: Px, startAngle: Px, arcAngle: Px)
+    override fun drawArc(@Px x: Int, @Px y: Int, @Px width: Int, @Px height: Int, @Px startAngle: Int, @Px arcAngle: Int)
             = g2d.drawArc(x, y, width, height, startAngle, arcAngle)
 
     override fun getRenderingHint(hintKey: RenderingHints.Key?): Any

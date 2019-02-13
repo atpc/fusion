@@ -32,10 +32,14 @@ import java.awt.geom.Rectangle2D
 // TODO Create tests
 interface Rectangle4 : Vector4 {
 
-    fun getX(): PxDouble
-    fun getY(): PxDouble
-    fun getWidth(): PxDouble
-    fun getHeight(): PxDouble
+    @Px
+    fun getX(): kotlin.Double
+    @Px
+    fun getY(): kotlin.Double
+    @Px
+    fun getWidth(): kotlin.Double
+    @Px
+    fun getHeight(): kotlin.Double
 
     override fun get(index: kotlin.Int): kotlin.Double
             =
@@ -95,9 +99,9 @@ interface Rectangle4 : Vector4 {
 
         constructor(rect: Rectangle) : super(rect)
 
-        constructor(x: Px, y: Px, width: Px, height: Px) : super(x, y, width, height)
+        constructor(@Px x: kotlin.Int, @Px y: kotlin.Int, @Px width: kotlin.Int, @Px height: kotlin.Int) : super(x, y, width, height)
 
-        constructor(width: Px, height: Px) : super(width, height)
+        constructor(@Px width: kotlin.Int, @Px height: kotlin.Int) : super(width, height)
 
         constructor(point: Point, dimen: Dimension) : super(point, dimen)
 
@@ -169,9 +173,9 @@ interface Rectangle4 : Vector4 {
 
         constructor(rect: Rectangle2D) : super(rect.x, rect.y, rect.width, rect.height)
 
-        constructor(x: PxDouble, y: PxDouble, width: PxDouble, height: PxDouble) : super(x, y, width, height)
+        constructor(@Px x: kotlin.Double, @Px y: kotlin.Double, @Px width: kotlin.Double, @Px height: kotlin.Double) : super(x, y, width, height)
 
-        constructor(width: PxDouble, height: PxDouble) : this(0.0, 0.0, width, height)
+        constructor(@Px width: kotlin.Double, @Px height: kotlin.Double) : this(0.0, 0.0, width, height)
 
         constructor(point: Point2D, dimen: Dimension2D) : this(point.x, point.y, dimen.width, dimen.height)
 
@@ -236,21 +240,22 @@ fun Rectangle4(rect: Rectangle2D): Rectangle4.Double = Rectangle4.Double(rect)
 
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(x: Px, y: Px, width: Px, height: Px): Rectangle4.Int = Rectangle4.Int(x, y, width, height)
+fun Rectangle4(@Px x: kotlin.Int, @Px y: kotlin.Int, @Px width: kotlin.Int, @Px height: kotlin.Int): Rectangle4.Int
+        = Rectangle4.Int(x, y, width, height)
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(width: Px, height: Px): Rectangle4.Int = Rectangle4.Int(width, height)
+fun Rectangle4(@Px width: kotlin.Int, @Px height: kotlin.Int): Rectangle4.Int = Rectangle4.Int(width, height)
 
 @ConstructorFunction(Rectangle4::class)
 fun Rectangle4(point: Point, dimen: Dimension): Rectangle4.Int = Rectangle4.Int(point, dimen)
 
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(x: PxDouble, y: PxDouble, width: PxDouble, height: PxDouble): Rectangle4.Double
+fun Rectangle4(@Px x: kotlin.Double, @Px y: kotlin.Double, @Px width: kotlin.Double, @Px height: kotlin.Double): Rectangle4.Double
         = Rectangle4.Double(x, y, width, height)
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(width: PxDouble, height: PxDouble): Rectangle4.Double = Rectangle4.Double(width, height)
+fun Rectangle4(@Px width: kotlin.Double, @Px height: kotlin.Double): Rectangle4.Double = Rectangle4.Double(width, height)
 
 @ConstructorFunction(Rectangle4::class)
 fun Rectangle4(point: Point2D, dimen: Dimension2D): Rectangle4.Double = Rectangle4.Double(point, dimen)
