@@ -28,7 +28,6 @@ import one.atpc.fusion.Copyable
  *
  * @author Thomas Orlando
  */
-// Vector should not be a list (but maybe add a conversion method toList())
 interface Vector : Copyable, Iterable<Double> {
 
     /**
@@ -57,6 +56,9 @@ interface Vector : Copyable, Iterable<Double> {
 
     fun vmapIndexed(transform: (index: Int, Double) -> Double): Vector
 
+
+    fun toList(): List<Number>
+
 }
 
 /**
@@ -73,6 +75,9 @@ interface Vector2 : Vector {
     override fun vmap(transform: (Double) -> Double): Vector2
 
     override fun vmapIndexed(transform: (index: Int, Double) -> Double): Vector2
+
+
+    fun toPair(): Pair<Number, Number>
 
 }
 

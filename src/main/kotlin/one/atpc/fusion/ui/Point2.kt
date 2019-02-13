@@ -118,6 +118,17 @@ interface Point2 : Vector2 {
         override fun copy(): Point2.Int = Point2.Int(this)
 
 
+        override fun toList(): List<kotlin.Int> = listOf(
+            this.x,
+            this.y
+        )
+
+        override fun toPair(): Pair<kotlin.Int, kotlin.Int> = Pair(
+            this.x,
+            this.y
+        )
+
+
         inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
             f(x),
             f(y)
@@ -155,6 +166,17 @@ interface Point2 : Vector2 {
 
 
         override fun copy(): Point2.Double = Point2.Double(this)
+
+
+        override fun toList(): List<kotlin.Double> = listOf(
+            this.x,
+            this.y
+        )
+
+        override fun toPair(): Pair<kotlin.Double, kotlin.Double> = Pair(
+            this.x,
+            this.y
+        )
 
 
         override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = this.vmap0(transform)

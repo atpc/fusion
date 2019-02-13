@@ -114,7 +114,20 @@ interface Dimension2 : Vector2 {
         operator fun minus(d: Dimension): Dimension2.Int
                 = Dimension2.Int(this.width - d.width, this.height - d.height)
 
+
         override fun copy(): Dimension2.Int = Dimension2.Int(this.width, this.height)
+
+
+        override fun toList(): List<kotlin.Int> = listOf(
+            this.width,
+            this.height
+        )
+
+        override fun toPair(): Pair<kotlin.Int, kotlin.Int> = Pair(
+            this.width,
+            this.height
+        )
+
 
         override fun equals(other: Any?): Boolean {
             return when (other) {
@@ -170,7 +183,20 @@ interface Dimension2 : Vector2 {
         override operator fun minus(d: Dimension2): Dimension2.Double
                 = Dimension2.Double(this.width - d.getWidth(), this.height - d.getHeight())
 
+
         override fun copy(): Dimension2.Double = Dimension2.Double(this.width, this.height)
+
+
+        override fun toList(): List<kotlin.Double> = listOf(
+            this.width,
+            this.height
+        )
+
+        override fun toPair(): Pair<kotlin.Double, kotlin.Double> = Pair(
+            this.width,
+            this.height
+        )
+
 
         override fun equals(other: Any?): Boolean {
             return when (other) {

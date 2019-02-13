@@ -129,7 +129,15 @@ interface Rectangle4 : Vector4 {
 
         override fun copy(): Rectangle4.Int = Rectangle4.Int(this)
 
+
         override fun toInt(): Rectangle4.Int = Rectangle4.Int(
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )
+
+        override fun toList(): List<kotlin.Int> = listOf(
             this.x,
             this.y,
             this.width,
@@ -179,6 +187,14 @@ interface Rectangle4 : Vector4 {
 
 
         override fun copy(): Rectangle4.Double = Rectangle4.Double(this)
+
+
+        override fun toList(): List<kotlin.Double> = listOf(
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )
 
 
         override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = this.vmap0(transform)
