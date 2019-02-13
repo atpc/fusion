@@ -53,6 +53,21 @@ interface XContainer {
     fun button(text: String, icon: Icon): XButton = this.add(XButton(text, icon))
 
 
+    fun checkBox(icon: Icon): XCheckBox = this.add(XCheckBox(icon))
+
+    fun checkBox(icon: Icon, selected: Boolean): XCheckBox = this.add(XCheckBox(icon, selected))
+
+    fun checkBox(action: Action): XCheckBox = this.add(XCheckBox(action))
+
+    fun checkBox(text: String): XCheckBox = this.add(XCheckBox(text))
+
+    fun checkBox(text: String, selected: Boolean): XCheckBox = this.add(XCheckBox(text, selected))
+
+    fun checkBox(text: String, icon: Icon): XCheckBox = this.add(XCheckBox(text, icon))
+
+    fun checkBox(text: String, icon: Icon, selected: Boolean): XCheckBox = this.add(XCheckBox(text, icon, selected))
+
+
     fun panel(): XPanel = this.add(XPanel())
 
 
