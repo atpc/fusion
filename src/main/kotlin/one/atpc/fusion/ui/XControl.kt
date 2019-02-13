@@ -23,7 +23,7 @@ interface XControl : XView {
 
     /**
      * The keyboard shortcut (key combination) for this control.
-     * This is an optional property. The default implementation is returns `null`.
+     * This is an optional property. The default implementation returns `null`.
      */
     @Suppress("UNUSED_PARAMETER")
     var keyShortcut: KeyStroke?
