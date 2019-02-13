@@ -29,11 +29,12 @@ annotation class Px
 @Inherited
 annotation class Dp
 
-// TODO Rename to screenDensity
-val density = Toolkit.getDefaultToolkit().multiScreenDensity
+
+val screenDensity = Toolkit.getDefaultToolkit().multiScreenDensity
+
 
 @Px
-fun dp(@Dp dp: Double): Double = dp * density
+fun dp(@Dp dp: Double): Double = dp * screenDensity
 
 @Px
 fun dpInt(@Dp dp: Double): Int = (dp(dp) + 0.5).toInt()
