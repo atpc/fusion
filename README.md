@@ -23,7 +23,7 @@ class ExampleApplication(args: Array<String>) : XApplication(args) {
         @JvmStatic
         fun main(args: Array<String>) {
             // No SwingUtilities.invokeLater() required!
-            val app = XApplication(args)
+            val app = ExampleApplication(args)
             app.run()
         }
     
