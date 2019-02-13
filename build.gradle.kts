@@ -23,6 +23,7 @@ plugins {
     `java-library`
     kotlin("jvm") version "1.3.11"
     id("org.jetbrains.dokka") version "0.9.17"
+    `maven-publish`
 }
 
 group = "one.atpc"
@@ -46,6 +47,46 @@ dependencies {
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
+
+
+val sourcesJar = task("sourcesJar", type = Jar::class) {
+    classifier = "sources"
+    from(sourceSets.getByName("main").allSource)
+}
+
+
+configure<PublishingExtension> {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components.getByName("java"))
+            artifact(sourcesJar)
+            pom {
+                name.set("Fusion")
+                description.set("Blablabla... (TODO)")
+                url.set("https://github.com/atpc/fusion")
+                licenses {
+                    license {
+                        name.set("GNU Lesser General Public License, Version 3.0")
+                        url.set("https://www.gnu.org/licenses/#LGPL")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("thomorl")
+                        name.set("Thomas Orlando")
+                        email.set("thomas.orlando@atpc.one")
+                    }
+                    developer {
+                        id.set("atpc")
+                        name.set("ATPC")
+                        email.set("contact@atpc.one")
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 val kotlinCompilerArgs = arrayOf("-Xuse-experimental=kotlin.ExperimentalUnsignedTypes")
 
