@@ -19,10 +19,21 @@
 
 package one.atpc.fusion.ui
 
+import org.jdesktop.swingx.JXFormattedTextField
+import org.jdesktop.swingx.JXTextArea
+import org.jdesktop.swingx.JXTextField
+import javax.swing.JPasswordField
+import javax.swing.JTextPane
+
 // Abstract compontents
 typealias AbstractButton = javax.swing.AbstractButton
 
 // Widget components
+typealias XTextField = JXTextField
+typealias XPasswordField = JPasswordField
+typealias XFormattedTextField = JXFormattedTextField
+typealias XTextArea = JXTextArea
+typealias XTextPane = JTextPane
 
 // Control widgets
 
