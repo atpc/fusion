@@ -19,6 +19,11 @@
 
 package one.atpc.fusion.ui
 
+/**
+ * Signals that a Fusion UI exception has occurred.
+ *
+ * @author Thomas Orlando
+ */
 open class XException : RuntimeException {
 
     constructor() : super()
