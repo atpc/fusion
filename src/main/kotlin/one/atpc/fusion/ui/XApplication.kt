@@ -22,6 +22,7 @@ package one.atpc.fusion.ui
 import one.atpc.fusion.Application
 import one.atpc.fusion.FatalException
 import one.atpc.fusion.name
+import one.atpc.fusion.util.handleException
 import java.awt.Container
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
@@ -77,6 +78,7 @@ abstract class XApplication(args: Array<String>) : Application(args) {
 
 
     // Event method, to be overridden by children
+    // TODO Replace with proper event listener system
     protected fun onApplicationClosing() {
         // Handler actions here...
     }
@@ -100,6 +102,7 @@ abstract class XApplication(args: Array<String>) : Application(args) {
 
 
 
+// Container; the application is embedded here
 private class XApplicationContainer(application: XApplication, closingEventHandler: () -> Unit) : XFrame() {
 
     var fusionContentPane: XPanel
@@ -125,8 +128,7 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
                 }
                 catch (e: Exception) {
                     // We catch exceptions to ensure the program gets closed
-                    System.err.println("Problem occurred during application closing.")
-                    e.printStackTrace()
+                    handleException(e = e, info = "Problem occurred during application closing.")
                 }
                 catch (e: Throwable) {
                     // We also catch any other throwables
@@ -203,12 +205,13 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
                     props
                 }
                 catch (e: IOException) {
-                    // Print the error message, but proceed as usual
-                    System.err.println("Fusion: Could not read container properties!")
-                    System.err.println(
-                        "\tFile${if (e is FileNotFoundException) " not found" else ""}: $containerPropsFile"
+                    // Handle the exception, but otherwise proceed as usual
+                    handleException(
+                        e = e,
+                        info = "Fusion: Could not read container properties!\n" +
+                                "\tFile${if (e is FileNotFoundException) " not found" else ""}: $containerPropsFile",
+                        warning = true
                     )
-                    e.printStackTrace()
                     null
                 }
             }
@@ -239,9 +242,12 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
                 containerPropsFile.outputStream().use { out -> containerProps.store(out, null) }
             }
             catch (e: IOException) {
-                System.err.println("Fusion: Error while writing container properties!")
-                System.err.println("\tFile: $containerPropsFile")
-                e.printStackTrace()
+                // Handle the exception
+                handleException(
+                    e = e,
+                    info = "Fusion: Error while writing container properties!\n" +
+                            "\tFile: $containerPropsFile"
+                )
             }
             catch (e: ClassCastException) {
                 throw FatalException("${e.name} should not occur here!", e)
