@@ -26,9 +26,10 @@ import javax.swing.JOptionPane
 
 @JvmOverloads
 fun <T : Exception> handleException(e: T, info: String? = null, warning: Boolean = false) {
-    // Print the stack trace first
+    // Print additional info before the stack trace
     if (info != null)
         System.err.println(info)
+    // Print the stack trace
     e.printStackTrace()
 
     if (!isHeadless()) {
@@ -54,6 +55,8 @@ private fun getMessage(e: Throwable): String? {
     val message: String? = if (localizedMessage.isNullOrBlank()) localizedMessage else e.message
     return if (message.isNullOrBlank()) {
         val cause = e.cause
+        // If there's a cause, and the message is empty,
+        // recurse and return the message of the cause
         if (cause != null)
             getMessage(cause)
         else
