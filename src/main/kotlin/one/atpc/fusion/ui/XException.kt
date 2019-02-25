@@ -34,5 +34,4 @@ open class XException : RuntimeException {
 
     constructor(message: String, cause: Throwable) : super(message, cause)
 
-
 }
