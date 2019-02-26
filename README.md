@@ -35,6 +35,6 @@ class ExampleApplication(args: Array<String>) : XApplication(args) {
 Copyright © 2019 &nbsp; Thomas Orlando, ATPC  
 Licensed under GNU Lesser General Public License, Version 3  
   
-For the full license text, see [LICENSE.txt][license] or <https://www.gnu.org/licenses/>.
+For the full license text, see [`LICENSE.txt`][license] or <https://www.gnu.org/licenses/>.
 
 [license]: https://github.com/atpc/fusion/blob/master/LICENSE.txt "LGPL-3.0"
