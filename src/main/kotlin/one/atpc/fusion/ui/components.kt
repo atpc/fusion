@@ -21,7 +21,6 @@ package one.atpc.fusion.ui
 
 import org.jdesktop.swingx.JXFormattedTextField
 import org.jdesktop.swingx.JXTextArea
-import org.jdesktop.swingx.JXTextField
 import javax.swing.JPasswordField
 import javax.swing.JTextPane
 
@@ -29,7 +28,6 @@ import javax.swing.JTextPane
 typealias AbstractButton = javax.swing.AbstractButton
 
 // Widget components
-typealias XTextField = JXTextField
 typealias XPasswordField = JPasswordField
 typealias XFormattedTextField = JXFormattedTextField
 typealias XTextArea = JXTextArea
