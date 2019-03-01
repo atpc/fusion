@@ -68,6 +68,21 @@ interface XContainer {
     fun checkBox(text: String, icon: Icon, selected: Boolean): XCheckBox = this.add(XCheckBox(text, icon, selected))
 
 
+    fun textField(): XTextField = this.add(XTextField())
+
+    fun textField(promptText: String) = this.add(XTextField(promptText))
+
+    fun textField(promptText: String, foreground: Color) = this.add(XTextField(promptText, foreground))
+
+    fun textField(promptText: String, foreground: Color, background: Color) = this.add(
+        XTextField(promptText, foreground, background)
+    )
+
+    fun textField(columns: Int) = this.add(XTextField(columns))
+    
+    fun textField(columns: Int, promptText: String) = this.add(XTextField(columns, promptText))
+
+
     fun panel(): XPanel = this.add(XPanel())
 
 
