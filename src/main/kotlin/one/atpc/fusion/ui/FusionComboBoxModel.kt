@@ -23,6 +23,7 @@ import java.io.Serializable
 import javax.swing.AbstractListModel
 import javax.swing.MutableComboBoxModel
 
+// Newer version of DefaultComboBoxModel // TODO @see
 open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size: Int) : AbstractListModel<E>(), MutableComboBoxModel<E>, Serializable {
     private val items: MutableList<E> = run {
         val list = ArrayList<E>(size)
@@ -37,7 +38,7 @@ open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size
 
     constructor(items: Array<E>) : this(items::get, items.size)
 
-    
+
 
     override fun getElementAt(index: Int): E = items[index]
 

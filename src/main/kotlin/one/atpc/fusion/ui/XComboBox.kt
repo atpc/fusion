@@ -28,10 +28,9 @@ open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
 
     constructor(model: ComboBoxModel<E>) : super(model)
 
-    constructor(items: Array<E>) : super(items)
+    constructor(items: Array<E>) : this(FusionComboBoxModel(items))
 
-    // TODO Create a new, modern FusionComboBoxModel with List as base implementation
-    constructor(itemList: List<E>) : super(convertToArray(itemList))
+    constructor(itemList: List<E>) : this(FusionComboBoxModel(itemList))
 
     constructor() : super()
 
@@ -60,6 +59,3 @@ open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
     override fun draw(g: XGraphics) = super.paintComponent(g)
 
 }
-
-@Suppress("UNCHECKED_CAST")
-private fun <E> convertToArray(list: List<E>): Array<E> = Array<Any?>(list.size) { i -> list[i] } as Array<E>
