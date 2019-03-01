@@ -20,6 +20,7 @@
 package one.atpc.fusion.ui
 
 import java.awt.Component
+import javax.swing.ComboBoxModel
 import javax.swing.Icon
 
 interface XContainer {
@@ -79,8 +80,17 @@ interface XContainer {
     )
 
     fun textField(columns: Int) = this.add(XTextField(columns))
-    
+
     fun textField(columns: Int, promptText: String) = this.add(XTextField(columns, promptText))
+
+
+    fun <E> comboBox() = this.add(XComboBox<E>())
+
+    fun <E> comboBox(model: ComboBoxModel<E>) = this.add(XComboBox(model))
+
+    fun <E> comboBox(items: Array<E>) = this.add(XComboBox(items))
+
+    fun <E> comboBox(itemList: List<E>) = this.add(XComboBox(itemList))
 
 
     fun panel(): XPanel = this.add(XPanel())
