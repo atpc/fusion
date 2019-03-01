@@ -88,7 +88,7 @@ abstract class XApplication(args: Array<String>) : Application(args) {
     override val isGraphical: Boolean = true
 
 
-    data class UIConfiguration(var defaultSize: Dimension2.Int = Dimension2(800, 500),
+    data class UIConfiguration(var defaultSize: Dimension2.Int? = null, // TODO Document null = the default size of the system is used [pack()]
                                var rememberBounds: Boolean = true,
                                var defaultCloseOperation: Int = WindowConstants.EXIT_ON_CLOSE,
                                var lookAndFeel: LookAndFeel? = UIConfiguration.DEFAULT_LAF) {
@@ -150,10 +150,17 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
         // Pack
         this.pack()
 
-        // Set default bounds first
-        this.size = application.uiConfig.defaultSize
+
+        // Set default bounds:
+
+        // If specified, set size, otherwise keep the default size set by pack()
+        if (application.uiConfig.defaultSize != null) {
+            this.size = application.uiConfig.defaultSize
+        }
         this.setLocationToCenter()  // Default location is center
 
+
+        // If bounds remembering is enabled, load saved properties (if they exist)
         if (application.uiConfig.rememberBounds) {
             // Load container properties
             val containerProperties: Properties? = loadContainerProperties(application)
