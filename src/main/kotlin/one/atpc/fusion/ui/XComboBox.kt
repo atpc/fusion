@@ -36,11 +36,20 @@ open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
     constructor() : super()
 
 
-    // We do not need to worry about returning a nullable E?,
-    // because Kotlin already takes care of this for us
-    // (If the type parameter E is not nullable, the combo box won't have any nullable values)
+    /**
+     * Returns the current selected item.
+     * <p>
+     * If the combo box is editable, then this value may not have been added
+     * to the combo box with [addItem], [insertItemAt] or the data constructors.
+     *
+     * @return The current selected item,
+     *         or `null` if nothing is selected or the combo box is empty.
+     * @see setSelectedItem
+     */
     @Suppress("UNCHECKED_CAST")
-    override fun getSelectedItem(): E = super.getSelectedItem() as E
+    override fun getSelectedItem(): E?
+            = super.getSelectedItem() as E?     // E? is nullable, because nothing could have been selected,
+                                                // or the ComboBox is empty
 
 
     // No keyShortcut (Unnecessary, since this is an input component).
