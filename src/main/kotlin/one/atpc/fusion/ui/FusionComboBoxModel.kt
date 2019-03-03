@@ -44,7 +44,7 @@ open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size
 
     override fun getElementAt(index: Int): E = items[index]
 
-    fun getIndexOf(item: E): Int = items.indexOf(item)
+    open fun getIndexOf(item: E): Int = items.indexOf(item)
 
     override fun getSize(): Int = items.size
 
