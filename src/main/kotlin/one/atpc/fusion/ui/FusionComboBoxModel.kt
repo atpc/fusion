@@ -28,7 +28,7 @@ import javax.swing.MutableComboBoxModel
 open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size: Int) : AbstractListModel<E>(), MutableComboBoxModel<E>, Serializable {
     private val items: MutableList<E> = run {
         val list = ArrayList<E>(size)
-        for (i in list.indices)
+        for (i in 0 until size)
             list[i] = getter(i)
         list
     }
