@@ -55,7 +55,9 @@ open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size
 
     override fun setSelectedItem(anItem: Any?) {
         try {
-            // TODO Maybe check if the item is part of items
+            if (anItem !in items)
+                throw IllegalArgumentException("Item to be selected has to be in the model's items!")
+
             @Suppress("UNCHECKED_CAST")
             this.selected = anItem as E
 
@@ -63,7 +65,9 @@ open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size
             fireContentsChanged(this, -1, -1)
         }
         catch (e: ClassCastException) {
-            throw IllegalArgumentException("Item is not an instance of box model type.", e)
+            throw IllegalArgumentException(
+                "Item to be selected is not an instance of the generic type associated with the model.", e
+            )
         }
     }
 
