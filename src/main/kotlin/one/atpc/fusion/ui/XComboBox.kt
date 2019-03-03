@@ -32,7 +32,7 @@ open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
 
     constructor(itemList: List<E>) : this(FusionComboBoxModel(itemList))
 
-    constructor() : super()
+    constructor() : this(FusionComboBoxModel())
 
 
     /**

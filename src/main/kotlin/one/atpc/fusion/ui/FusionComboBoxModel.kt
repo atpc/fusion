@@ -25,6 +25,7 @@ import javax.swing.MutableComboBoxModel
 
 // Newer version of DefaultComboBoxModel // TODO @see
 // TODO Test event notifications
+// TODO Synchronize mutating operations
 open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size: Int) : AbstractListModel<E>(), MutableComboBoxModel<E>, Serializable {
     private val items: MutableList<E> = run {
         val list = ArrayList<E>(size)
@@ -39,6 +40,11 @@ open class FusionComboBoxModel<E> protected constructor(getter: (Int) -> E, size
     constructor(itemList: List<E>) : this(itemList::get, itemList.size)
 
     constructor(items: Array<E>) : this(items::get, items.size)
+
+    constructor() : this({
+        @Suppress("UNCHECKED_CAST")
+        null as E
+    }, 0)
 
 
 
