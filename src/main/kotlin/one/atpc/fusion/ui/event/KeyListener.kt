@@ -25,6 +25,7 @@ import one.atpc.fusion.ConstructorFunction
 import java.awt.event.KeyEvent
 
 interface KeyListener : java.awt.event.KeyListener {
+
     companion object {
 
         @JvmStatic
@@ -50,6 +51,7 @@ interface KeyListener : java.awt.event.KeyListener {
 
     }
 
+
     abstract class Adapter : KeyListener {
 
         override fun keyPressed(e: KeyEvent?) = Unit
@@ -59,6 +61,17 @@ interface KeyListener : java.awt.event.KeyListener {
         override fun keyTyped(e: KeyEvent?) = Unit
 
     }
+
+    interface LightAdapter : KeyListener {
+
+        override fun keyPressed(e: KeyEvent?) = Unit
+
+        override fun keyReleased(e: KeyEvent?) = Unit
+
+        override fun keyTyped(e: KeyEvent?) = Unit
+
+    }
+
 
     @FunctionalInterface
     interface KeyPressed : KeyListener {
