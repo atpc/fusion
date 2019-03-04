@@ -37,6 +37,21 @@ interface MouseListener : java.awt.event.MouseListener {
 
     }
 
+    interface LightAdapter : MouseListener {
+
+        override fun mouseEntered(e: MouseEvent?) = Unit
+
+        override fun mouseExited(e: MouseEvent?) = Unit
+
+        override fun mousePressed(e: MouseEvent?) = Unit
+
+        override fun mouseReleased(e: MouseEvent?) = Unit
+
+        override fun mouseClicked(e: MouseEvent?) = Unit
+
+    }
+
+
     class MouseEntered(private val onMouseEntered: (MouseEvent?) -> Unit) : Adapter() {
 
         override fun mouseEntered(e: MouseEvent?) = onMouseEntered(e)
