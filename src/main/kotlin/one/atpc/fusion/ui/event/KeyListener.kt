@@ -52,17 +52,7 @@ interface KeyListener : java.awt.event.KeyListener {
     }
 
 
-    abstract class Adapter : KeyListener {
-
-        override fun keyPressed(e: KeyEvent?) = Unit
-
-        override fun keyReleased(e: KeyEvent?) = Unit
-
-        override fun keyTyped(e: KeyEvent?) = Unit
-
-    }
-
-    interface LightAdapter : KeyListener {
+    interface Adapter : KeyListener {
 
         override fun keyPressed(e: KeyEvent?) = Unit
 

@@ -32,7 +32,7 @@ import java.awt.geom.Line2D
 import javax.swing.text.JTextComponent
 import kotlin.math.roundToInt
 
-open class ClearingFeature : Feature(), MouseListener.LightAdapter, MouseMotionListener.MouseMoved {
+open class ClearingFeature : Feature(), MouseListener.Adapter, MouseMotionListener.MouseMoved {
     private var state = State.IDLE
     private var oldCursor: Cursor? = null
     // TODO Flag to make it only visible when there's input
