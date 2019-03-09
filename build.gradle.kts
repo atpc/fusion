@@ -49,6 +49,23 @@ configure<JavaPluginConvention> {
 }
 
 
+val runDemos = task("runDemos", type = JavaExec::class) {
+    group = "run"
+    description = "Runs the demo classes."
+
+    dependsOn("build")
+    // Only build demos if this task is running
+    if (project.gradle.startParameter.taskNames.contains("runDemos")) {
+        sourceSets["main"].java {
+            srcDir("src/demo/kotlin")
+        }
+    }
+
+    main = "one.atpc.fusion.ui.feature.ClearingFeatureDemo"
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+
 val sourcesJar = task("sourcesJar", type = Jar::class) {
     classifier = "sources"
     from(sourceSets.getByName("main").allSource)
