@@ -48,20 +48,24 @@ configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
-
-val runDemos = task("runDemos", type = JavaExec::class) {
+val RUN_DEMO = "runDemo"
+val runDemo = task(RUN_DEMO, type = JavaExec::class) {
     group = "run"
     description = "Runs the demo classes."
 
     dependsOn("build")
     // Only build demos if this task is running
-    if (project.gradle.startParameter.taskNames.contains("runDemos")) {
+    main = if (project.gradle.startParameter.taskNames.contains(RUN_DEMO)) {
         sourceSets["main"].java {
             srcDir("src/demo/kotlin")
         }
+        
+        project.property("demoClass") as String
+    }
+    else {
+        "<<[undefined]>>"
     }
 
-    main = "one.atpc.fusion.ui.feature.ClearingFeatureDemo"
     classpath = sourceSets["main"].runtimeClasspath
 }
 
