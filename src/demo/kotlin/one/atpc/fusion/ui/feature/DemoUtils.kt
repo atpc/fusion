@@ -19,11 +19,30 @@
 
 package one.atpc.fusion.ui.feature
 
-object ClearingFeatureDemo {
+import one.atpc.fusion.ui.XFeatureTextField
+import one.atpc.fusion.ui.XFrame
+import one.atpc.fusion.ui.toDimension2
+import java.awt.FlowLayout
+import javax.swing.WindowConstants
+
+object DemoUtils {
+
     @JvmStatic
-    fun main(args: Array<String>) {
-        val result = DemoUtils.makeTextFieldFrame(this::class.simpleName ?: "ClearingFeatureDemo")
-        result.second.addFeature(ClearingFeature())
-        result.first.isVisible = true
+    internal fun makeTextFieldFrame(title: String): Pair<XFrame, XFeatureTextField> {
+        val frame = XFrame(title)
+        frame.layout = FlowLayout()
+        val featureTextField = XFeatureTextField(10)
+        frame.add(featureTextField)
+
+        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
+        frame.pack()
+
+        val size = frame.size.toDimension2()
+        frame.size = size + size    // TODO Dimension multiplication!
+        frame.setLocationToCenter()
+
+        return Pair(frame, featureTextField)
     }
+
 }
