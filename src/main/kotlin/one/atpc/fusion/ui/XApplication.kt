@@ -194,7 +194,7 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
 
         @JvmStatic
         private fun loadContainerProperties(application: XApplication): Properties? {
-            val containerPropsFile = getContainerPropertiesFile(application.javaClass).second
+            val (_, containerPropsFile) = getContainerPropertiesFile(application.javaClass)
 
             return if (containerPropsFile.exists()) {
                 // Ensure the properties file is not a directory
@@ -228,9 +228,7 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
 
         @JvmStatic
         private fun storeContainerProperties(application: XApplication, container: XApplicationContainer) {
-            val containerPropertiesFileResults = getContainerPropertiesFile(application.javaClass)
-            val saveDirectory: File = containerPropertiesFileResults.first
-            val containerPropsFile: File = containerPropertiesFileResults.second
+            val (saveDirectory, containerPropsFile) = getContainerPropertiesFile(application.javaClass)
 
             // Check save directory
             if (!saveDirectory.exists()) {

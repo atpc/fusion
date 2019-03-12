@@ -22,8 +22,8 @@ package one.atpc.fusion.ui.feature
 object ClearingFeatureDemo {
     @JvmStatic
     fun main(args: Array<String>) {
-        val result = DemoUtils.makeTextFieldFrame(this::class.simpleName ?: "ClearingFeatureDemo")
-        result.second.addFeature(ClearingFeature())
-        result.first.isVisible = true
+        val (frame, textField) = DemoUtils.makeTextFieldFrame(this::class.simpleName ?: "ClearingFeatureDemo")
+        textField.addFeature(ClearingFeature())
+        frame.isVisible = true
     }
 }

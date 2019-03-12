@@ -23,9 +23,9 @@ object TextPopupFeatureDemo {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val result = DemoUtils.makeTextFieldFrame(this::class.simpleName ?: "TextPopupFeatureDemo")
-        result.second.addFeature(TextPopupFeature(result.second))
-        result.first.isVisible = true
+        val (frame, textField) = DemoUtils.makeTextFieldFrame(this::class.simpleName ?: "TextPopupFeatureDemo")
+        textField.addFeature(TextPopupFeature(textField))
+        frame.isVisible = true
     }
 
 }
