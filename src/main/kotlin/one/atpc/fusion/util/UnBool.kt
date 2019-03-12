@@ -19,8 +19,8 @@
 
 package one.atpc.fusion.util
 
-// Uncertain bit
-enum class UnBit {
+// Uncertain boolean
+enum class UnBool {
     FALSE {
         override fun collapse(tendency: Boolean): Boolean = false
     },
@@ -37,7 +37,7 @@ enum class UnBit {
     companion object {
 
         @JvmStatic
-        fun of(value: Boolean?): UnBit = when (value) {
+        fun of(value: Boolean?): UnBool = when (value) {
             false -> FALSE
             true -> TRUE
             else -> UNCERTAIN

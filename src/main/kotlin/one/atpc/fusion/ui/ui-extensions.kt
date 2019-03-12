@@ -19,7 +19,7 @@
 
 package one.atpc.fusion.ui
 
-import one.atpc.fusion.util.UnBit
+import one.atpc.fusion.util.UnBool
 import javax.swing.JComponent
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -72,13 +72,13 @@ private class DescriptionDelegate<R : SwingComponent> : ReadWriteProperty<R, Str
 }
 
 private class IsDescriptionVisibleDelegate<R : SwingComponent> : ReadWriteProperty<R, Boolean> {
-    private var isDescriptionVisible: UnBit = UnBit.UNCERTAIN
+    private var isDescriptionVisible: UnBool = UnBool.UNCERTAIN
 
     override operator fun getValue(thisRef: R, property: KProperty<*>): Boolean
             = isDescriptionVisible.collapse(thisRef.isControl)
 
     override operator fun setValue(thisRef: R, property: KProperty<*>, value: Boolean) {
-        this.isDescriptionVisible = UnBit.of(value)
+        this.isDescriptionVisible = UnBool.of(value)
         // Update toolTipText
         thisRef.updateToolTipText()
     }
