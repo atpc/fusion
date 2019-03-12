@@ -22,7 +22,6 @@ package one.atpc.fusion.ui.feature
 import one.atpc.fusion.ui.*
 import one.atpc.fusion.ui.event.MouseListener
 import java.awt.event.MouseEvent
-import javax.swing.Action
 import javax.swing.JPasswordField
 import javax.swing.text.DefaultEditorKit
 import javax.swing.text.JTextComponent
@@ -128,9 +127,6 @@ open class TextPopupFeature(textComponent: JTextComponent) : Feature<JTextCompon
     }
 
 }
-
-// TODO Make this and other shortcuts public (and add setters [var])
-private val Action.name: String get() = this[Action.NAME]!!
 
 // text-extensions
 private val JTextComponent.isTextSelected: Boolean
