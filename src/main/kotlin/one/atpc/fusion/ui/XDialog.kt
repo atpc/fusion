@@ -24,7 +24,9 @@ import java.awt.Frame
 import java.awt.GraphicsConfiguration
 import java.awt.Window
 import javax.swing.JDialog
+import javax.swing.JMenuBar
 
+@Suppress("DeprecatedCallableAddReplaceWith")
 open class XDialog : JDialog, XScreenPlaceable, XContainer, XContainer.SwingImpl {
 
     constructor() : super()
@@ -65,5 +67,17 @@ open class XDialog : JDialog, XScreenPlaceable, XContainer, XContainer.SwingImpl
 
 
     override fun setLocationToCenter() = this.setLocationRelativeTo(null)
+
+
+    var xMenuBar: XMenuBar
+        get() = super.getJMenuBar() as XMenuBar
+        set(value) = super.setJMenuBar(value)
+
+
+    @Deprecated("Swing JMenuBar should not be used for XFrame.")
+    override fun setJMenuBar(menubar: JMenuBar?) = super.setJMenuBar(menubar)
+
+    @Deprecated("Swing JMenuBar should not be used for XFrame.")
+    override fun getJMenuBar(): JMenuBar? = super.getJMenuBar()
 
 }
