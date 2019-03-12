@@ -28,7 +28,7 @@ import javax.swing.text.DefaultEditorKit
 import javax.swing.text.JTextComponent
 
 // Cut, Copy, Paste, Delete | Select All
-open class TextPopupFeature(private val textComponent: JTextComponent) : Feature<JTextComponent>(), MouseListener.Adapter {
+open class TextPopupFeature(textComponent: JTextComponent) : Feature<JTextComponent>(), MouseListener.Adapter {
     private val popup: XPopupMenu = XPopupMenu()
     private val items: Array<XMenuItem?>
 
@@ -91,13 +91,13 @@ open class TextPopupFeature(private val textComponent: JTextComponent) : Feature
 
     protected open fun showPopupMenu(e: MouseEvent) {
         // Check if something is selected
-        val textSelected = textComponent.isTextSelected
+        val textSelected = connectedComponent?.isTextSelected ?: false
         // Do not allow cut and copy for password fields!
-        val cutAndCopyEnabled = textSelected && textComponent !is JPasswordField
+        val cutAndCopyEnabled = textSelected && connectedComponent !is JPasswordField
         items[CUT]!!.isEnabled  = cutAndCopyEnabled
         items[COPY]!!.isEnabled = cutAndCopyEnabled
         items[DELETE]!!.isEnabled = textSelected
-        items[SELECT_ALL]!!.isEnabled = !textComponent.text.isNullOrEmpty()
+        items[SELECT_ALL]!!.isEnabled = !((connectedComponent?.text).isNullOrEmpty())
         popup.show(e.component, e.x, e.y)
     }
 
