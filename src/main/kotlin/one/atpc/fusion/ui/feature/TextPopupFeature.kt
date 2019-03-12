@@ -28,7 +28,7 @@ import javax.swing.text.DefaultEditorKit
 import javax.swing.text.JTextComponent
 
 // Cut, Copy, Paste, Delete | Select All
-open class TextPopupFeature(private val textComponent: JTextComponent) : Feature(), MouseListener.Adapter {
+open class TextPopupFeature(private val textComponent: JTextComponent) : Feature<JTextComponent>(), MouseListener.Adapter {
     private val popup: XPopupMenu = XPopupMenu()
     private val items: Array<XMenuItem?>
 

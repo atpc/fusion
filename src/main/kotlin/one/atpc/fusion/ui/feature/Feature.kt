@@ -22,9 +22,9 @@ package one.atpc.fusion.ui.feature
 import one.atpc.fusion.ui.*
 import java.awt.Component
 
-abstract class Feature(open val isDrawingHeavy: Boolean = false) {
-    private var _connectedComponent: Component? = null
-    open var connectedComponent: Component?
+abstract class Feature<T : Component>(open val isDrawingHeavy: Boolean = false) {
+    private var _connectedComponent: T? = null
+    open var connectedComponent: T?
         get() = _connectedComponent
         set(value) {
             _connectedComponent = value

@@ -41,9 +41,9 @@ open class XFeatureTextField : XTextField {
     constructor(columns: Int, promptText: String) : super(columns, promptText)
 
 
-    private val features: MutableMap<KClass<out Feature>, Feature> = ConcurrentHashMap()
+    private val features: MutableMap<KClass<out Feature<in XFeatureTextField>>, Feature<in XFeatureTextField>> = ConcurrentHashMap()
 
-    open fun addFeature(feature: Feature) = when {
+    open fun addFeature(feature: Feature<in XFeatureTextField>) = when {
         // Reject if feature is already connected to another component
         feature.connectedComponent != null -> throw IllegalArgumentException(
             "Feature is already connected to a component!"
@@ -73,7 +73,7 @@ open class XFeatureTextField : XTextField {
         }
     }
 
-    open fun removeFeature(feature: Feature) {
+    open fun removeFeature(feature: Feature<in XFeatureTextField>) {
         if (features.containsValue(feature)) {
             if (feature is MouseListener)
                 this.removeMouseListener(feature)
@@ -86,7 +86,7 @@ open class XFeatureTextField : XTextField {
         }
     }
 
-    open fun hasFeature(featureClass: KClass<out Feature>) = features.containsKey(featureClass)
+    open fun hasFeature(featureClass: KClass<out Feature<in XFeatureTextField>>) = features.containsKey(featureClass)
 
 
     override fun draw(g: XGraphics) {
