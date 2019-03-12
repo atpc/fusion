@@ -127,7 +127,3 @@ open class TextPopupFeature(textComponent: JTextComponent) : Feature<JTextCompon
     }
 
 }
-
-// text-extensions
-private val JTextComponent.isTextSelected: Boolean
-    get() = this.selectionStart != this.selectionEnd

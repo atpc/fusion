@@ -19,19 +19,7 @@
 
 package one.atpc.fusion.ui
 
-typealias Action = javax.swing.Action
+import javax.swing.text.JTextComponent
 
-@Suppress("UNCHECKED_CAST")
-operator fun <T> Action.get(key: String): T?
-        = this.getValue(key) as T?
-
-operator fun <T> Action.set(key: String, value: T?)
-        = this.putValue(key, value)
-
-var Action.name: String
-    get() = this[Action.NAME]!!
-    set(value) {
-        this[Action.NAME] = value
-    }
-
-// TODO Use the property access for all the other common values, too
+val JTextComponent.isTextSelected: Boolean
+    get() = this.selectionStart != this.selectionEnd
