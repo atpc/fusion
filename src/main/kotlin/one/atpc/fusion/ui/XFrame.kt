@@ -20,8 +20,11 @@
 package one.atpc.fusion.ui
 
 import java.awt.GraphicsConfiguration
+import java.awt.MenuBar
 import javax.swing.JFrame
+import javax.swing.JMenuBar
 
+@Suppress("DeprecatedCallableAddReplaceWith")
 open class XFrame : JFrame, XScreenPlaceable, XContainer, XContainer.SwingImpl {
 
     constructor() : super()
@@ -38,5 +41,25 @@ open class XFrame : JFrame, XScreenPlaceable, XContainer, XContainer.SwingImpl {
 
 
     override fun setLocationToCenter() = this.setLocationRelativeTo(null)
+
+
+    var xMenuBar: XMenuBar
+        get() = this.jMenuBar as XMenuBar
+        set(value) {
+            this.jMenuBar = value
+        }
+
+
+    @Deprecated("AWT MenuBar should not be used for XFrame.")
+    override fun setMenuBar(mb: MenuBar?): Unit = super.setMenuBar(mb)
+
+    @Deprecated("AWT MenuBar should not be used for XFrame.")
+    override fun getMenuBar(): MenuBar? = super.getMenuBar()
+
+    @Deprecated("Swing JMenuBar should not be used for XFrame.")
+    override fun setJMenuBar(menubar: JMenuBar?) = super.setJMenuBar(menubar)
+
+    @Deprecated("Swing JMenuBar should not be used for XFrame.")
+    override fun getJMenuBar(): JMenuBar? = super.getJMenuBar()
 
 }
