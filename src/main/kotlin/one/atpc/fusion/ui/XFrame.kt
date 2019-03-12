@@ -44,10 +44,8 @@ open class XFrame : JFrame, XScreenPlaceable, XContainer, XContainer.SwingImpl {
 
 
     var xMenuBar: XMenuBar
-        get() = this.jMenuBar as XMenuBar
-        set(value) {
-            this.jMenuBar = value
-        }
+        get() = super.getJMenuBar() as XMenuBar
+        set(value) = super.setJMenuBar(value)
 
 
     @Deprecated("AWT MenuBar should not be used for XFrame.")
