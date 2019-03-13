@@ -19,6 +19,8 @@
 
 package one.atpc.fusion.ui
 
+import javax.swing.Icon
+
 typealias Action = javax.swing.Action
 
 @Suppress("UNCHECKED_CAST")
@@ -43,5 +45,59 @@ var Action.name: String?
         this[Action.NAME] = value
     }
 
-// TODO Use the property access for all the other common values, too
+var Action.shortDescription: String?
+    get() = this[Action.SHORT_DESCRIPTION]
+    set(value) {
+        this[Action.SHORT_DESCRIPTION] = value
+    }
+
+var Action.longDescription: String?
+    get() = this[Action.LONG_DESCRIPTION]
+    set(value) {
+        this[Action.LONG_DESCRIPTION] = value
+    }
+
+var Action.smallIcon: Icon?
+    get() = this[Action.SMALL_ICON]
+    set(value) {
+        this[Action.SMALL_ICON] = value
+    }
+
+var Action.largeIcon: Icon?
+    get() = this[Action.LARGE_ICON_KEY]
+    set(value) {
+        this[Action.LARGE_ICON_KEY] = value
+    }
+
+var Action.actionCommand: String?
+    get() = this[Action.ACTION_COMMAND_KEY]
+    set(value) {
+        this[Action.ACTION_COMMAND_KEY] = value
+    }
+
+var Action.keyShortcut: KeyStroke?
+    get() = this[Action.ACCELERATOR_KEY]
+    set(value) {
+        this[Action.ACCELERATOR_KEY] = value
+    }
+
+// Setting the mnemonic the old Swing/Fusion way is
+// (even though only the char method is deprecated) obsolete,
+// and therefore not implemented as a shorthand.
+//
+// 'displayedMnemonicIndex' should be used instead
+
+var Action.displayedMnemonicIndex: Int?
+    get() = this[Action.DISPLAYED_MNEMONIC_INDEX_KEY]
+    set(value) {
+        this[Action.DISPLAYED_MNEMONIC_INDEX_KEY] = value
+    }
+
+var Action.selected: Boolean?
+    get() = this[Action.SELECTED_KEY]
+    set(value) {
+        this[Action.SELECTED_KEY] = value
+    }
+
+
 // TODO Create tests
