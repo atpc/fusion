@@ -28,8 +28,6 @@ operator fun <T> Action.get(key: String): T?
 operator fun <T> Action.set(key: String, value: T?)
         = this.putValue(key, value)
 
-// TODO Document throws NullPointerException
-
 var Action.name: String?
     get() = this[Action.NAME]
     set(value) {
