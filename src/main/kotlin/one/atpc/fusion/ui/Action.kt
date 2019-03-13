@@ -28,6 +28,15 @@ operator fun <T> Action.get(key: String): T?
 operator fun <T> Action.set(key: String, value: T?)
         = this.putValue(key, value)
 
+
+/**
+ * The action name, used for a menu or button.
+ * Shorthand for accessing [`[Action.NAME]`][javax.swing.Action.NAME].
+ *
+ * @see javax.swing.Action.NAME
+ * @see javax.swing.Action.get
+ * @author Thomas Orlando
+ */
 var Action.name: String?
     get() = this[Action.NAME]
     set(value) {
