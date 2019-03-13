@@ -28,10 +28,13 @@ operator fun <T> Action.get(key: String): T?
 operator fun <T> Action.set(key: String, value: T?)
         = this.putValue(key, value)
 
-var Action.name: String
-    get() = this[Action.NAME]!!
+// TODO Document throws NullPointerException
+
+var Action.name: String?
+    get() = this[Action.NAME]
     set(value) {
         this[Action.NAME] = value
     }
 
 // TODO Use the property access for all the other common values, too
+// TODO Create tests

@@ -42,7 +42,7 @@ open class TextPopupFeature(textComponent: JTextComponent) : Feature<JTextCompon
         val rawItems = Array<XMenuItem?>(NUM_ITEMS) {null}
         for (action in actions) {
             val name = action.name
-            if (name in ITEM_POSITIONS.keys) {
+            if (name != null && name in ITEM_POSITIONS.keys) {
                 // Get the item's position
                 val index = ITEM_POSITIONS.getValue(name)
                 val item = XMenuItem(action)
