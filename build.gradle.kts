@@ -42,8 +42,8 @@ tasks {
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.0")
-    implementation("org.jetbrains:annotations:16.0.3")
+    api(kotlin("reflect"))
+    api("org.jetbrains:annotations:16.0.3")
     // TODO Hide SwingX with implementation (all the SwingX functionality should be assimilated into Fusion)
     api("org.swinglabs.swingx:swingx-core:1.6.5-1")
 
@@ -53,7 +53,7 @@ dependencies {
 
     // kotlintest
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.2.1")
-    
+
     testImplementation("org.reflections:reflections:0.9.11")
 }
 
