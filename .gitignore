@@ -1,6 +1,9 @@
 # Log files
 *.log
 
+# kotlintest
+.kotlintest
+
 ### Gradle.gitignore
 
 .gradle

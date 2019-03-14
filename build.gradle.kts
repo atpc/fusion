@@ -33,6 +33,13 @@ repositories {
     mavenCentral()
 }
 
+tasks {
+    "test"(Test::class) {
+        // Enable JUnit 5 support
+        useJUnitPlatform()
+    }
+}
+
 dependencies {
     api(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.3.0")
@@ -40,7 +47,13 @@ dependencies {
     // TODO Hide SwingX with implementation (all the SwingX functionality should be assimilated into Fusion)
     api("org.swinglabs.swingx:swingx-core:1.6.5-1")
 
+    // To support legacy test code (JUnit 4)
     testCompile("junit", "junit", "4.12")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.4.0")
+
+    // kotlintest
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.2.1")
+    
     testImplementation("org.reflections:reflections:0.9.11")
 }
 
