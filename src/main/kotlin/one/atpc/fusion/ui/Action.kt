@@ -20,6 +20,7 @@
 package one.atpc.fusion.ui
 
 import javax.swing.Icon
+import kotlin.reflect.KProperty
 
 typealias Action = javax.swing.Action
 
@@ -39,47 +40,19 @@ operator fun <T> Action.set(key: String, value: T?)
  * @see javax.swing.Action.get
  * @author Thomas Orlando
  */
-var Action.name: String?
-    get() = this[Action.NAME]
-    set(value) {
-        this[Action.NAME] = value
-    }
+var Action.name: String? by ShorthandPropertyDelegate(Action.NAME)
 
-var Action.shortDescription: String?
-    get() = this[Action.SHORT_DESCRIPTION]
-    set(value) {
-        this[Action.SHORT_DESCRIPTION] = value
-    }
+var Action.shortDescription: String? by ShorthandPropertyDelegate(Action.SHORT_DESCRIPTION)
 
-var Action.longDescription: String?
-    get() = this[Action.LONG_DESCRIPTION]
-    set(value) {
-        this[Action.LONG_DESCRIPTION] = value
-    }
+var Action.longDescription: String? by ShorthandPropertyDelegate(Action.LONG_DESCRIPTION)
 
-var Action.smallIcon: Icon?
-    get() = this[Action.SMALL_ICON]
-    set(value) {
-        this[Action.SMALL_ICON] = value
-    }
+var Action.smallIcon: Icon? by ShorthandPropertyDelegate(Action.SMALL_ICON)
 
-var Action.largeIcon: Icon?
-    get() = this[Action.LARGE_ICON_KEY]
-    set(value) {
-        this[Action.LARGE_ICON_KEY] = value
-    }
+var Action.largeIcon: Icon? by ShorthandPropertyDelegate(Action.LARGE_ICON_KEY)
 
-var Action.actionCommand: String?
-    get() = this[Action.ACTION_COMMAND_KEY]
-    set(value) {
-        this[Action.ACTION_COMMAND_KEY] = value
-    }
+var Action.actionCommand: String? by ShorthandPropertyDelegate(Action.ACTION_COMMAND_KEY)
 
-var Action.keyShortcut: KeyStroke?
-    get() = this[Action.ACCELERATOR_KEY]
-    set(value) {
-        this[Action.ACCELERATOR_KEY] = value
-    }
+var Action.keyShortcut: KeyStroke? by ShorthandPropertyDelegate(Action.ACCELERATOR_KEY)
 
 // Setting the mnemonic the old Swing/Fusion way is
 // (even though only the char method is deprecated) obsolete,
@@ -87,17 +60,18 @@ var Action.keyShortcut: KeyStroke?
 //
 // 'displayedMnemonicIndex' should be used instead
 
-var Action.displayedMnemonicIndex: Int?
-    get() = this[Action.DISPLAYED_MNEMONIC_INDEX_KEY]
-    set(value) {
-        this[Action.DISPLAYED_MNEMONIC_INDEX_KEY] = value
-    }
+var Action.displayedMnemonicIndex: Int? by ShorthandPropertyDelegate(Action.DISPLAYED_MNEMONIC_INDEX_KEY)
 
-var Action.selected: Boolean?
-    get() = this[Action.SELECTED_KEY]
-    set(value) {
-        this[Action.SELECTED_KEY] = value
-    }
+var Action.selected: Boolean? by ShorthandPropertyDelegate(Action.SELECTED_KEY)
 
+
+private class ShorthandPropertyDelegate<T>(private val actionConstant: String) {
+    operator fun getValue(thisRef: Action, property: KProperty<*>): T?
+            = thisRef[actionConstant]
+
+    operator fun setValue(thisRef: Action, property: KProperty<*>, value: T?) {
+        thisRef[actionConstant] = value
+    }
+}
 
 // TODO Create tests
