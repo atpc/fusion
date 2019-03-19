@@ -25,18 +25,19 @@ import one.atpc.fusion.util.UnBool
 import java.awt.event.ActionEvent
 import java.util.*
 import javax.swing.AbstractAction
+import javax.swing.ImageIcon
+import kotlin.random.Random
+import kotlin.reflect.KMutableProperty1
 
 class ActionTests : FreeSpec({
-    val action = object : AbstractAction() {
-        override fun actionPerformed(e: ActionEvent?) = Unit
-    }
-
     val testValues = mapOf(
         "test01" to randomString(),
         "test02" to 123,
         "test03" to UnBool.UNCERTAIN
     )
     "set and get operators" {
+        val action = ExampleAction()
+        
         for (key in testValues.keys) {
             val testValue = testValues[key]
 
@@ -51,7 +52,46 @@ class ActionTests : FreeSpec({
         }
     }
 
-    // TODO Verify shorthand properties
+    // A map of shorthand property keys along with test values
+    val shorthandProperties: Map<Pair<KMutableProperty1<Action, out Any?>, String>, Any> = mapOf(
+        Action::name                    to Action.NAME                          to randomString(),
+        Action::shortDescription        to Action.SHORT_DESCRIPTION             to randomString(),
+        Action::longDescription         to Action.LONG_DESCRIPTION              to randomString(),
+        Action::smallIcon               to Action.SMALL_ICON                    to iconValue(),
+        Action::largeIcon               to Action.LARGE_ICON_KEY                to iconValue(),
+        Action::actionCommand           to Action.ACTION_COMMAND_KEY            to randomString(),
+        Action::keyShortcut             to Action.ACCELERATOR_KEY               to shortcutValue(),
+        Action::displayedMnemonicIndex  to Action.DISPLAYED_MNEMONIC_INDEX_KEY  to randomInt(),
+        Action::selected                to Action.SELECTED_KEY                  to randomBoolean()
+    )
+    "verify shorthand properties" {
+        val action = ExampleAction()
+        
+        for (propertyPair in shorthandProperties.keys) {
+            val property = propertyPair.first
+            val key = propertyPair.second
+
+            // Get the test value
+            val testValue = shorthandProperties[propertyPair]
+
+            // Set the value
+            property.setter.call(action, testValue)
+            // Ensure the setting worked:
+            // (Property getter)
+            property.get(action) shouldBe testValue
+            // (get operator)
+            action.get<Any>(key) shouldBe testValue
+        }
+    }
+
 })
 
+private class ExampleAction : AbstractAction() {
+    override fun actionPerformed(e: ActionEvent?) = Unit
+}
+
 private fun randomString() = UUID.randomUUID().toString()
+private fun randomInt() = Random.nextInt()
+private fun randomBoolean() = Random.nextBoolean()
+private fun iconValue() = ImageIcon(ActionTests::class.java.getResource("test-icon.png"))
+private fun shortcutValue() = KeyStroke('Q', Modifier.CTRL)
