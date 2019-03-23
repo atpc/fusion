@@ -29,7 +29,7 @@ import kotlin.reflect.KClass
  *
  * Constructor functions are useful for abstract types
  * that can't have a constructor (e.g. interfaces) but could
- * be conveniently created by one or for adding additional constructors
+ * be conveniently created by one, or for adding additional constructors
  * to classes without having to subclass them.
  *
  * **Example:**
