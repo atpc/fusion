@@ -29,9 +29,11 @@ fun <T : Exception> handleException(e: T, info: String? = null, warning: Boolean
     // Print additional info before the stack trace
     if (info != null)
         System.err.println(info)
+
     // Print the stack trace
     e.printStackTrace()
 
+    // When the system is a GUI, show a message dialog
     if (!isHeadless()) {
         val message = getMessage(e)
         JOptionPane.showMessageDialog(
