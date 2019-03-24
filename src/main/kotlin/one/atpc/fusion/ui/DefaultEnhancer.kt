@@ -21,6 +21,7 @@ package one.atpc.fusion.ui
 
 import one.atpc.fusion.ui.feature.Feature
 import java.awt.Component
+import java.awt.Graphics
 import java.awt.event.MouseListener
 import java.awt.event.MouseMotionListener
 import java.util.concurrent.ConcurrentHashMap
@@ -81,5 +82,22 @@ open class DefaultEnhancer<T>(private val enhanced: T) : XEnhanceable<T> where T
 
     override fun hasFeature(featureInstance: Feature<in T>): Boolean
             = features.containsValue(featureInstance)
+
+
+    open fun draw(g: XGraphics) {
+        // Draw the features
+        for (feature in features.values)
+            // Do not draw lightweight if heavy drawing is enabled
+            if (!feature.isDrawingHeavy)
+                feature.draw(g)
+    }
+
+    open fun paint(g: Graphics) {
+        val xg = g.toXGraphics()
+        for (feature in features.values)
+            // Only draw the features that have heavy drawing enabled
+            if (feature.isDrawingHeavy)
+                feature.draw(xg)
+    }
 
 }
