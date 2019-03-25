@@ -21,12 +21,9 @@ package one.atpc.fusion.ui
 
 import one.atpc.fusion.ui.feature.Feature
 import java.awt.Graphics
-import java.awt.event.MouseListener
-import java.awt.event.MouseMotionListener
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.reflect.KClass
 
-open class XFeatureTextField : XTextField {
+open class XFeatureTextField : XTextField, XEnhanceable<XFeatureTextField> {
 
     constructor() : super()
 
@@ -41,69 +38,31 @@ open class XFeatureTextField : XTextField {
     constructor(columns: Int, promptText: String) : super(columns, promptText)
 
 
-    private val features: MutableMap<KClass<out Feature<in XFeatureTextField>>, Feature<in XFeatureTextField>> = ConcurrentHashMap()
+    private val enhancer: DefaultEnhancer<XFeatureTextField> = DefaultEnhancer(this)
 
-    open fun addFeature(feature: Feature<in XFeatureTextField>) = when {
-        // Reject if feature is already connected to another component
-        feature.connectedComponent != null -> throw IllegalArgumentException(
-            "Feature is already connected to a component!"
-        )
 
-        // Check if the the feature class is already connected
-        this.hasFeature(feature::class) -> {
-            // If the
-            if (features.containsValue(feature))
-                // Do nothing
-                Unit
-            else
-                throw IllegalArgumentException(
-                    "${feature::class.qualifiedName}: A feature of this type is already connected to this component!"
-                )
-        }
+    override fun addFeature(feature: Feature<in XFeatureTextField>)
+            = enhancer.addFeature(feature)
 
-        else -> {
-            feature.connectedComponent = this
+    override fun removeFeature(feature: Feature<in XFeatureTextField>)
+            = enhancer.removeFeature(feature)
 
-            if (feature is MouseListener)
-                this.addMouseListener(feature)
-            if (feature is MouseMotionListener)
-                this.addMouseMotionListener(feature)
+    override fun hasFeature(featureClass: KClass<out Feature<in XFeatureTextField>>): Boolean
+            = enhancer.hasFeature(featureClass)
 
-            features[feature::class] = feature
-        }
-    }
-
-    open fun removeFeature(feature: Feature<in XFeatureTextField>) {
-        if (features.containsValue(feature)) {
-            if (feature is MouseListener)
-                this.removeMouseListener(feature)
-            if (feature is MouseMotionListener)
-                this.removeMouseMotionListener(feature)
-
-            features.remove(feature::class)
-
-            feature.connectedComponent = null
-        }
-    }
-
-    open fun hasFeature(featureClass: KClass<out Feature<in XFeatureTextField>>) = features.containsKey(featureClass)
-
+    override fun hasFeature(featureInstance: Feature<in XFeatureTextField>): Boolean
+            = enhancer.hasFeature(featureInstance)
 
     override fun draw(g: XGraphics) {
         super.draw(g)
-        // Draw the features
-        for (feature in features.values)
-            if (!feature.isDrawingHeavy)
-                feature.draw(g)
+
+        enhancer.draw(g)
     }
 
     override fun paint(g: Graphics) {
         super.paint(g)
 
-        val xg = g.toXGraphics()
-        for (feature in features.values)
-            if (feature.isDrawingHeavy)
-                feature.draw(xg)
+        enhancer.paint(g)
     }
 
 }
