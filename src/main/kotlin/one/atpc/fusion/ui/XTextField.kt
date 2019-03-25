@@ -19,10 +19,12 @@
 
 package one.atpc.fusion.ui
 
+import one.atpc.fusion.ui.feature.Feature
 import org.jdesktop.swingx.JXTextField
 import java.awt.Graphics
+import kotlin.reflect.KClass
 
-open class XTextField : JXTextField, XControl, XView.SwingImpl {
+open class XTextField : JXTextField, XControl, XView.SwingImpl, XEnhanceable<XTextField> {
 
     constructor() : super()
 
@@ -46,6 +48,34 @@ open class XTextField : JXTextField, XControl, XView.SwingImpl {
 
     final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
 
-    override fun draw(g: XGraphics) = super.paintComponent(g)
+
+
+    private val enhancer: DefaultEnhancer<XTextField> = DefaultEnhancer(this)
+
+
+    override fun addFeature(feature: Feature<in XTextField>)
+            = enhancer.addFeature(feature)
+
+    override fun removeFeature(feature: Feature<in XTextField>)
+            = enhancer.removeFeature(feature)
+
+    override fun hasFeature(featureClass: KClass<out Feature<in XTextField>>): Boolean
+            = enhancer.hasFeature(featureClass)
+
+    override fun hasFeature(featureInstance: Feature<in XTextField>): Boolean
+            = enhancer.hasFeature(featureInstance)
+
+    override fun draw(g: XGraphics) {
+        // Paint the component
+        super.paintComponent(g)
+
+        enhancer.draw(g)
+    }
+
+    override fun paint(g: Graphics) {
+        super.paint(g)
+
+        enhancer.paint(g)
+    }
 
 }

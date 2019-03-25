@@ -19,7 +19,7 @@
 
 package one.atpc.fusion.ui.feature
 
-import one.atpc.fusion.ui.XFeatureTextField
+import one.atpc.fusion.ui.XTextField
 import one.atpc.fusion.ui.XFrame
 import one.atpc.fusion.ui.toDimension2
 import java.awt.FlowLayout
@@ -28,11 +28,11 @@ import javax.swing.WindowConstants
 object DemoUtils {
 
     @JvmStatic
-    internal fun makeTextFieldFrame(title: String): Pair<XFrame, XFeatureTextField> {
+    internal fun makeTextFieldFrame(title: String): Pair<XFrame, XTextField> {
         val frame = XFrame(title)
         frame.layout = FlowLayout()
-        val featureTextField = XFeatureTextField(10)
-        frame.add(featureTextField)
+        val textField = XTextField(10)
+        frame.add(textField)
 
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
 
@@ -42,7 +42,7 @@ object DemoUtils {
         frame.size = size + size    // TODO Dimension multiplication!
         frame.setLocationToCenter()
 
-        return Pair(frame, featureTextField)
+        return Pair(frame, textField)
     }
 
 }
