@@ -32,10 +32,14 @@ import java.awt.geom.Rectangle2D
 // TODO Create tests
 interface Rectangle4 : Vector4 {
 
-    fun getX(): PxDouble
-    fun getY(): PxDouble
-    fun getWidth(): PxDouble
-    fun getHeight(): PxDouble
+    @Px
+    fun getX(): kotlin.Double
+    @Px
+    fun getY(): kotlin.Double
+    @Px
+    fun getWidth(): kotlin.Double
+    @Px
+    fun getHeight(): kotlin.Double
 
     override fun get(index: kotlin.Int): kotlin.Double
             =
@@ -47,7 +51,7 @@ interface Rectangle4 : Vector4 {
             else -> throw IndexOutOfBoundsException("Rectangle4 vector contains only 4 numbers!")
         }
 
-    // (No intX/intY/intWidth/[...] methods) //
+    // (No intX/intY/intWidth/[...] properties) //
 
     fun getLocation(): Point2
 
@@ -60,6 +64,22 @@ interface Rectangle4 : Vector4 {
 
 
     override fun copy(): Rectangle4
+
+
+    override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
+        transform(getX()),
+        transform(getY()),
+        transform(getWidth()),
+        transform(getHeight())
+    )
+
+    override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+            = Rectangle4.Double(
+        transform(0, getX()),
+        transform(1, getY()),
+        transform(2, getWidth()),
+        transform(3, getHeight())
+    )
 
 
     // This MUST create a copy, even if it is the Rectangle4.Int class
@@ -79,9 +99,9 @@ interface Rectangle4 : Vector4 {
 
         constructor(rect: Rectangle) : super(rect)
 
-        constructor(x: Px, y: Px, width: Px, height: Px) : super(x, y, width, height)
+        constructor(@Px x: kotlin.Int, @Px y: kotlin.Int, @Px width: kotlin.Int, @Px height: kotlin.Int) : super(x, y, width, height)
 
-        constructor(width: Px, height: Px) : super(width, height)
+        constructor(@Px width: kotlin.Int, @Px height: kotlin.Int) : super(width, height)
 
         constructor(point: Point, dimen: Dimension) : super(point, dimen)
 
@@ -113,11 +133,35 @@ interface Rectangle4 : Vector4 {
 
         override fun copy(): Rectangle4.Int = Rectangle4.Int(this)
 
+
         override fun toInt(): Rectangle4.Int = Rectangle4.Int(
             this.x,
             this.y,
             this.width,
             this.height
+        )
+
+        override fun toList(): List<kotlin.Int> = listOf(
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )
+
+
+        inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Rectangle4.Int = Rectangle4.Int(
+            f(x),
+            f(y),
+            f(width),
+            f(height)
+        )
+
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Rectangle4.Int
+                = Rectangle4.Int(
+            transform(0, x),
+            transform(1, y),
+            transform(2, width),
+            transform(3, height)
         )
 
     }
@@ -129,9 +173,9 @@ interface Rectangle4 : Vector4 {
 
         constructor(rect: Rectangle2D) : super(rect.x, rect.y, rect.width, rect.height)
 
-        constructor(x: PxDouble, y: PxDouble, width: PxDouble, height: PxDouble) : super(x, y, width, height)
+        constructor(@Px x: kotlin.Double, @Px y: kotlin.Double, @Px width: kotlin.Double, @Px height: kotlin.Double) : super(x, y, width, height)
 
-        constructor(width: PxDouble, height: PxDouble) : this(0.0, 0.0, width, height)
+        constructor(@Px width: kotlin.Double, @Px height: kotlin.Double) : this(0.0, 0.0, width, height)
 
         constructor(point: Point2D, dimen: Dimension2D) : this(point.x, point.y, dimen.width, dimen.height)
 
@@ -147,6 +191,35 @@ interface Rectangle4 : Vector4 {
 
 
         override fun copy(): Rectangle4.Double = Rectangle4.Double(this)
+
+
+        override fun toList(): List<kotlin.Double> = listOf(
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )
+
+
+        override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = this.vmap0(transform)
+
+        inline fun vmap0(f: (kotlin.Double) -> kotlin.Double): Rectangle4.Double = Rectangle4.Double(
+            f(x),
+            f(y),
+            f(width),
+            f(height)
+        )
+
+        override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+                = vmapIndexed0(transform)
+
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Rectangle4.Double
+                = Rectangle4.Double(
+            transform(0, x),
+            transform(1, y),
+            transform(2, width),
+            transform(3, height)
+        )
 
     }
 
@@ -167,21 +240,22 @@ fun Rectangle4(rect: Rectangle2D): Rectangle4.Double = Rectangle4.Double(rect)
 
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(x: Px, y: Px, width: Px, height: Px): Rectangle4.Int = Rectangle4.Int(x, y, width, height)
+fun Rectangle4(@Px x: kotlin.Int, @Px y: kotlin.Int, @Px width: kotlin.Int, @Px height: kotlin.Int): Rectangle4.Int
+        = Rectangle4.Int(x, y, width, height)
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(width: Px, height: Px): Rectangle4.Int = Rectangle4.Int(width, height)
+fun Rectangle4(@Px width: kotlin.Int, @Px height: kotlin.Int): Rectangle4.Int = Rectangle4.Int(width, height)
 
 @ConstructorFunction(Rectangle4::class)
 fun Rectangle4(point: Point, dimen: Dimension): Rectangle4.Int = Rectangle4.Int(point, dimen)
 
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(x: PxDouble, y: PxDouble, width: PxDouble, height: PxDouble): Rectangle4.Double
+fun Rectangle4(@Px x: kotlin.Double, @Px y: kotlin.Double, @Px width: kotlin.Double, @Px height: kotlin.Double): Rectangle4.Double
         = Rectangle4.Double(x, y, width, height)
 
 @ConstructorFunction(Rectangle4::class)
-fun Rectangle4(width: PxDouble, height: PxDouble): Rectangle4.Double = Rectangle4.Double(width, height)
+fun Rectangle4(@Px width: kotlin.Double, @Px height: kotlin.Double): Rectangle4.Double = Rectangle4.Double(width, height)
 
 @ConstructorFunction(Rectangle4::class)
 fun Rectangle4(point: Point2D, dimen: Dimension2D): Rectangle4.Double = Rectangle4.Double(point, dimen)

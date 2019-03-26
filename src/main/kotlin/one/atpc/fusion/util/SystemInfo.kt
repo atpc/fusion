@@ -19,7 +19,7 @@
 
 package one.atpc.fusion.util
 
-import org.jetbrains.annotations.Contract
+import java.io.File
 import java.util.*
 
 /**
@@ -36,6 +36,7 @@ object SystemInfo {
     const val OS_VERSION        = "os.version"
     const val OS_ARCH           = "os.arch"
     const val ARCH_DATA_MODEL   = "sun.arch.data.model"
+    const val USER_HOME         = "user.home"
 
 
     /**
@@ -43,7 +44,7 @@ object SystemInfo {
      */
     @JvmStatic
     val osType: OSType by lazy {
-        val os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH)
+        val os = SystemInfo["os.name", "generic"].toLowerCase(Locale.ENGLISH)
         when {
             (os.indexOf("mac") >= 0) || (os.indexOf("darwin") >= 0) -> OSType.MacOS
             os.indexOf("win") >= 0 -> OSType.Windows
@@ -60,9 +61,13 @@ object SystemInfo {
      *         (usually `32`- or `64`-Bit).
      */
     @JvmStatic
-    val architectureDataModel: UInt
-        @Contract(pure = true)
-        get() = this[ARCH_DATA_MODEL]!!.toUInt()
+    val architectureDataModel: UInt = this[ARCH_DATA_MODEL]!!.toUInt()
+
+    @JvmStatic
+    val userDirectoryPath: String = this[USER_HOME]!!
+
+    @JvmStatic
+    val userDirectory: File = File(this.userDirectoryPath)
 
 
     /**
@@ -101,7 +106,7 @@ object SystemInfo {
      * @see System.getProperty
      */
     @JvmStatic
-    operator fun get(key: String, defValue: String?): String? = System.getProperty(key, defValue)
+    operator fun get(key: String, defValue: String): String = System.getProperty(key, defValue)
 
     /**
      * Sets the system property indicated by the specified [key].

@@ -28,7 +28,7 @@ import java.awt.Dimension
 import java.awt.geom.Dimension2D
 
 class Dimension2Test : VectorTest {
-    private val implementations: Array<Dimension2> = arrayOf(
+    private val implementations: List<Dimension2> = listOf(
         Dimension2.Int(10, 20),
         Dimension2.Double(10.0, 20.0)
     )
@@ -114,5 +114,11 @@ class Dimension2Test : VectorTest {
             assertVectorBounds(impl)
         }
     }
+
+    @Test
+    override fun testVMap() = VectorTest.Automatic.testVMap(implementations)
+
+    @Test
+    override fun testVMapIndexed() = VectorTest.Automatic.testVMapIndexed(implementations)
 
 }

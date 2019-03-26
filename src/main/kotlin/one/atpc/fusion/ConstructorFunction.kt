@@ -22,14 +22,14 @@ package one.atpc.fusion
 import kotlin.reflect.KClass
 
 /**
- * An informative annotation type used to indicate that a function
+ * An informative annotation used to indicate that a function
  * is intended as a constructor for a type.
  * A function annotated as `ConstructorFunction` should have the
  * same name as the type it's creating.
  *
  * Constructor functions are useful for abstract types
  * that can't have a constructor (e.g. interfaces) but could
- * be conveniently created by one or for adding additional constructors
+ * be conveniently created by one, or for adding additional constructors
  * to classes without having to subclass them.
  *
  * **Example:**

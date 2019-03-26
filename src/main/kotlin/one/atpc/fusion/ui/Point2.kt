@@ -29,11 +29,15 @@ import java.awt.geom.Point2D
 interface Point2 : Vector2 {
 
     // Necessary to comply with Point2D
-    fun getX(): PxDouble
-    fun getY(): PxDouble
+    @Px
+    fun getX(): kotlin.Double
+    @Px
+    fun getY(): kotlin.Double
 
-    val intX: Px
-    val intY: Px
+    @Px
+    val intX: kotlin.Int
+    @Px
+    val intY: kotlin.Int
 
     override operator fun get(index: kotlin.Int) =
         when(index) {
@@ -55,21 +59,35 @@ interface Point2 : Vector2 {
     override fun copy(): Point2
 
 
+    override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
+        transform(getX()),
+        transform(getY())
+    )
+
+    override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+            = Point2.Double(
+        transform(0, getX()),
+        transform(1, getY())
+    )
+
+
     // Equals is built-in to the Point2D subtypes of Point2
 
     open class Int : Point2, Point {
 
         constructor() : super()
 
-        constructor(x: Px, y: Px) : super(x, y)
+        constructor(@Px x: kotlin.Int, @Px y: kotlin.Int) : super(x, y)
 
-        constructor(p: Pair<Px, Px>) : super(p.first, p.second)
+        constructor(@Px p: Pair<kotlin.Int, kotlin.Int>) : super(p.first, p.second)
 
         constructor(p: Point) : super(p)
 
-        override val intX: Px
+        @Px
+        override val intX: kotlin.Int
             get() = this.x
-        override val intY: Px
+        @Px
+        override val intY: kotlin.Int
             get() = this.y
 
 
@@ -105,21 +123,45 @@ interface Point2 : Vector2 {
 
         override fun copy(): Point2.Int = Point2.Int(this)
 
+
+        override fun toList(): List<kotlin.Int> = listOf(
+            this.x,
+            this.y
+        )
+
+        override fun toPair(): Pair<kotlin.Int, kotlin.Int> = Pair(
+            this.x,
+            this.y
+        )
+
+
+        inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
+            f(x),
+            f(y)
+        )
+
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Point2.Int = Point2.Int(
+            transform(0, x),
+            transform(1, y)
+        )
+
     }
 
     open class Double : Point2, Point2D.Double {
 
         constructor() : super()
 
-        constructor(x: PxDouble, y: PxDouble) : super(x, y)
+        constructor(@Px x: kotlin.Double, @Px y: kotlin.Double) : super(x, y)
 
-        constructor(p: Pair<PxDouble, PxDouble>) : super(p.first, p.second)
+        constructor(@Px p: Pair<kotlin.Double, kotlin.Double>) : super(p.first, p.second)
 
         constructor(p: Point2D.Double) : super(p.x, p.y)
 
-        override val intX: Px
+        @Px
+        override val intX: kotlin.Int
             get() = this.x.toInt()
-        override val intY: Px
+        @Px
+        override val intY: kotlin.Int
             get() = this.y.toInt()
 
 
@@ -132,6 +174,35 @@ interface Point2 : Vector2 {
 
 
         override fun copy(): Point2.Double = Point2.Double(this)
+
+
+        override fun toList(): List<kotlin.Double> = listOf(
+            this.x,
+            this.y
+        )
+
+        override fun toPair(): Pair<kotlin.Double, kotlin.Double> = Pair(
+            this.x,
+            this.y
+        )
+
+
+        override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Point2.Double = this.vmap0(transform)
+
+        // vmap0 is still relevant since it can be inlined
+        inline fun vmap0(f: (kotlin.Double) -> kotlin.Double): Point2.Double = Point2.Double(
+            f(x),
+            f(y)
+        )
+
+        override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+                = vmapIndexed0(transform)
+
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Point2.Double
+                = Point2.Double(
+            transform(0, x),
+            transform(1, y)
+        )
 
     }
 
@@ -153,17 +224,17 @@ fun Point2(p: Point2D): Point2 = Point2.Double(p.x, p.y)
 
 
 @ConstructorFunction(Point2::class)
-fun Point2(x: Px, y: Px): Point2.Int = Point2.Int(x, y)
+fun Point2(@Px x: kotlin.Int, @Px y: kotlin.Int): Point2.Int = Point2.Int(x, y)
 
 @ConstructorFunction(Point2::class)
-fun Point2(x: PxDouble, y: PxDouble): Point2.Double = Point2.Double(x, y)
+fun Point2(@Px x: kotlin.Double, @Px y: kotlin.Double): Point2.Double = Point2.Double(x, y)
 
 
 @ConstructorFunction(Point2::class)
-fun Point2(p: Pair<Px, Px>): Point2.Int = Point2.Int(p)
+fun Point2(@Px p: Pair<kotlin.Int, kotlin.Int>): Point2.Int = Point2.Int(p)
 
 @ConstructorFunction(Point2::class)
-fun Point2(p: Pair<PxDouble, PxDouble>): Point2.Double = Point2.Double(p)
+fun Point2(@Px p: Pair<kotlin.Double, kotlin.Double>): Point2.Double = Point2.Double(p)
 
 
 // Converter function ONLY for the commonly used AWT point class

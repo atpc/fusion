@@ -25,6 +25,8 @@ import one.atpc.fusion.ui.event.MouseListener
 import one.atpc.fusion.ui.event.MouseMotionListener
 import java.awt.Component
 import java.awt.event.*
+import javax.swing.JComboBox
+import javax.swing.JTextField
 
 // Component Event Extensions
 
@@ -73,4 +75,10 @@ fun <T : Component> T.onKeyTyped(action: (e: KeyEvent?) -> Unit)
 
 
 fun <T : AbstractButton> T.onActionPerformed(action: (e: ActionEvent?) -> Unit)
+        = this.addActionListener(action)
+
+fun <T : JTextField> T.onActionPerformed(action: (e: ActionEvent?) -> Unit)
+        = this.addActionListener(action)
+
+fun <E, T : JComboBox<E>> T.onActionPerformed(action: (e: ActionEvent?) -> Unit)
         = this.addActionListener(action)

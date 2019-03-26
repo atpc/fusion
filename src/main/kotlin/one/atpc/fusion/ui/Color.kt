@@ -102,7 +102,13 @@ open class Color : java.awt.Color {
         @JvmStatic
         fun hsva(h: Double, s: Double, v: Double, a: Double): one.atpc.fusion.ui.Color = this.hsva(h.toFloat(), s.toFloat(), v.toFloat(), a.toFloat())
 
+        @JvmField
+        val white = Color.rgb(0xffffffu)
+        @JvmField
+        val black = Color.rgb(0x000000u)
+
     }
+
 
     protected constructor(r: Int, g: Int, b: Int) : super(r, g, b)
 
@@ -117,6 +123,26 @@ open class Color : java.awt.Color {
     protected constructor(r: Float, g: Float, b: Float, a: Float) : super(r, g, b, a)
 
     constructor(cspace: ColorSpace, components: FloatArray, alpha: Float) : super(cspace, components, alpha)
+
+
+    /**
+     * Returns the RGBA value representing the color in the default `sRGB`
+     * [java.awt.image.ColorModel].
+     * (Bits `24-31` are `alpha`, `16-23` are `red`, `8-15` are `green`, `0-7` are
+     * `blue`).
+     * Hex representation: `0xAARRGGBB`.
+     *
+     * @return The RGBA value of the color in the default `sRGB`
+     *         `ColorModel`.
+     * @see java.awt.image.ColorModel.getRGBdefault
+     * @see getRed
+     * @see getGreen
+     * @see getBlue
+     */
+    val rgba: UInt get() = super.getRGB().toUInt()
+
+    @Deprecated(message = "getRGB() is ambiguous. Use rgba property instead.", replaceWith = ReplaceWith("rgba"))
+    override fun getRGB(): Int = super.getRGB()
 
 
     fun getRGBComponents(): FloatArray = this.getRGBComponents(null)

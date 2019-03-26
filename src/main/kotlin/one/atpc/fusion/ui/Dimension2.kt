@@ -32,16 +32,30 @@ interface Dimension2 : Vector2 {
     fun getWidth(): kotlin.Double
     fun getHeight(): kotlin.Double
 
-    val intWidth: Px
-    val intHeight: Px
+    @Px
+    val intWidth: kotlin.Int
+    @Px
+    val intHeight: kotlin.Int
 
     operator fun plus(d: Dimension2): Dimension2
 
     operator fun minus(d: Dimension2): Dimension2
 
-    // TODO times()
+    // TODO times(scalar)
 
     override fun copy(): Dimension2
+
+
+    override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
+        transform(getWidth()),
+        transform(getHeight())
+    )
+
+    override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+            = Dimension2.Double(
+        transform(0, getWidth()),
+        transform(1, getHeight())
+    )
 
 
     // Vector2 implementation
@@ -73,15 +87,17 @@ interface Dimension2 : Vector2 {
 
         constructor() : super()
 
-        constructor(width: Px, height: Px) : super(width, height)
+        constructor(@Px width: kotlin.Int, @Px height: kotlin.Int) : super(width, height)
 
-        constructor(d: Pair<Px, Px>) : super(d.first, d.second)
+        constructor(@Px d: Pair<kotlin.Int, kotlin.Int>) : super(d.first, d.second)
 
         constructor(d: Dimension) : super(d)
 
-        override val intWidth: Px
+        @Px
+        override val intWidth: kotlin.Int
             get() = this.width
-        override val intHeight: Px
+        @Px
+        override val intHeight: kotlin.Int
             get() = this.height
 
         override operator fun plus(d: Dimension2): Dimension2
@@ -102,7 +118,20 @@ interface Dimension2 : Vector2 {
         operator fun minus(d: Dimension): Dimension2.Int
                 = Dimension2.Int(this.width - d.width, this.height - d.height)
 
+
         override fun copy(): Dimension2.Int = Dimension2.Int(this.width, this.height)
+
+
+        override fun toList(): List<kotlin.Int> = listOf(
+            this.width,
+            this.height
+        )
+
+        override fun toPair(): Pair<kotlin.Int, kotlin.Int> = Pair(
+            this.width,
+            this.height
+        )
+
 
         override fun equals(other: Any?): Boolean {
             return when (other) {
@@ -116,13 +145,25 @@ interface Dimension2 : Vector2 {
         @Suppress("RemoveExplicitSuperQualifier")
         override fun hashCode(): kotlin.Int = super<Dimension>.hashCode()
 
+
+        inline fun vmap0(f: (kotlin.Int) -> kotlin.Int): Dimension2.Int = Dimension2.Int(
+            f(width),
+            f(height)
+        )
+
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Int) -> kotlin.Int): Dimension2.Int
+                = Dimension2.Int(
+            transform(0, width),
+            transform(1, height)
+        )
+
     }
 
-    open class Double(@JvmField var width: PxDouble, @JvmField var height: PxDouble) : Dimension2, Dimension2D() {
+    open class Double(@JvmField @Px var width: kotlin.Double, @JvmField @Px var height: kotlin.Double) : Dimension2, Dimension2D() {
 
         constructor() : this(0.0, 0.0)
 
-        constructor(d: Pair<PxDouble, PxDouble>) : this(d.first, d.second)
+        constructor(@Px d: Pair<kotlin.Double, kotlin.Double>) : this(d.first, d.second)
 
         constructor(d: Dimension2D) : this(d.width, d.height)
 
@@ -130,9 +171,11 @@ interface Dimension2 : Vector2 {
 
         override fun getHeight(): kotlin.Double = this.height
 
-        override val intWidth: Px
+        @Px
+        override val intWidth: kotlin.Int
             get() = this.width.toInt()
-        override val intHeight: Px
+        @Px
+        override val intHeight: kotlin.Int
             get() = this.height.toInt()
 
         override fun setSize(width: kotlin.Double, height: kotlin.Double) {
@@ -146,7 +189,20 @@ interface Dimension2 : Vector2 {
         override operator fun minus(d: Dimension2): Dimension2.Double
                 = Dimension2.Double(this.width - d.getWidth(), this.height - d.getHeight())
 
+
         override fun copy(): Dimension2.Double = Dimension2.Double(this.width, this.height)
+
+
+        override fun toList(): List<kotlin.Double> = listOf(
+            this.width,
+            this.height
+        )
+
+        override fun toPair(): Pair<kotlin.Double, kotlin.Double> = Pair(
+            this.width,
+            this.height
+        )
+
 
         override fun equals(other: Any?): Boolean {
             return when (other) {
@@ -158,6 +214,23 @@ interface Dimension2 : Vector2 {
         }
 
         override fun hashCode(): kotlin.Int = super.defaultHashCode()
+
+
+        override fun vmap(transform: (kotlin.Double) -> kotlin.Double): Dimension2.Double = this.vmap0(transform)
+
+        inline fun vmap0(f: (kotlin.Double) -> kotlin.Double): Dimension2.Double = Dimension2.Double(
+            f(width),
+            f(height)
+        )
+
+        override fun vmapIndexed(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+                = vmapIndexed0(transform)
+
+        inline fun vmapIndexed0(transform: (index: kotlin.Int, kotlin.Double) -> kotlin.Double): Dimension2.Double
+                = Dimension2.Double(
+            transform(0, width),
+            transform(1, height)
+        )
 
     }
 
@@ -177,17 +250,17 @@ fun Dimension2(d: Dimension2D): Dimension2
         = Dimension2.Double(d.width, d.height)
 
 @ConstructorFunction(Dimension2::class)
-fun Dimension2(width: Px, height: Px): Dimension2.Int = Dimension2.Int(width, height)
+fun Dimension2(@Px width: kotlin.Int, @Px height: kotlin.Int): Dimension2.Int = Dimension2.Int(width, height)
 
 @ConstructorFunction(Dimension2::class)
-fun Dimension2(width: PxDouble, height: PxDouble): Dimension2.Double = Dimension2.Double(width, height)
+fun Dimension2(@Px width: kotlin.Double, @Px height: kotlin.Double): Dimension2.Double = Dimension2.Double(width, height)
 
 
 @ConstructorFunction(Dimension2::class)
-fun Dimension2(d: Pair<Px, Px>): Dimension2.Int = Dimension2.Int(d)
+fun Dimension2(@Px d: Pair<kotlin.Int, kotlin.Int>): Dimension2.Int = Dimension2.Int(d)
 
 @ConstructorFunction(Dimension2::class)
-fun Dimension2(d: Pair<PxDouble, PxDouble>): Dimension2.Double = Dimension2.Double(d)
+fun Dimension2(@Px d: Pair<kotlin.Double, kotlin.Double>): Dimension2.Double = Dimension2.Double(d)
 
 
 // Dimension2 converter function ONLY for the commonly used AWT Dimension class

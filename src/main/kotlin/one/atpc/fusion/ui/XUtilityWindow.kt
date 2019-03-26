@@ -99,7 +99,7 @@ open class XUtilityWindow : XWindow {
         }
 
     // TODO Outsource moving logic later?
-    private inner class MoveController : MouseListener.Adapter(), MouseMotionListener.MouseDragged {
+    private inner class MoveController : MouseListener.Adapter, MouseMotionListener.MouseDragged {
         private var oldCursor: Cursor? = null
         private var lastPointerLocation: Point2.Int? = null
 

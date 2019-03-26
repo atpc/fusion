@@ -17,33 +17,32 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package one.atpc.fusion.util
+package one.atpc.fusion.ui.feature
 
-// Uncertain bit
-enum class UnBit {
-    FALSE {
-        override fun collapse(tendency: Boolean): Boolean = false
-    },
-    TRUE {
-        override fun collapse(tendency: Boolean): Boolean = true
-    },
-    UNCERTAIN {
-        override fun collapse(tendency: Boolean): Boolean = tendency
-    }
-    ;
+import one.atpc.fusion.ui.XTextField
+import one.atpc.fusion.ui.XFrame
+import one.atpc.fusion.ui.toDimension2
+import java.awt.FlowLayout
+import javax.swing.WindowConstants
 
-    abstract fun collapse(tendency: Boolean): Boolean
+object DemoUtils {
 
-    companion object {
+    @JvmStatic
+    internal fun makeTextFieldFrame(title: String): Pair<XFrame, XTextField> {
+        val frame = XFrame(title)
+        frame.layout = FlowLayout()
+        val textField = XTextField(10)
+        frame.add(textField)
 
-        @JvmStatic
-        fun of(value: Boolean?): UnBit = when (value) {
-            false -> FALSE
-            true -> TRUE
-            else -> UNCERTAIN
-        }
+        frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
 
+        frame.pack()
 
+        val size = frame.size.toDimension2()
+        frame.size = size + size    // TODO Dimension multiplication!
+        frame.setLocationToCenter()
+
+        return Pair(frame, textField)
     }
 
 }

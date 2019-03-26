@@ -91,6 +91,7 @@ public abstract class Keys extends KeyEvent {
         name2code = new HashMap<>();
     }
 
+    @Contract("null, _ -> fail; !null, null -> fail")
     synchronized void put(String name, Integer code) {
         assert (name != null) && (code != null);
         assert findName(code) == null;

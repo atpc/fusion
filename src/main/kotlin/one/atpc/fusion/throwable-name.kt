@@ -28,4 +28,13 @@ import org.jetbrains.annotations.Contract
  */
 val <T : Throwable> T.name: String
     @Contract(pure = true)
-    get() = this::class.simpleName!!    // Throw Kotlin NPE if null
+    get() = this::class.simpleName ?: "<Anonymous Exception>"
+
+/**
+ * The qualified name of the `Throwable` instance's class.
+ *
+ * @author Thomas Orlando
+ */
+val <T : Throwable> T.qualifiedName: String
+    @Contract(pure = true)
+    get() = this::class.qualifiedName ?: "<Anonymous Exception>"

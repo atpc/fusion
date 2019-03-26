@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent
 
 interface MouseListener : java.awt.event.MouseListener {
 
-    abstract class Adapter : MouseListener {
+    interface Adapter : MouseListener {
 
         override fun mouseEntered(e: MouseEvent?) = Unit
 
@@ -37,31 +37,32 @@ interface MouseListener : java.awt.event.MouseListener {
 
     }
 
-    class MouseEntered(private val onMouseEntered: (MouseEvent?) -> Unit) : Adapter() {
+
+    class MouseEntered(private val onMouseEntered: (MouseEvent?) -> Unit) : Adapter {
 
         override fun mouseEntered(e: MouseEvent?) = onMouseEntered(e)
 
     }
 
-    class MouseExited(private val onMouseExited: (MouseEvent?) -> Unit) : Adapter() {
+    class MouseExited(private val onMouseExited: (MouseEvent?) -> Unit) : Adapter {
 
         override fun mouseExited(e: MouseEvent?) = onMouseExited(e)
 
     }
 
-    class MousePressed(private val onMousePressed: (MouseEvent?) -> Unit) : Adapter() {
+    class MousePressed(private val onMousePressed: (MouseEvent?) -> Unit) : Adapter {
 
         override fun mousePressed(e: MouseEvent?) = onMousePressed(e)
 
     }
 
-    class MouseReleased(private val onMouseReleased: (MouseEvent?) -> Unit) : Adapter() {
+    class MouseReleased(private val onMouseReleased: (MouseEvent?) -> Unit) : Adapter {
 
         override fun mouseReleased(e: MouseEvent?) = onMouseReleased(e)
 
     }
 
-    class MouseClicked(private val onMouseClicked: (MouseEvent?) -> Unit) : Adapter() {
+    class MouseClicked(private val onMouseClicked: (MouseEvent?) -> Unit) : Adapter {
 
         override fun mouseClicked(e: MouseEvent?) = onMouseClicked(e)
 

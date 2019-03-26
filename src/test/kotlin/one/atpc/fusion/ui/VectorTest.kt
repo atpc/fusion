@@ -20,13 +20,14 @@
 package one.atpc.fusion.ui
 
 import one.atpc.fusion.assertThrown
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 interface VectorTest {
     companion object {
 
         @JvmStatic
-        fun assertVectorBounds(vector: Vector2) {
+        fun assertVectorBounds(vector: Vector) {
             // Make sure everything withing the vector bounds goes without complications
             for (i in 0 until vector.size) {
                 vector[i]
@@ -37,9 +38,50 @@ interface VectorTest {
             assertThrown<IndexOutOfBoundsException> { vector[vector.size] }
         }
 
+        @JvmStatic
+        fun testVMap(vector: Vector) {
+            val f = { x: Double -> x*x }
+
+            val result = vector.vmap(f)
+
+            vector.forEachIndexed { index, elem ->
+                assertEquals(f(elem), result[index], 0.0)
+            }
+        }
+
+        @JvmStatic
+        fun testVMapIndexed(vector: Vector) {
+            val g = { n: Int, x: Double -> n*x + x - n }
+
+            val result = vector.vmapIndexed(g)
+
+            vector.forEachIndexed { index, elem ->
+                assertEquals(g(index, elem), result[index], 0.0)
+            }
+        }
+
     }
+
+    object Automatic {
+
+        @JvmStatic
+        fun <T : Vector> testVMap(vectors: Iterable<T>)
+                = vectors.forEach(VectorTest.Companion::testVMap)
+
+        @JvmStatic
+        fun <T : Vector> testVMapIndexed(vectors: Iterable<T>)
+                = vectors.forEach(VectorTest.Companion::testVMapIndexed)
+
+    }
+
 
     @Test
     fun testXVectorImplementation()
+
+    @Test
+    fun testVMap()
+
+    @Test
+    fun testVMapIndexed()
 
 }

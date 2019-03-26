@@ -19,14 +19,22 @@
 
 package one.atpc.fusion.ui
 
-typealias Px = Int
-typealias PxDouble = Double
+import java.lang.annotation.Inherited
 
-typealias Dp = Double
-typealias DpInt = Int
+@MustBeDocumented
+@Inherited
+annotation class Px
 
-val density = Toolkit.getDefaultToolkit().multiScreenDensity
+@MustBeDocumented
+@Inherited
+annotation class Dp
 
-fun dp(dp: Dp): PxDouble = dp * density
 
-fun dpInt(dp: Dp): Px = (dp(dp) + 0.5).toInt()
+val screenDensity = Toolkit.getDefaultToolkit().multiScreenDensity
+
+
+@Px
+fun dp(@Dp dp: Double): Double = dp * screenDensity
+
+@Px
+fun dpInt(@Dp dp: Double): Int = (dp(dp) + 0.5).toInt()

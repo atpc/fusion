@@ -19,7 +19,7 @@
 
 package one.atpc.fusion.ui
 
-import one.atpc.fusion.util.UnBit
+import one.atpc.fusion.util.UnBool
 import javax.swing.JComponent
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -30,16 +30,18 @@ typealias SwingComponent = JComponent
 /**
  * The view description.
  * If the view is a control (subtype of [XControl]), the description should be **imperative**,
- * otherwise it should be **describing**. Take, for example, an instance of [XText]:
- * <br>
+ * otherwise it should be **describing**.
+ *
+ * Take, for example, an instance of [XText]:<p>
  * It's description of the text should only further describe it's **content**, or the gist of it.
  * An instance of [XButton], in contrast, is carrying out an action, so it's description
  * should describe it's **action** when activated by the user,
  * in the sense of _`"If you click this button, it will [description]"`_.
- * <br>
+ *
  * The description should not end with a dot.
  *
  * @see isDescriptionVisible
+ * @author Thomas Orlando
  */
 var <T : SwingComponent> T.description: String? by DescriptionDelegate()
 
@@ -49,6 +51,8 @@ var <T : SwingComponent> T.description: String? by DescriptionDelegate()
  * This means — in most cases — that the user will see a tooltip popping up
  * if the cursor highlights the component for a while.
  * If this property is `false`, the description will not be visible.
+ *
+ * @author Thomas Orlando
  */
 var <T : SwingComponent> T.isDescriptionVisible: Boolean by IsDescriptionVisibleDelegate<T>()
 
@@ -72,13 +76,13 @@ private class DescriptionDelegate<R : SwingComponent> : ReadWriteProperty<R, Str
 }
 
 private class IsDescriptionVisibleDelegate<R : SwingComponent> : ReadWriteProperty<R, Boolean> {
-    private var isDescriptionVisible: UnBit = UnBit.UNCERTAIN
+    private var isDescriptionVisible: UnBool = UnBool.UNCERTAIN
 
     override operator fun getValue(thisRef: R, property: KProperty<*>): Boolean
             = isDescriptionVisible.collapse(thisRef.isControl)
 
     override operator fun setValue(thisRef: R, property: KProperty<*>, value: Boolean) {
-        this.isDescriptionVisible = UnBit.of(value)
+        this.isDescriptionVisible = UnBool.of(value)
         // Update toolTipText
         thisRef.updateToolTipText()
     }

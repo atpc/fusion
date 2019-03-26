@@ -55,11 +55,10 @@ inline fun <reified T : Throwable> assertThrown(info: String? = null, function: 
 // assertNotThrown is only necessary for specified exceptions
 // (In the general case, a throw will just abort the test)
 inline fun <reified T : Throwable, R> assertThrownGeneric(info: String? = null, function: () -> R) {
-    val callResult = tryFunction(function)
-    val thrown: Throwable? = callResult.first
+    val (thrown: Throwable?, result) = tryFunction(function)
     // Ensure the exception is not null
     assertNotNull(
-        "No ${T::class.qualifiedName} was thrown! Call result: ${callResult.second}\n" +
+        "No ${T::class.qualifiedName} was thrown! Call result: $result\n" +
                 if (info != null) "Info:\t$info" else "",
         thrown
     )

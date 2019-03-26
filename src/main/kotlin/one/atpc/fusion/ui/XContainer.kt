@@ -20,6 +20,7 @@
 package one.atpc.fusion.ui
 
 import java.awt.Component
+import javax.swing.ComboBoxModel
 import javax.swing.Icon
 
 interface XContainer {
@@ -51,6 +52,45 @@ interface XContainer {
     fun button(icon: Icon): XButton = this.add(XButton(icon))
 
     fun button(text: String, icon: Icon): XButton = this.add(XButton(text, icon))
+
+
+    fun checkBox(icon: Icon): XCheckBox = this.add(XCheckBox(icon))
+
+    fun checkBox(icon: Icon, selected: Boolean): XCheckBox = this.add(XCheckBox(icon, selected))
+
+    fun checkBox(action: Action): XCheckBox = this.add(XCheckBox(action))
+
+    fun checkBox(text: String): XCheckBox = this.add(XCheckBox(text))
+
+    fun checkBox(text: String, selected: Boolean): XCheckBox = this.add(XCheckBox(text, selected))
+
+    fun checkBox(text: String, icon: Icon): XCheckBox = this.add(XCheckBox(text, icon))
+
+    fun checkBox(text: String, icon: Icon, selected: Boolean): XCheckBox = this.add(XCheckBox(text, icon, selected))
+
+
+    fun textField(): XTextField = this.add(XTextField())
+
+    fun textField(promptText: String) = this.add(XTextField(promptText))
+
+    fun textField(promptText: String, foreground: Color) = this.add(XTextField(promptText, foreground))
+
+    fun textField(promptText: String, foreground: Color, background: Color) = this.add(
+        XTextField(promptText, foreground, background)
+    )
+
+    fun textField(columns: Int) = this.add(XTextField(columns))
+
+    fun textField(columns: Int, promptText: String) = this.add(XTextField(columns, promptText))
+
+
+    fun <E> comboBox() = this.add(XComboBox<E>())
+
+    fun <E> comboBox(model: ComboBoxModel<E>) = this.add(XComboBox(model))
+
+    fun <E> comboBox(items: Array<E>) = this.add(XComboBox(items))
+
+    fun <E> comboBox(itemList: List<E>) = this.add(XComboBox(itemList))
 
 
     fun panel(): XPanel = this.add(XPanel())

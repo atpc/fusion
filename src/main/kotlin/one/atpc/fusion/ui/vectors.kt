@@ -28,7 +28,7 @@ import one.atpc.fusion.Copyable
  *
  * @author Thomas Orlando
  */
-interface Vector : Copyable {
+interface Vector : Copyable, Iterable<Double> {
 
     /**
      * The size (dimensions) of this vector.
@@ -39,9 +39,25 @@ interface Vector : Copyable {
 
     // Do not add operator functions like + and -,
     // it would be misleading if you could add e.g. Points and Dimensions together
-    // (strong types)
+    // (strong typing, Kotlin-style)
 
     override fun copy(): Vector
+
+    override fun iterator(): Iterator<Double> = object : Iterator<Double> {
+        private var index: Int = 0
+
+        override fun hasNext(): Boolean = index < this@Vector.size
+
+        override fun next(): Double = this@Vector[index++]
+    }
+
+
+    fun vmap(transform: (Double) -> Double): Vector
+
+    fun vmapIndexed(transform: (index: Int, Double) -> Double): Vector
+
+
+    fun toList(): List<Number>
 
 }
 
@@ -56,6 +72,13 @@ interface Vector2 : Vector {
 
     override fun copy(): Vector2
 
+    override fun vmap(transform: (Double) -> Double): Vector2
+
+    override fun vmapIndexed(transform: (index: Int, Double) -> Double): Vector2
+
+
+    fun toPair(): Pair<Number, Number>
+
 }
 
 /**
@@ -68,5 +91,9 @@ interface Vector4 : Vector {
     override val size: Int get() = 4
 
     override fun copy(): Vector4
+
+    override fun vmap(transform: (Double) -> Double): Vector4
+
+    override fun vmapIndexed(transform: (index: Int, Double) -> Double): Vector4
 
 }
