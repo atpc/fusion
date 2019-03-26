@@ -36,6 +36,9 @@ open class XFrame : JFrame, XScreenPlaceable, XContainer, XContainer.SwingImpl {
     constructor(title: String, gc: GraphicsConfiguration) : super(title, gc)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     override fun draw(g: XGraphics)
             = throw XException(UnsupportedOperationException("Method draw(XGraphics) is not supported in XFrame!"))
 

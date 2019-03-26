@@ -38,6 +38,9 @@ open class XText : JXLabel, XView, XView.SwingImpl {
     constructor(text: String?, horizontalAlignment: Int) : super(text, horizontalAlignment)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)

@@ -30,6 +30,9 @@ open class XPopupMenu : JPopupMenu, XView, XView.SwingImpl {
     constructor(label: String) : super(label)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     fun menu(text: String): XMenu = this.add(XMenu(text)) as XMenu
 
     fun menu(action: Action): XMenu = this.add(XMenu(action)) as XMenu

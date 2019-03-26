@@ -46,6 +46,9 @@ open class XSplitPane : JSplitPane, XView, XView.SwingImpl {
             : super(newOrientation, newContinuousLayout, newLeftComponent, newRightComponent)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     override fun draw(g: XGraphics) = super.paintComponent(g)
 
     final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)

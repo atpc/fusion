@@ -34,6 +34,9 @@ open class XMenu : JMenu, XView, XView.SwingImpl {
     constructor(text: String, tearOff: Boolean) : super(text, tearOff)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     fun menu(text: String): XMenu = this.add(XMenu(text)) as XMenu
 
     fun menu(action: Action): XMenu = this.add(XMenu(action)) as XMenu

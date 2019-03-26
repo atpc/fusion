@@ -20,8 +20,12 @@
 package one.atpc.fusion.ui
 
 import java.awt.Graphics
+import kotlin.reflect.KProperty
 
 interface XView {
+
+    var id: String?
+
 
     /**
      * Draws this view.
@@ -29,7 +33,6 @@ interface XView {
      * @param g The [XGraphics] object to draw this view.
      */
     fun draw(g: XGraphics)
-
 
     /**
      * Redraws this view.
@@ -62,6 +65,22 @@ interface XView {
      * @see draw
      */
     fun redraw(delay: Long, rect: Rectangle4)
+
+
+
+    class IdDelegate {
+        private var _id: String? = null
+
+        operator fun getValue(thisRef: XView, property: KProperty<*>): String?
+                = _id
+
+        operator fun setValue(thisRef: XView, property: KProperty<*>, value: String?) {
+            if (_id == null)
+                this._id = value
+            else
+                throw XException(IllegalStateException("ID can only be set once!"))
+        }
+    }
 
 
     interface SwingImpl : XView {

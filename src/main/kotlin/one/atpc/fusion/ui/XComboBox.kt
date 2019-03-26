@@ -35,6 +35,9 @@ open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
     constructor() : this(FusionComboBoxModel())
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     /**
      * Returns the current selected item.
      * <p>

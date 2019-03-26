@@ -38,6 +38,9 @@ open class XMenuItem : JMenuItem, XControl, XView.SwingImpl {
     constructor(text: String, mnemonic: Int) : super(text, mnemonic)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     /**
      * The keyboard shortcut (key combination) for this control.
      * Note that when the keyboard shortcut is typed,

@@ -37,6 +37,9 @@ open class XWindow : JWindow, XScreenPlaceable, XContainer, XContainer.SwingImpl
     constructor(owner: Window, gc: GraphicsConfiguration) : super(owner, gc)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     override fun draw(g: XGraphics)
             = throw XException(UnsupportedOperationException("Method draw(XGraphics) is not supported in XWindow!"))
 

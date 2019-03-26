@@ -37,6 +37,9 @@ open class XButton : JXButton, XControl, XView.SwingImpl {
     constructor(text: String, icon: Icon) : super(text, icon)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     override var keyShortcut: KeyStroke?
         get() = this.action[Action.ACCELERATOR_KEY]
         set(value) {

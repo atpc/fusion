@@ -24,6 +24,9 @@ import javax.swing.JMenuBar
 
 open class XMenuBar : JMenuBar(), XView, XView.SwingImpl {
 
+    override var id: String? by XView.IdDelegate()
+
+
     fun menu(text: String): XMenu = this.add(XMenu(text)) as XMenu
 
     fun menu(action: Action): XMenu = this.add(XMenu(action)) as XMenu

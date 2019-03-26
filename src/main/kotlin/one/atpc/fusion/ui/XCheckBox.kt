@@ -42,6 +42,9 @@ open class XCheckBox : JCheckBox, XControl, XView.SwingImpl {
     constructor(text: String, icon: Icon, selected: Boolean) : super(text, icon, selected)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     // No keyShortcut (Unnecessary).
 
 

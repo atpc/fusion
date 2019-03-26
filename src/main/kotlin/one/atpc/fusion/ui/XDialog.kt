@@ -62,6 +62,9 @@ open class XDialog : JDialog, XScreenPlaceable, XContainer, XContainer.SwingImpl
     constructor(owner: Window, title: String, modalityType: ModalityType, gc: GraphicsConfiguration) : super(owner, title, modalityType, gc)
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     override fun draw(g: XGraphics)
             = throw XException(UnsupportedOperationException("Method draw(XGraphics) is not supported in XDialog!"))
 

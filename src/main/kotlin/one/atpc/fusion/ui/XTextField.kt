@@ -43,11 +43,13 @@ open class XTextField : JXTextField, XControl, XView.SwingImpl, XEnhanceable<XTe
     }
 
 
+    override var id: String? by XView.IdDelegate()
+
+
     // No keyShortcut (Unnecessary).
 
 
     final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
-
 
 
     private val enhancer: DefaultEnhancer<XTextField> = DefaultEnhancer(this)

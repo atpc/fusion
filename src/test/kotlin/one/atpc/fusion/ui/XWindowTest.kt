@@ -46,6 +46,8 @@ class XWindowTest : XContainerTest {
 }
 
 private val dummyXView = object : XView {
+    override var id: String? by XView.IdDelegate()
+
     override fun draw(g: XGraphics) = Unit
 
     override fun redraw() = Unit

@@ -24,6 +24,9 @@ import javax.swing.JPanel
 
 open class XPanel : JPanel(), XContainer, XContainer.SwingImpl {
 
+    override var id: String? by XView.IdDelegate()
+
+
     final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
