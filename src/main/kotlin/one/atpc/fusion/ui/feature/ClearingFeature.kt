@@ -109,6 +109,10 @@ open class ClearingFeature : Feature<JTextComponent>(), MouseListener.Adapter, M
         }
     }
 
+    override fun mouseExited(e: MouseEvent?) = synchronized(this) {
+        changeState(State.IDLE)
+    }
+
 
     private fun changeState(newState: State) {
         // Allow all transitions, but only if the state has actually changed
