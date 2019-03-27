@@ -56,8 +56,11 @@ open class ClearingFeature : Feature<JTextComponent>(), MouseListener.Adapter, M
         val intMargin = margin.roundToInt()
         bounds.x -= intMargin
         bounds.width += intMargin
-        // Fill
+        // Fill the bounds
         g.fill(bounds)
+
+
+        // Draw the button:
 
         // Create small rectangle
         val rectStart = width-margin-rectEdge
