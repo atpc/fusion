@@ -33,6 +33,8 @@ interface XContainer {
      */
     fun <T : XView> add(view: T): T
 
+    fun <T : XView> findViewById(id: String): T?
+
 
     fun text(text: String): XText = this.add(XText(text))
 
@@ -112,6 +114,20 @@ interface XContainer {
             catch (e: ClassCastException) {
                 throw XException("Could not add view: Not a subtype of Component!", e)
             }
+        }
+
+        fun getComponents(): Array<out Component>
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : XView> findViewById(id: String): T? {
+            var found: T? = null
+            for (component in this.getComponents()) {
+                if (component is XView) {
+                    if (component.id == id)
+                        found = component as T
+                }
+            }
+            return found
         }
 
     }
