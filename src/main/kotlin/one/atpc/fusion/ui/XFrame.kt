@@ -25,7 +25,7 @@ import javax.swing.JFrame
 import javax.swing.JMenuBar
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-open class XFrame : JFrame, XScreenPlaceable, XContainer, XContainer.SwingImpl {
+open class XFrame : JFrame, XScreenPlaceable, XContainer, XContainer.SwingContainer {
 
     constructor() : super()
 

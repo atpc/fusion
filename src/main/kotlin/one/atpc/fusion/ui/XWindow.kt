@@ -24,7 +24,7 @@ import java.awt.GraphicsConfiguration
 import java.awt.Window
 import javax.swing.JWindow
 
-open class XWindow : JWindow, XScreenPlaceable, XContainer, XContainer.SwingImpl {
+open class XWindow : JWindow, XScreenPlaceable, XContainer, XContainer.SwingContainer {
 
     constructor() : super()
 

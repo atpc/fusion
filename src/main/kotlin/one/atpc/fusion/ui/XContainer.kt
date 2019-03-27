@@ -98,9 +98,9 @@ interface XContainer {
     fun panel(): XPanel = this.add(XPanel())
 
 
-    interface SwingImpl : XContainer, XView.SwingView {
+    interface SwingContainer : XContainer, XView.SwingView {
 
-        // TODO The SwingImpl could also provide construction methods for not yet implemented components
+        // TODO The SwingContainer could also provide construction methods for not yet implemented components
         // (Only exist as typealias)
 
 

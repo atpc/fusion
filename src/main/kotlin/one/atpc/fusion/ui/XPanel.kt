@@ -22,7 +22,7 @@ package one.atpc.fusion.ui
 import java.awt.Graphics
 import javax.swing.JPanel
 
-open class XPanel : JPanel(), XContainer, XContainer.SwingImpl {
+open class XPanel : JPanel(), XContainer, XContainer.SwingContainer {
 
     override var id: String? by XView.IdDelegate()
 
