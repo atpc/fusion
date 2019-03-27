@@ -23,7 +23,7 @@ import org.jdesktop.swingx.JXLabel
 import java.awt.Graphics
 import javax.swing.Icon
 
-open class XText : JXLabel, XView, XView.SwingImpl {
+open class XText : JXLabel, XView, XView.SwingView {
 
     constructor() : super()
 
@@ -41,7 +41,7 @@ open class XText : JXLabel, XView, XView.SwingImpl {
     override var id: String? by XView.IdDelegate()
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

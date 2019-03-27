@@ -83,7 +83,7 @@ interface XView {
     }
 
 
-    interface SwingImpl : XView {
+    interface SwingView : XView {
 
         fun repaint()
 

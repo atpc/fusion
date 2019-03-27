@@ -22,12 +22,12 @@ package one.atpc.fusion.ui
 import java.awt.Graphics
 import javax.swing.JComponent
 
-open class XComponent : JComponent(), XView, XView.SwingImpl {
+open class XComponent : JComponent(), XView, XView.SwingView {
 
     override var id: String? by XView.IdDelegate()
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

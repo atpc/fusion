@@ -23,7 +23,7 @@ import java.awt.Graphics
 import javax.swing.Icon
 import javax.swing.JMenuItem
 
-open class XMenuItem : JMenuItem, XControl, XView.SwingImpl {
+open class XMenuItem : JMenuItem, XControl, XView.SwingView {
 
     constructor() : super()
 
@@ -54,7 +54,7 @@ open class XMenuItem : JMenuItem, XControl, XView.SwingImpl {
         }
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

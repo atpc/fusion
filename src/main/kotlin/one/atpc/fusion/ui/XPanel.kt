@@ -27,7 +27,7 @@ open class XPanel : JPanel(), XContainer, XContainer.SwingImpl {
     override var id: String? by XView.IdDelegate()
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

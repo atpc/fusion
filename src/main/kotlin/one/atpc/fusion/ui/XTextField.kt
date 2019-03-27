@@ -24,7 +24,7 @@ import org.jdesktop.swingx.JXTextField
 import java.awt.Graphics
 import kotlin.reflect.KClass
 
-open class XTextField : JXTextField, XControl, XView.SwingImpl, XEnhanceable<XTextField> {
+open class XTextField : JXTextField, XControl, XView.SwingView, XEnhanceable<XTextField> {
 
     constructor() : super()
 
@@ -49,7 +49,7 @@ open class XTextField : JXTextField, XControl, XView.SwingImpl, XEnhanceable<XTe
     // No keyShortcut (Unnecessary).
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
 
     private val enhancer: DefaultEnhancer<XTextField> = DefaultEnhancer(this)

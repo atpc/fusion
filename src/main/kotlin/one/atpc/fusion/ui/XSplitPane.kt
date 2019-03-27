@@ -24,7 +24,7 @@ import java.awt.Component
 import java.awt.Graphics
 import javax.swing.JSplitPane
 
-open class XSplitPane : JSplitPane, XView, XView.SwingImpl {
+open class XSplitPane : JSplitPane, XView, XView.SwingView {
 
     constructor() : super()
 
@@ -51,7 +51,7 @@ open class XSplitPane : JSplitPane, XView, XView.SwingImpl {
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
 
     companion object {

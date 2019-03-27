@@ -24,7 +24,7 @@ import javax.swing.ComboBoxModel
 import javax.swing.JComboBox
 
 // Does not extend JXComboBox (for various reasons)
-open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
+open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingView {
 
     constructor(model: ComboBoxModel<E>) : super(model)
 
@@ -57,7 +57,7 @@ open class XComboBox<E> : JComboBox<E>, XControl, XView.SwingImpl {
     // No keyShortcut (Unnecessary, since this is an input component).
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

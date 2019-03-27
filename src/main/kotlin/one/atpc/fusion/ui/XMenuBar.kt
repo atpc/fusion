@@ -22,7 +22,7 @@ package one.atpc.fusion.ui
 import java.awt.Graphics
 import javax.swing.JMenuBar
 
-open class XMenuBar : JMenuBar(), XView, XView.SwingImpl {
+open class XMenuBar : JMenuBar(), XView, XView.SwingView {
 
     override var id: String? by XView.IdDelegate()
 
@@ -32,7 +32,7 @@ open class XMenuBar : JMenuBar(), XView, XView.SwingImpl {
     fun menu(action: Action): XMenu = this.add(XMenu(action)) as XMenu
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

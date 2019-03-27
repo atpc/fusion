@@ -23,7 +23,7 @@ import java.awt.Graphics
 import javax.swing.Icon
 import javax.swing.JCheckBox
 
-open class XCheckBox : JCheckBox, XControl, XView.SwingImpl {
+open class XCheckBox : JCheckBox, XControl, XView.SwingView {
 
     constructor() : super()
 
@@ -48,7 +48,7 @@ open class XCheckBox : JCheckBox, XControl, XView.SwingImpl {
     // No keyShortcut (Unnecessary).
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

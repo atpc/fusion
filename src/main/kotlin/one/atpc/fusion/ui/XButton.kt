@@ -24,7 +24,7 @@ import java.awt.Graphics
 import javax.swing.Action
 import javax.swing.Icon
 
-open class XButton : JXButton, XControl, XView.SwingImpl {
+open class XButton : JXButton, XControl, XView.SwingView {
 
     constructor() : super()
 
@@ -58,7 +58,7 @@ open class XButton : JXButton, XControl, XView.SwingImpl {
     }
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 

@@ -23,7 +23,7 @@ import java.awt.Graphics
 import javax.swing.Icon
 import javax.swing.JMenu
 
-open class XMenu : JMenu, XView, XView.SwingImpl {
+open class XMenu : JMenu, XView, XView.SwingView {
 
     constructor() : super()
 
@@ -53,7 +53,7 @@ open class XMenu : JMenu, XView, XView.SwingImpl {
     fun item(text: String, mnemonic: Int): XMenuItem = this.add(XMenuItem(text, mnemonic)) as XMenuItem
 
 
-    final override fun paintComponent(g: Graphics?) = XView.SwingImpl.paintComponent(this, g)
+    final override fun paintComponent(g: Graphics?) = XView.SwingView.paintComponent(this, g)
 
     override fun draw(g: XGraphics) = super.paintComponent(g)
 
