@@ -24,6 +24,7 @@ import kotlin.reflect.KProperty
 
 interface XView {
 
+    // ID can only be set when it's null (only once)
     var id: String?
 
 
@@ -68,13 +69,13 @@ interface XView {
 
 
 
-    class IdDelegate {
+    open class IdDelegate {
         private var _id: String? = null
 
-        operator fun getValue(thisRef: XView, property: KProperty<*>): String?
+        open operator fun getValue(thisRef: XView, property: KProperty<*>): String?
                 = _id
 
-        operator fun setValue(thisRef: XView, property: KProperty<*>, value: String?) {
+        open operator fun setValue(thisRef: XView, property: KProperty<*>, value: String?) {
             if (_id == null)
                 this._id = value
             else
