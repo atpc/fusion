@@ -17,7 +17,7 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package one.atpc.fusion.ui.css
+package one.atpc.fusion.ui.style.css
 
 private val splitters = arrayOf('{', '}', ',', ';', ':', ' ', '\t', '\n')
 
