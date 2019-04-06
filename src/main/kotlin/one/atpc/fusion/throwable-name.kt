@@ -17,6 +17,8 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("ThrowableUtils")
+
 package one.atpc.fusion
 
 import org.jetbrains.annotations.Contract

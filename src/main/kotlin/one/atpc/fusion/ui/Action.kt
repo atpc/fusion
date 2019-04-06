@@ -17,6 +17,8 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("ActionUtils")
+
 package one.atpc.fusion.ui
 
 import javax.swing.Icon

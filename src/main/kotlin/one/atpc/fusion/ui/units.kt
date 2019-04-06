@@ -17,6 +17,8 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("Units")
+
 package one.atpc.fusion.ui
 
 import java.lang.annotation.Inherited
