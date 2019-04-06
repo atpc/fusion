@@ -18,6 +18,7 @@
  */
 
 @file:Suppress("FunctionName")
+@file:JvmName("FontUtils")
 
 package one.atpc.fusion.ui
 

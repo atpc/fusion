@@ -17,6 +17,8 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("Fusion")
+
 package one.atpc.fusion
 
 import one.atpc.fusion.util.OSType

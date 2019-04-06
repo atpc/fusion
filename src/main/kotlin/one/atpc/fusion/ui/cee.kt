@@ -17,6 +17,8 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("CEE")
+
 package one.atpc.fusion.ui
 
 import one.atpc.fusion.ui.event.FocusListener
