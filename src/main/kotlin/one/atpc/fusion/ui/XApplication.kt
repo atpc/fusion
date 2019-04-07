@@ -22,6 +22,7 @@ package one.atpc.fusion.ui
 import one.atpc.fusion.Application
 import one.atpc.fusion.FatalException
 import one.atpc.fusion.name
+import one.atpc.fusion.util.autocatch
 import one.atpc.fusion.util.handleException
 import java.awt.Container
 import java.awt.event.WindowAdapter
@@ -143,7 +144,9 @@ private class XApplicationContainer(application: XApplication, closingEventHandl
 
         // Set look and feel, before packing
         if (application.uiConfig.lookAndFeel != XApplication.UIConfiguration.DEFAULT_LAF) {
-            UIManager.setLookAndFeel(application.uiConfig.lookAndFeel)
+            autocatch {
+                UIManager.setLookAndFeel(application.uiConfig.lookAndFeel)
+            }
             SwingUtilities.updateComponentTreeUI(this)
         }
 
