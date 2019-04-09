@@ -19,14 +19,20 @@
 
 package one.atpc.fusion.ui.style.css
 
-private val splitters = arrayOf('{', '}', ',', ';', ':', ' ', '\t', '\n')
+private val splitters: CharArray = charArrayOf('{', '}', ',', ';', ':', ' ', '\t', '\n')
 
-internal fun tokenize(text: String) {
-    // TODO tokenize (recursive & functional)
+internal tailrec fun tokenize(text: String, tokens: List<String> = emptyList()): List<String> {
+    // Find the first splitter
+    val splitterIndex = text.indexOfAny(splitters)
+
+    return if (splitterIndex == -1)
+        listOf(text)
+    else
+        tokenize(
+            text = text.substring(splitterIndex+1),
+            tokens = tokens + listOf(
+                text.substring(0, splitterIndex),
+                text[splitterIndex].toString()
+            )
+        )
 }
-
-private typealias Token = String
-
-/*private fun tokenize0(tokens: List<Token>, remaining: String): List<Token> {
-
-}*/
