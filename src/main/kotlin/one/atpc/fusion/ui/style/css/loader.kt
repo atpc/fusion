@@ -17,22 +17,16 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("CSSLoader")
+
 package one.atpc.fusion.ui.style.css
 
-private val splitters: CharArray = charArrayOf('{', '}', ',', ';', ':', ' ', '\t', '\n')
+import java.io.File
+import java.nio.charset.Charset
 
-internal tailrec fun tokenize(text: String, tokens: List<String> = emptyList()): List<String> {
-    // Find the first splitter
-    val splitterIndex = text.indexOfAny(splitters)
-
-    return if (splitterIndex == -1)
-        tokens + listOf(text)
-    else
-        tokenize(
-            text = text.substring(splitterIndex+1),
-            tokens = tokens + listOf(
-                text.substring(0, splitterIndex),
-                text[splitterIndex].toString()
-            )
-        )
+// TODO Stub
+fun loadCSS(file: File, charset: Charset? = null) {
+    val text = if (charset != null) file.readText(charset) else file.readText()
+    val tokens = tokenize(text)
+    val result = parse(tokens)
 }
