@@ -22,6 +22,7 @@ package one.atpc.fusion.ui.style
 class Style
 @JvmOverloads constructor(
     private val parent: Style? = null,
+    @JvmField val children: List<Style> = emptyList(),
     /**
      * **See also:**
      *
