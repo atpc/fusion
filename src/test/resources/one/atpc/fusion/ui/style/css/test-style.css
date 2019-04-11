@@ -1,0 +1,13 @@
+AbstractButton {
+    border-color: black;
+    background-color: white;
+    text-color: black;
+}
+
+.meta-button:hover {
+    background-color: gray;
+}
+
+#cancel {
+    background-color: firebrick;
+}
