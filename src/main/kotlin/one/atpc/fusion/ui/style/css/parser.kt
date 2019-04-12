@@ -19,6 +19,8 @@
 
 package one.atpc.fusion.ui.style.css
 
+import one.atpc.fusion.util.get
+
 internal fun parse(tokens: List<String>) {
     val blocks = splitToBlocks(cleanTokens(tokens))
     // TODO Build a selector dependency graph and apply the style graph along
@@ -82,7 +84,3 @@ private tailrec fun splitToLines(tokens: List<String>, lines: List<List<String>>
             lines + lines.subList(0, firstSemicolonIndex)
         )
 }
-
-
-// TODO Move to util
-private operator fun <T> List<T>.get(slice: IntRange): List<T> = this.slice(slice)
