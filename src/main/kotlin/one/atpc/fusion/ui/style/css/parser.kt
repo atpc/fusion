@@ -33,19 +33,19 @@ private val WHITESPACES = listOf(" ", "\t", "\n")
 private fun cleanTokens(tokens: List<String>): List<String> = tokens.filter { t -> t in WHITESPACES }
 
 
-private data class DeclarationBlock(val selectors: List<String>,
-                                    val declarations: List<List<String>>) {
+private data class StyleBlock(val selectors: List<String>,
+                              val declarations: List<List<String>>) {
 
     companion object {
 
-        fun fromTokens(tokens: List<String>): DeclarationBlock {
+        fun fromTokens(tokens: List<String>): StyleBlock {
             val blockStartIndex = tokens.indexOf(BLOCK_START)
             val blockEndIndex = tokens.lastIndexOf(BLOCK_END)
 
             val selectors = tokens.subList(0, blockStartIndex)
             val declarations = splitToLines(tokens.subList(blockStartIndex+1, blockEndIndex))
 
-            return DeclarationBlock(selectors, declarations)
+            return StyleBlock(selectors, declarations)
         }
 
     }
@@ -58,7 +58,7 @@ private const val BLOCK_END = "}"
 private const val LINE_SEPARATOR = ";"
 
 private tailrec fun splitToBlocks(tokens: List<String>,
-                                  blockList: List<DeclarationBlock> = emptyList()): List<DeclarationBlock> {
+                                  blockList: List<StyleBlock> = emptyList()): List<StyleBlock> {
     // Get first block end (Use block ends as indicators)
     val firstBlockEnd = tokens.indexOf(BLOCK_END)
 
@@ -68,7 +68,7 @@ private tailrec fun splitToBlocks(tokens: List<String>,
     else
         splitToBlocks(
             tokens.subList(firstBlockEnd+1, tokens.size),
-            blockList + DeclarationBlock.fromTokens(tokens[0..firstBlockEnd])
+            blockList + StyleBlock.fromTokens(tokens[0..firstBlockEnd])
         )
 }
 
