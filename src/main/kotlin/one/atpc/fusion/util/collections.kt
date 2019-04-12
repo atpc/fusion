@@ -29,3 +29,21 @@ package one.atpc.fusion.util
  * @author Thomas Orlando
  */
 operator fun <T> List<T>.get(indices: IntRange): List<T> = this.slice(indices)
+
+
+fun <T> List<T>.split(delimiter: T): List<List<T>> = split0(delimiter, this)
+
+private tailrec fun <T> split0(delimiter: T, remaining: List<T>, parts: List<List<T>> = emptyList()): List<List<T>> {
+    // Find first occurrence of delimiter
+    val firstDelimiterIndex = remaining.indexOf(delimiter)
+
+    return if (firstDelimiterIndex == -1)
+        // Finished (no separating element => no parts left)
+        parts
+    else
+        split0(
+            delimiter = delimiter,
+            remaining = remaining.subList(firstDelimiterIndex+1, remaining.size),
+            parts = parts + listOf(remaining.subList(0, firstDelimiterIndex))
+        )
+}
