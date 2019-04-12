@@ -80,7 +80,9 @@ private tailrec fun splitToLines(tokens: List<String>, lines: List<List<String>>
         lines
     else
         splitToLines(
-            tokens.subList(firstSemicolonIndex+1, tokens.size),
-            lines + lines.subList(0, firstSemicolonIndex)
+            // Apply the function again to the part of the tokens after the semicolon
+            tokens = tokens.subList(firstSemicolonIndex+1, tokens.size),
+            // Add the section of the tokens until the semicolon to the lines list
+            lines = lines + listOf(tokens.subList(0, firstSemicolonIndex))
         )
 }
