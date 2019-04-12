@@ -20,6 +20,7 @@
 package one.atpc.fusion.ui.style.css
 
 import one.atpc.fusion.util.get
+import one.atpc.fusion.util.split
 
 internal fun parse(tokens: List<String>) {
     val blocks = splitToBlocks(cleanTokens(tokens))
@@ -71,18 +72,4 @@ private tailrec fun splitToBlocks(tokens: List<String>,
         )
 }
 
-private tailrec fun splitToLines(tokens: List<String>, lines: List<List<String>> = emptyList()): List<List<String>> {
-    // Collect lines
-    val firstSemicolonIndex = tokens.indexOf(LINE_SEPARATOR)
-
-    return if (firstSemicolonIndex == -1)
-        // Finished (no semicolon => no lines left)
-        lines
-    else
-        splitToLines(
-            // Apply the function again to the part of the tokens after the semicolon
-            tokens = tokens.subList(firstSemicolonIndex+1, tokens.size),
-            // Add the section of the tokens until the semicolon to the lines list
-            lines = lines + listOf(tokens.subList(0, firstSemicolonIndex))
-        )
-}
+private fun splitToLines(tokens: List<String>): List<List<String>> = tokens.split(LINE_SEPARATOR)
