@@ -89,10 +89,8 @@ private tailrec fun splitToBlocks(tokens: List<String>,
 private fun splitToLines(tokens: List<String>): List<List<String>> = tokens.split(LINE_SEPARATOR)
 
 private fun toDeclaration(line: List<String>): StyleDeclaration {
-    if (line.isEmpty()) {
-        println("Empty line!")
-        return StyleDeclaration(emptyList(), emptyList())
-    }
+    if (line.isEmpty())
+        throw IllegalArgumentException("Declaration line is empty!")
 
     val declarationParts = line.split(DECLARATION_SEPARATOR)
 
