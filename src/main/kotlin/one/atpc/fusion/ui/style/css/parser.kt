@@ -29,7 +29,7 @@ internal fun parse(tokens: List<String>): String {
 }
 
 
-internal /*private*/ fun cleanTokens(tokens: List<String>): List<String> = tokens.filter { t -> t.isNotBlank() }
+private fun cleanTokens(tokens: List<String>): List<String> = tokens.filter { t -> t.isNotBlank() }
 
 
 private data class StyleBlock(val selectors: List<String>,
