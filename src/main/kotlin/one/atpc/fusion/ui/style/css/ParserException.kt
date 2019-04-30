@@ -17,27 +17,12 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@file:JvmName("CSSLoader")
-
 package one.atpc.fusion.ui.style.css
 
-import one.atpc.fusion.util.toString
-import java.io.File
-import java.io.InputStream
-import java.nio.charset.Charset
+class ParserException : Exception {
 
-// TODO Stub
-fun loadCSS(file: File, charset: Charset? = null) = loadCSS(
-    if (charset != null) file.readText(charset) else file.readText()
-)
+    constructor(message: String) : super(message)
 
-fun loadCSS(inputStream: InputStream, charset: Charset? = null) = loadCSS(
-    if (charset != null) toString(inputStream, charset) else toString(inputStream)
-)
+    constructor(message: String, cause: Throwable) : super(message, cause)
 
-fun loadCSS(text: String) {
-    val tokens = tokenize(text)
-    val result = parse(tokens)
-    // Write to log file
-    File("loader.log").writeText(result)
 }

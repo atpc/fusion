@@ -17,27 +17,28 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@file:JvmName("CSSLoader")
+@file:JvmName("IOUtils")
 
-package one.atpc.fusion.ui.style.css
+package one.atpc.fusion.util
 
-import one.atpc.fusion.util.toString
-import java.io.File
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
 
-// TODO Stub
-fun loadCSS(file: File, charset: Charset? = null) = loadCSS(
-    if (charset != null) file.readText(charset) else file.readText()
-)
+@Throws(IOException::class)
+fun toString(inputStream: InputStream, encoding: Charset = Charsets.UTF_8): String {
+    ByteArrayOutputStream().use { result ->
+        val buffer = ByteArray(1024)
 
-fun loadCSS(inputStream: InputStream, charset: Charset? = null) = loadCSS(
-    if (charset != null) toString(inputStream, charset) else toString(inputStream)
-)
+        // Read initial section
+        var length: Int = inputStream.read(buffer)
+        while (length != -1) {
+            result.write(buffer, 0, length)
+            // Read next part
+            length = inputStream.read(buffer)
+        }
 
-fun loadCSS(text: String) {
-    val tokens = tokenize(text)
-    val result = parse(tokens)
-    // Write to log file
-    File("loader.log").writeText(result)
+        return result.toString(encoding.name())
+    }
 }
