@@ -122,7 +122,7 @@ configure<PublishingExtension> {
 }
 
 
-val kotlinCompilerArgs = arrayOf("-Xuse-experimental=kotlin.ExperimentalUnsignedTypes")
+val kotlinCompilerArgs = arrayOf("-Xuse-experimental=kotlin.ExperimentalUnsignedTypes", "-XXLanguage:+InlineClasses")
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
