@@ -24,6 +24,8 @@ open class StyleBuilder {
 
     operator fun get(property: String): String? = declarationMap[property]
 
+    operator fun get(property: String, defValue: String): String = this[property] ?: defValue
+
     operator fun set(property: String, value: String?): StyleBuilder {
         declarationMap[property] = value
         return this

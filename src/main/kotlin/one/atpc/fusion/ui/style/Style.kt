@@ -25,4 +25,8 @@ class Style constructor(
 
     private val declarationMap: Map<String, String?> = declarations.toMap()
 
+    operator fun get(property: String): String? = declarationMap[property]
+
+    operator fun get(property: String, defValue: String): String = this[property] ?: defValue
+    
 }
