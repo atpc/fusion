@@ -19,22 +19,16 @@
 
 package one.atpc.fusion.ui.style
 
-open class StyleBuilder @JvmOverloads constructor(parent: Style? = null, vararg selectors: String) {
-    private val ruleMap: MutableMap<String, String?> = hashMapOf()
+open class StyleBuilder {
+    private val declarationMap: MutableMap<String, String?> = hashMapOf()
 
-    val children: MutableList<Style> = ArrayList()
+    operator fun get(property: String): String? = declarationMap[property]
 
-    /**
-     * @see Style.selectors
-     */
-    @JvmField
-    val selectors: MutableList<String> = arrayListOf(*selectors)
-
-    operator fun get(rule: String): String? = ruleMap[rule]
-
-    operator fun set(rule: String, value: String?): StyleBuilder {
-        ruleMap[rule] = value
+    operator fun set(property: String, value: String?): StyleBuilder {
+        declarationMap[property] = value
         return this
     }
+
+    fun toStyle(): Style = Style(declarationMap)
 
 }

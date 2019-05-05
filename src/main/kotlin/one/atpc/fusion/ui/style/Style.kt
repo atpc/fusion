@@ -19,25 +19,10 @@
 
 package one.atpc.fusion.ui.style
 
-class Style
-@JvmOverloads constructor(
-    private val parent: Style? = null,
-    @JvmField val children: List<Style> = emptyList(),
-    /**
-     * **See also:**
-     *
-     * [CSS selectors | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors)
-     * [CSS Selectors Reference](https://www.w3schools.com/cssref/css_selectors.asp)
-     */
-    @JvmField val selectors: List<String>,
-    rules: Map<String, String?>
+class Style constructor(
+    declarations: Map<String, String?>
 ) {
 
-    private val ruleMap: Map<String, String?> = rules.toMap()
-
-    operator fun get(rule: String): String = ruleMap[rule] ?: if (parent != null)
-        parent[rule]
-    else
-        throw UndefinedRuleException(rule, this)
+    private val declarationMap: Map<String, String?> = declarations.toMap()
 
 }
