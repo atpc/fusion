@@ -19,7 +19,7 @@
 
 package one.atpc.fusion.ui.style
 
-open class UndefinedRuleException(
-    @JvmField val rule: String,
+open class UndefinedPropertyException(
+    @JvmField val property: String,
     @JvmField val subStyle: SubStyle
-) : RuntimeException("$rule not defined in sub-style $subStyle!")
+) : RuntimeException("$property not defined in sub-style $subStyle!")
