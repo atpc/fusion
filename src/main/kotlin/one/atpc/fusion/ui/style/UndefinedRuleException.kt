@@ -21,5 +21,5 @@ package one.atpc.fusion.ui.style
 
 open class UndefinedRuleException(
     @JvmField val rule: String,
-    @JvmField val style: Style
-) : RuntimeException("$rule not defined in style $style!")
+    @JvmField val subStyle: SubStyle
+) : RuntimeException("$rule not defined in sub-style $subStyle!")

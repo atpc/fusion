@@ -22,11 +22,11 @@ package one.atpc.fusion.ui.style
 import javax.swing.plaf.multi.MultiLookAndFeel
 
 // TODO Stub
-open class StyleLookAndFeel(rootStyle: Style) : MultiLookAndFeel() {
+open class StyleLookAndFeel(style: Style) : MultiLookAndFeel() {
 
-    override fun getName(): String = "Style"
+    override fun getName(): String = "SubStyle"
 
-    override fun getID(): String = "Style"
+    override fun getID(): String = "SubStyle"
 
     override fun isSupportedLookAndFeel(): Boolean = true
 

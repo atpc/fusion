@@ -19,18 +19,18 @@
 
 package one.atpc.fusion.ui.style
 
-open class StyleBuilder {
+open class SubStyleBuilder {
     private val declarationMap: MutableMap<String, String?> = hashMapOf()
 
     operator fun get(property: String): String? = declarationMap[property]
 
     operator fun get(property: String, defValue: String): String = this[property] ?: defValue
 
-    operator fun set(property: String, value: String?): StyleBuilder {
+    operator fun set(property: String, value: String?): SubStyleBuilder {
         declarationMap[property] = value
         return this
     }
 
-    fun toStyle(): Style = Style(declarationMap)
+    fun toStyle(): SubStyle = SubStyle(declarationMap)
 
 }
