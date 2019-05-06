@@ -19,15 +19,13 @@
 
 package one.atpc.fusion.ui.style
 
-class Style constructor(
-    declarations: Map<String, String?>
-) {
+class Selector(val value: String) {
 
-    private val declarationMap: Map<String, String?> = declarations.toMap()
+    operator fun get(pseudoClass: String): Selector = Selector("$value:$pseudoClass")
 
 
-    operator fun get(property: String): String? = declarationMap[property]
+    override fun hashCode(): Int = value.hashCode()
 
-    operator fun get(property: String, defValue: String): String = this[property] ?: defValue
+    override fun equals(other: Any?): Boolean = other is Selector && this.value == other.value
 
 }
