@@ -19,13 +19,8 @@
 
 package one.atpc.fusion.ui.style
 
-class Selector(val value: String) {
+inline class Selector(val value: String) {
 
     operator fun get(pseudoClass: String): Selector = Selector("$value:$pseudoClass")
-
-
-    override fun hashCode(): Int = value.hashCode()
-
-    override fun equals(other: Any?): Boolean = other is Selector && this.value == other.value
 
 }
