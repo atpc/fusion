@@ -20,7 +20,7 @@
 package one.atpc.fusion.ui.style
 
 class Style(subStyles: Map<Selector, SubStyle>) {
-    private val subStyleMap: Map<String, SubStyle> = run {
+    private val subStyleMap: Map<String, SubStyle> = subStyles.let { subStyles ->
         val map = HashMap<String, SubStyle>(subStyles.size)
         subStyles.forEach { (k, v) -> map[k.value] = v }
         map
