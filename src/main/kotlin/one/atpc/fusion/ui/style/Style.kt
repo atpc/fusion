@@ -19,6 +19,15 @@
 
 package one.atpc.fusion.ui.style
 
-class Style {
+class Style(subStyles: Map<Selector, SubStyle>) {
+    private val subStyleMap: Map<String, SubStyle> = run {
+        val map = HashMap<String, SubStyle>(subStyles.size)
+        subStyles.forEach { (k, v) -> map[k.value] = v }
+        map
+    }
+
+    operator fun get(selector: String): SubStyle? = subStyleMap[selector]
+
+    operator fun get(selector: Selector): SubStyle? = subStyleMap[selector.value]
 
 }
