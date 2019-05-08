@@ -49,3 +49,7 @@ fun <T> List<T>.split(delimiter: T): List<List<T>> = when {
         parts
     }
 }
+
+
+@Suppress("UNCHECKED_CAST")
+fun <K, V> HashMap<K, V>.copy(): HashMap<K, V> = this.clone() as HashMap<K, V>

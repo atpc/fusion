@@ -19,8 +19,10 @@
 
 package one.atpc.fusion.ui.style
 
+import one.atpc.fusion.util.copy
+
 open class StyleBuilder {
-    private val subStyleMap: MutableMap<String, SubStyle> = hashMapOf()
+    private val subStyleMap: HashMap<String, SubStyle> = hashMapOf()
 
     operator fun get(selector: String): SubStyle? = subStyleMap[selector]
 
@@ -30,7 +32,7 @@ open class StyleBuilder {
 
     operator fun set(selector: Selector, subStyle: SubStyle): SubStyle? = subStyleMap.put(selector.value, subStyle)
 
-    
-    fun toStyle(): Style = Style(subStyleMap, Unit)
+
+    fun toStyle(): Style = Style(subStyleMap.copy(), Unit)
 
 }
