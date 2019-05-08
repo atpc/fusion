@@ -19,14 +19,22 @@
 
 package one.atpc.fusion.ui.style
 
-class Style internal constructor(private val subStyleMap: Map<String, SubStyle>, extra: Unit) {
+import one.atpc.fusion.util.copy
 
-    @Suppress("NAME_SHADOWING")
-    constructor(subStyles: Map<Selector, SubStyle>) : this(subStyles.let { subStyles ->
-        val map = HashMap<String, SubStyle>(subStyles.size)
-        subStyles.forEach { (k, v) -> map[k.value] = v }
-        map
-    }, Unit)
+class Style private constructor(private val subStyleMap: Map<String, SubStyle>) {
+
+    internal constructor(subStyles: Map<String, SubStyle>, copied: Boolean)
+            : this(if (copied) subStyles else subStyles.copy())
+
+    companion object {
+
+        fun of(subStyles: Map<Selector, SubStyle>) = Style(subStyles.let { original ->
+            val copy = HashMap<String, SubStyle>(original.size)
+            original.forEach { (k, v) -> copy[k.value] = v }
+            copy
+        })
+
+    }
 
     operator fun get(selector: String): SubStyle? = subStyleMap[selector]
 
