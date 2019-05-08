@@ -19,8 +19,8 @@
 
 package one.atpc.fusion.ui.style
 
-open class SubStyleBuilder {
-    private val declarationMap: MutableMap<String, String?> = hashMapOf()
+open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
+    private val declarationMap: MutableMap<String, String?> = HashMap(initialCapacity)
 
     operator fun get(property: String): String? = declarationMap[property]
 

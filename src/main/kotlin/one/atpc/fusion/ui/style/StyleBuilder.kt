@@ -19,8 +19,8 @@
 
 package one.atpc.fusion.ui.style
 
-open class StyleBuilder {
-    private val subStyleMap: HashMap<String, SubStyle> = hashMapOf()
+open class StyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
+    private val subStyleMap: HashMap<String, SubStyle> = HashMap(initialCapacity)
 
     operator fun get(selector: String): SubStyle? = subStyleMap[selector]
 
