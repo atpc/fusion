@@ -53,3 +53,6 @@ fun <T> List<T>.split(delimiter: T): List<List<T>> = when {
 
 @Suppress("UNCHECKED_CAST")
 fun <K, V> HashMap<K, V>.copy(): HashMap<K, V> = this.clone() as HashMap<K, V>
+
+@Suppress("UNCHECKED_CAST")
+fun <K, V> Map<K, V>.copy(): Map<K, V> = this.toMap()
