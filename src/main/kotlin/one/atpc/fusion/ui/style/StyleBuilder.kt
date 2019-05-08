@@ -19,17 +19,18 @@
 
 package one.atpc.fusion.ui.style
 
-class Style internal constructor(private val subStyleMap: Map<String, SubStyle>, extra: Unit) {
-
-    @Suppress("NAME_SHADOWING")
-    constructor(subStyles: Map<Selector, SubStyle>) : this(subStyles.let { subStyles ->
-        val map = HashMap<String, SubStyle>(subStyles.size)
-        subStyles.forEach { (k, v) -> map[k.value] = v }
-        map
-    }, Unit)
+open class StyleBuilder {
+    private val subStyleMap: MutableMap<String, SubStyle> = hashMapOf()
 
     operator fun get(selector: String): SubStyle? = subStyleMap[selector]
 
     operator fun get(selector: Selector): SubStyle? = subStyleMap[selector.value]
+
+    operator fun set(selector: String, subStyle: SubStyle): SubStyle? = subStyleMap.put(selector, subStyle)
+
+    operator fun set(selector: Selector, subStyle: SubStyle): SubStyle? = subStyleMap.put(selector.value, subStyle)
+
+    
+    fun toStyle(): Style = Style(subStyleMap, Unit)
 
 }
