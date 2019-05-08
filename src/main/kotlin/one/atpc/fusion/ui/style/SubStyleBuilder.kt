@@ -31,6 +31,7 @@ open class SubStyleBuilder {
         return this
     }
 
-    fun toStyle(): SubStyle = SubStyle(declarationMap)
+
+    fun toSubStyle(): SubStyle = SubStyle(declarationMap)
 
 }
