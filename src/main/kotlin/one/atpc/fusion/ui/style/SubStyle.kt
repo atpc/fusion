@@ -20,14 +20,14 @@
 package one.atpc.fusion.ui.style
 
 class SubStyle constructor(
-    declarations: Map<String, String?>
+    declarations: Map<String, Any?>
 ) {
 
-    private val declarationMap: Map<String, String?> = declarations.toMap()
+    private val declarationMap: Map<String, Any?> = declarations.toMap()
 
 
-    operator fun get(property: String): String? = declarationMap[property]
+    operator fun get(property: String): Any? = declarationMap[property]
 
-    operator fun get(property: String, defValue: String): String = this[property] ?: defValue
+    operator fun get(property: String, defValue: Any): Any = this[property] ?: defValue
 
 }
