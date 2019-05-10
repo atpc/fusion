@@ -17,8 +17,6 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@file:JvmName("CSSProcessor")
-
 package one.atpc.fusion.ui.style.css
 
 import java.io.File
@@ -28,8 +26,35 @@ internal fun process(text: String) {
     // [Token] = Tokens
     // Text -> Tokens -> [Line(Tokens)] -> [[Selector] & [Declaration(Tokens, Tokens)])]
     //      -> [[Selector] & [SubStyle]] -> Style
-    val tokens = tokenize(text)
-    val result = parse(tokens)
+    var intermediateResult: Any? = TextData(text)
+    while (intermediateResult != null && intermediateResult is Data<*>) {
+        intermediateResult = intermediateResult.next()
+    }
+
+    val result = intermediateResult.toString()  // DEBUG toString()
     // (DEBUG CODE) Write to log file
     File("loader.log").writeText(result)
 }
+
+
+internal interface Data<R> {
+
+    fun next(): R
+
+}
+
+internal data class TextData(val content: String) : Data<TokenData> {
+
+    // Tokenize & clean
+    override fun next(): TokenData = TokenData(Lexer.tokenize(text = content))
+
+}
+
+internal data class TokenData(val tokens: Tokens) : Data<String> {
+
+    override fun next(): String = Parser.parse(tokens)
+
+}
+
+internal typealias Tokens = List<String>
+internal typealias Line = List<String>
