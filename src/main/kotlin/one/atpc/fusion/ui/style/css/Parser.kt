@@ -19,22 +19,36 @@
 
 package one.atpc.fusion.ui.style.css
 
+import one.atpc.fusion.ui.style.Style
+import one.atpc.fusion.ui.style.StyleBuilder
 import one.atpc.fusion.ui.style.SubStyleBuilder
+import one.atpc.fusion.util.foldToString
 import one.atpc.fusion.util.get
 import one.atpc.fusion.util.split
 
 object Parser {
 
-    @Suppress("UNREACHABLE_CODE")
-    internal fun parse(tokens: Tokens): String {
+    internal fun parse(tokens: Tokens): Style {
         val blocks = tokens.splitToBlocks()
-        return blocks.toString()
-        // TODO Create substyles
+
+        // TODO Move to own function
+        val styleBuilder = StyleBuilder()
         blocks.forEach { block ->
-            val subStyleBuilder = SubStyleBuilder()
-            block.declarations.forEach { declaration ->
+            // Convert the block declarations into a SubStyle
+            val blockSubStyle = block.declarations.foldRight(SubStyleBuilder()) { declaration, builder ->
+                // TODO Interpret value
+                builder[declaration.property.foldToString()] = declaration.value.foldToString()
+                builder
+            }.toSubStyle()
+            // Add the SubStyle to the specified selectors in the Style
+            // TODO Add an option for SubStyle to merge (creating a new style)
+            // (The newer style overrides the older)
+            block.selectors.forEach { selector ->
+                styleBuilder[selector] = blockSubStyle
             }
         }
+
+        return styleBuilder.toStyle()
     }
 
 

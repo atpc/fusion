@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.ui.style.css
 
+import one.atpc.fusion.ui.style.Style
 import java.io.File
 
 internal fun process(text: String) {
@@ -50,9 +51,9 @@ internal data class TextData(val content: String) : Data<TokenData> {
 
 }
 
-internal data class TokenData(val tokens: Tokens) : Data<String> {
+internal data class TokenData(val tokens: Tokens) : Data<Style> {
 
-    override fun next(): String = Parser.parse(tokens)
+    override fun next(): Style = Parser.parse(tokens)
 
 }
 
