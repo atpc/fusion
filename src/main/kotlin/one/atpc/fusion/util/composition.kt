@@ -17,6 +17,10 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("FunctionComposition")
+
 package one.atpc.fusion.util
 
-inline infix fun <T : (Y) -> R, X, Y, R> T.compose(crossinline g: (X) -> Y): (X) -> R = { x -> this(g(x)) }
+inline infix fun <F : (Y) -> R, X, Y, R> F.compose(crossinline g: (X) -> Y): (X) -> R = { x -> this(g(x)) }
+
+inline infix fun <F : (X) -> Y, X, Y, R> F.andThen(crossinline g: (Y) -> R): (X) -> R = { x -> g(this(x)) }
