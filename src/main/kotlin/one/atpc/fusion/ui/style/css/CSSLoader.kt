@@ -17,8 +17,6 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@file:JvmName("CSSLoader")
-
 package one.atpc.fusion.ui.style.css
 
 import one.atpc.fusion.util.toString
@@ -26,13 +24,20 @@ import java.io.File
 import java.io.InputStream
 import java.nio.charset.Charset
 
-// TODO Stub
-fun loadCSS(file: File, charset: Charset? = null) = loadCSS(
-    if (charset != null) file.readText(charset) else file.readText()
-)
+object CSSLoader {
 
-fun loadCSS(inputStream: InputStream, charset: Charset? = null) = loadCSS(
-    if (charset != null) toString(inputStream, charset) else toString(inputStream)
-)
+    // TODO Stub
+    @JvmStatic
+    fun loadCSS(file: File, charset: Charset? = null) = loadCSS(
+        if (charset != null) file.readText(charset) else file.readText()
+    )
 
-fun loadCSS(text: String) = process(text)
+    @JvmStatic
+    fun loadCSS(inputStream: InputStream, charset: Charset? = null) = loadCSS(
+        if (charset != null) toString(inputStream, charset) else toString(inputStream)
+    )
+
+    @JvmStatic
+    fun loadCSS(text: String) = process(text)
+
+}
