@@ -23,6 +23,6 @@ import io.kotlintest.specs.FreeSpec
 
 class LoaderTests : FreeSpec({
     "test loader function" {
-        loadCSS(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
+        CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
     }
 })

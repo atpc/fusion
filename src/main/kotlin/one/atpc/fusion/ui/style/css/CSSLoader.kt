@@ -28,16 +28,16 @@ object CSSLoader {
 
     // TODO Stub
     @JvmStatic
-    fun loadCSS(file: File, charset: Charset? = null) = loadCSS(
+    fun load(file: File, charset: Charset? = null) = load(
         if (charset != null) file.readText(charset) else file.readText()
     )
 
     @JvmStatic
-    fun loadCSS(inputStream: InputStream, charset: Charset? = null) = loadCSS(
+    fun load(inputStream: InputStream, charset: Charset? = null) = load(
         if (charset != null) toString(inputStream, charset) else toString(inputStream)
     )
 
     @JvmStatic
-    fun loadCSS(text: String) = process(text)
+    fun load(text: String) = process(text)
 
 }
