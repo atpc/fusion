@@ -30,7 +30,7 @@ class FunctionCompositionTests : FreeSpec({
     val fSlice = str::slice
     val fAdd = { s: String -> s + "composition." }
 
-    
+
     "compose" {
         val composedStr = (fAdd compose fSlice) (indices)
         composedStr shouldBe result
