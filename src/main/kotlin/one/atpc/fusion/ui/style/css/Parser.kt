@@ -26,7 +26,7 @@ import one.atpc.fusion.util.foldToString
 import one.atpc.fusion.util.get
 import one.atpc.fusion.util.split
 
-object Parser {
+internal object Parser {
 
     internal fun parse(tokens: Tokens): Style {
         val blocks = tokens.splitToBlocks()
