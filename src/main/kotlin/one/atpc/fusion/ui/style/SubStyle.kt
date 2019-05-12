@@ -19,15 +19,33 @@
 
 package one.atpc.fusion.ui.style
 
-class SubStyle constructor(
-    declarations: Map<String, Any?>
-) {
+class SubStyle private constructor(internal val declarationMap: Map<String, Any?>, copied: Boolean)
+    : Iterable<Map.Entry<String, Any?>> by declarationMap.entries {
 
-    private val declarationMap: Map<String, Any?> = declarations.toMap()
+    constructor(declarations: Map<String, Any?>) : this(declarations.toMap(), copied = true)
+
+    init {
+        if (!copied)
+            throw IllegalArgumentException("Given declarations are not independent!")
+    }
 
 
     operator fun get(property: String): Any? = declarationMap[property]
 
     operator fun get(property: String, defValue: Any): Any = this[property] ?: defValue
+
+    val size: Int = declarationMap.size
+
+
+    infix fun combineWith(other: SubStyle): SubStyle {
+        // The other subStyle has priority, which is why we incorporate it first
+        val combinedBuilder = SubStyleBuilder(from = this)
+        // Incorporate the other Style
+        for (entry in other) {
+            combinedBuilder[entry.key] = entry.value
+        }
+
+        return combinedBuilder.toSubStyle()
+    }
 
 }
