@@ -20,13 +20,19 @@
 package one.atpc.fusion.ui.style
 
 open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
-    private val declarationMap: MutableMap<String, String?> = HashMap(initialCapacity)
 
-    operator fun get(property: String): String? = declarationMap[property]
+    constructor(from: SubStyle) : this(from.size) {
+        declarationMap.putAll(from.declarationMap)
+    }
 
-    operator fun get(property: String, defValue: String): String = this[property] ?: defValue
 
-    operator fun set(property: String, value: String?): SubStyleBuilder {
+    private val declarationMap: MutableMap<String, Any?> = HashMap(initialCapacity)
+
+    operator fun get(property: String): Any? = declarationMap[property]
+
+    operator fun get(property: String, defValue: Any): Any? = this[property] ?: defValue
+
+    operator fun set(property: String, value: Any?): SubStyleBuilder {
         declarationMap[property] = value
         return this
     }
