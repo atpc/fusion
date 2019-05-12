@@ -17,6 +17,8 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@file:JvmName("Processor")
+
 package one.atpc.fusion.ui.style.css
 
 import one.atpc.fusion.util.compose
