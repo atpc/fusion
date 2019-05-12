@@ -19,42 +19,14 @@
 
 package one.atpc.fusion.ui.style.css
 
-import one.atpc.fusion.ui.style.Style
+import one.atpc.fusion.util.compose
 import java.io.File
 
 internal fun process(text: String) {
-    // Idealized pipeline:
-    // [Token] = Tokens
-    // Text -> Tokens -> [Line(Tokens)] -> [[Selector] & [Declaration(Tokens, Tokens)])]
-    //      -> [[Selector] & [SubStyle]] -> Style
-    var intermediateResult: Any? = TextData(text)
-    while (intermediateResult != null && intermediateResult is Data<*>) {
-        intermediateResult = intermediateResult.next()
-    }
+    val result = (Parser::parse compose Lexer::tokenize) (text)
 
-    val result = intermediateResult.toString()  // DEBUG toString()
     // (DEBUG CODE) Write to log file
-    File("loader.log").writeText(result)
-}
-
-
-internal interface Data<R> {
-
-    fun next(): R
-
-}
-
-internal data class TextData(val content: String) : Data<TokenData> {
-
-    // Tokenize & clean
-    override fun next(): TokenData = TokenData(Lexer.tokenize(text = content))
-
-}
-
-internal data class TokenData(val tokens: Tokens) : Data<Style> {
-
-    override fun next(): Style = Parser.parse(tokens)
-
+    File("loader.log").writeText(result.toString()) // DEBUG toString()
 }
 
 internal typealias Tokens = List<String>
