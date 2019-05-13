@@ -28,8 +28,27 @@ import one.atpc.fusion.util.split
 
 internal object Parser {
 
+    private data class DeclarationBlock(val selectors: List<String>,
+                                        val declarations: List<Declaration>) {
+        override fun toString(): String {
+            val builder = StringBuilder("$selectors {\n")
+            declarations.forEach { declaration ->
+                builder.append("\t$declaration")
+            }
+            builder.append('}')
+
+            return builder.toString()
+        }
+    }
+
+    private data class Declaration(val property: List<String>,
+                                   val value: List<String>) {
+        override fun toString(): String = "[$property: $value;]"
+    }
+
+
     internal fun parse(tokens: Tokens): Style {
-        val blocks = tokens.splitToBlocks()
+        val blocks = tokens.splitToDeclarationBlocks()
 
         // TODO Move to own function
         val styleBuilder = StyleBuilder()
@@ -52,37 +71,19 @@ internal object Parser {
     }
 
 
+
     private const val BLOCK_START = "{"
     private const val BLOCK_END = "}"
     private const val LINE_SEPARATOR = ";"
     private const val DECLARATION_SEPARATOR = ":"
 
 
-    private data class DeclarationBlock(val selectors: List<String>,
-                                         val declarations: List<Declaration>) {
+    private fun Tokens.splitToDeclarationBlocks() = splitToDeclarationBlocks0(this)
 
-        override fun toString(): String {
-            val builder = StringBuilder("$selectors {\n")
-            declarations.forEach { declaration ->
-                builder.append("\t$declaration")
-            }
-            builder.append('}')
+    private tailrec fun splitToDeclarationBlocks0(tokens: Tokens,
+                                                  declarationBlockList: List<DeclarationBlock> = emptyList()
+    ): List<DeclarationBlock> {
 
-            return builder.toString()
-        }
-
-    }
-
-    private data class Declaration(val property: List<String>,
-                                   val value: List<String>) {
-
-        override fun toString(): String = "[$property: $value;]"
-
-    }
-
-
-
-    private tailrec fun splitToBlocks0(tokens: Tokens, declarationBlockList: List<DeclarationBlock> = emptyList()): List<DeclarationBlock> {
         // Get first block end (Use block ends as indicators)
         val firstBlockEnd = tokens.indexOf(BLOCK_END)
 
@@ -90,7 +91,7 @@ internal object Parser {
         return if (firstBlockEnd == -1)
             declarationBlockList
         else
-            splitToBlocks0(
+            splitToDeclarationBlocks0(
                 tokens.subList(firstBlockEnd+1, tokens.size),
                 declarationBlockList + tokens[0..firstBlockEnd].toBlock()
             )
@@ -107,8 +108,6 @@ internal object Parser {
     }
 
     private fun Tokens.splitToLines(): List<Line> = this.split(LINE_SEPARATOR)
-
-    private fun Tokens.splitToBlocks() = splitToBlocks0(this)
 
 
     private fun Line.toDeclaration(): Declaration {
