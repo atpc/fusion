@@ -47,10 +47,13 @@ internal object Parser {
     }
 
 
-    internal fun parse(tokens: Tokens): Style {
-        val blocks = tokens.splitToDeclarationBlocks()
 
-        // TODO Move to own function
+    internal fun parse(tokens: Tokens): Style = parseBlocks(
+        tokens.splitToDeclarationBlocks()
+    )
+
+
+    private fun parseBlocks(blocks: List<DeclarationBlock>): Style {
         val styleBuilder = StyleBuilder()
         blocks.forEach { block ->
             // Convert the block declarations into a SubStyle
