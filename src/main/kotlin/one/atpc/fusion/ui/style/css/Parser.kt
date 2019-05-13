@@ -22,6 +22,7 @@ package one.atpc.fusion.ui.style.css
 import one.atpc.fusion.ui.style.Style
 import one.atpc.fusion.ui.style.StyleBuilder
 import one.atpc.fusion.ui.style.SubStyleBuilder
+import one.atpc.fusion.util.compose
 import one.atpc.fusion.util.foldToString
 import one.atpc.fusion.util.get
 import one.atpc.fusion.util.split
@@ -48,9 +49,7 @@ internal object Parser {
 
 
 
-    internal fun parse(tokens: Tokens): Style = parseBlocks(
-        tokens.splitToDeclarationBlocks()
-    )
+    internal fun parse(tokens: Tokens): Style = (::parseBlocks compose ::splitToDeclarationBlocks) (tokens)
 
 
     private fun parseBlocks(blocks: List<DeclarationBlock>): Style {
@@ -75,13 +74,13 @@ internal object Parser {
 
 
 
-    private const val BLOCK_START = "{"
-    private const val BLOCK_END = "}"
-    private const val LINE_SEPARATOR = ";"
+    private const val BLOCK_START           = "{"
+    private const val BLOCK_END             = "}"
+    private const val LINE_SEPARATOR        = ";"
     private const val DECLARATION_SEPARATOR = ":"
 
 
-    private fun Tokens.splitToDeclarationBlocks() = splitToDeclarationBlocks0(this)
+    private fun splitToDeclarationBlocks(tokens: Tokens) = splitToDeclarationBlocks0(tokens)
 
     private tailrec fun splitToDeclarationBlocks0(tokens: Tokens,
                                                   declarationBlockList: List<DeclarationBlock> = emptyList()
