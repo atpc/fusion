@@ -21,6 +21,7 @@ package one.atpc.fusion.ui.style.css
 
 import one.atpc.fusion.ui.style.Style
 import one.atpc.fusion.ui.style.StyleBuilder
+import one.atpc.fusion.ui.style.SubStyle
 import one.atpc.fusion.ui.style.SubStyleBuilder
 import one.atpc.fusion.util.compose
 import one.atpc.fusion.util.foldToString
@@ -61,11 +62,16 @@ internal object Parser {
                 builder[declaration.property.foldToString()] = declaration.value.foldToString()
                 builder
             }.toSubStyle()
+            
             // Add the SubStyle to the specified selectors in the Style
-            // TODO Add an option for SubStyle to merge (creating a new style)
-            // (The newer style overrides the older)
             block.selectors.forEach { selector ->
-                styleBuilder[selector] = blockSubStyle
+                val subStyleAtSelector: SubStyle? = styleBuilder[selector]
+
+                if (subStyleAtSelector != null)
+                    // Merge styles (the newer – blockSubStyle – overrides the older)
+                    styleBuilder[selector] = subStyleAtSelector combineWith blockSubStyle
+                else
+                    styleBuilder[selector] = blockSubStyle
             }
         }
 
