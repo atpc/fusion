@@ -30,9 +30,10 @@ class SubStyle private constructor(internal val declarationMap: Map<String, Any?
     }
 
 
-    operator fun get(property: String): Any? = declarationMap[property]
+    @Suppress("UNCHECKED_CAST")
+    operator fun <T> get(property: String): T? = declarationMap[property] as T?
 
-    operator fun get(property: String, defValue: Any): Any = this[property] ?: defValue
+    operator fun <T> get(property: String, defValue: T): T = this[property] ?: defValue
 
     val size: Int = declarationMap.size
 
