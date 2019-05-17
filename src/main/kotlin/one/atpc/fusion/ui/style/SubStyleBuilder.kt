@@ -19,6 +19,8 @@
 
 package one.atpc.fusion.ui.style
 
+import one.atpc.fusion.ui.Color
+
 open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
 
     constructor(from: SubStyle) : this(from.size) {
@@ -28,16 +30,23 @@ open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
 
     private val declarationMap: MutableMap<String, Any?> = HashMap(initialCapacity)
 
-    
+
     @Suppress("UNCHECKED_CAST")
     operator fun <T> get(property: String): T? = declarationMap[property] as T?
 
     operator fun <T> get(property: String, defValue: T): T = this[property] ?: defValue
 
 
-    operator fun set(property: String, value: Any?): SubStyleBuilder {
-        declarationMap[property] = value
-        return this
+    operator fun set(property: String, number: Number?) {
+        declarationMap[property] = number
+    }
+
+    operator fun set(property: String, color: Color?) {
+        declarationMap[property] = color
+    }
+
+    operator fun set(property: String, keyword: String?) {
+        declarationMap[property] = keyword
     }
 
 
