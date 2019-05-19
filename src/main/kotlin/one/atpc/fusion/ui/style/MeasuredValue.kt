@@ -19,7 +19,7 @@
 
 package one.atpc.fusion.ui.style
 
-data class Measure(@JvmField val value: Number, @JvmField val unit: MeasureUnit) {
+data class MeasuredValue(@JvmField val value: Number, @JvmField val unit: MeasureUnit) {
 
     override fun toString(): String = "$value${unit.symbol}"
 
