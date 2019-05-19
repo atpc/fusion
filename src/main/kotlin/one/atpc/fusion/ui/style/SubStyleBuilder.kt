@@ -37,7 +37,7 @@ open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
     operator fun <T> get(property: String, defValue: T): T = this[property] ?: defValue
 
 
-    operator fun set(property: String, number: Number?) {
+    operator fun set(property: String, number: MeasuredValue?) {
         declarationMap[property] = number
     }
 
