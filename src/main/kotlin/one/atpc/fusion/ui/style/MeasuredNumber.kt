@@ -24,3 +24,7 @@ data class MeasuredNumber(@JvmField val value: Number, @JvmField val unit: Measu
     override fun toString(): String = "$value${unit.symbol}"
 
 }
+
+
+@JvmOverloads
+fun Number.toMeasured(unit: MeasureUnit = MeasureUnit.NUMERIC) = MeasuredNumber(this, unit)
