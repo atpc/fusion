@@ -28,3 +28,10 @@ data class MeasuredNumber(@JvmField val value: Number, @JvmField val unit: Measu
 
 @JvmOverloads
 fun Number.toMeasured(unit: MeasureUnit = MeasureUnit.NUMERIC) = MeasuredNumber(this, unit)
+
+val Number.px: MeasuredNumber get() = this.toMeasured(MeasureUnit.PX)
+
+val Number.em: MeasuredNumber get() = this.toMeasured(MeasureUnit.EM)
+val Number.vw: MeasuredNumber get() = this.toMeasured(MeasureUnit.VW)
+val Number.vh: MeasuredNumber get() = this.toMeasured(MeasureUnit.VH)
+val Number.percent: MeasuredNumber get() = this.toMeasured(MeasureUnit.PERCENT)
