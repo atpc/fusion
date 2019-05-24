@@ -41,7 +41,7 @@ class PartStyle private constructor(internal val declarationMap: Map<String, Any
 
     infix fun combineWith(other: PartStyle): PartStyle {
         // The other partStyle has priority, which is why we incorporate it first
-        val combinedBuilder = SubStyleBuilder(from = this)
+        val combinedBuilder = PartStyleBuilder(from = this)
         // Incorporate the other Style
         for (entry in other) {
             combinedBuilder[entry.key] = entry.value

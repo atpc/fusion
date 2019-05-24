@@ -22,7 +22,7 @@ package one.atpc.fusion.ui.style.css
 import one.atpc.fusion.ui.style.Style
 import one.atpc.fusion.ui.style.StyleBuilder
 import one.atpc.fusion.ui.style.PartStyle
-import one.atpc.fusion.ui.style.SubStyleBuilder
+import one.atpc.fusion.ui.style.PartStyleBuilder
 import one.atpc.fusion.util.compose
 import one.atpc.fusion.util.foldToString
 import one.atpc.fusion.util.get
@@ -57,7 +57,7 @@ internal object Parser {
         val styleBuilder = StyleBuilder()
         blocks.forEach { block ->
             // Convert the block declarations into a PartStyle
-            val blockSubStyle = block.declarations.foldRight(SubStyleBuilder()) { declaration, builder ->
+            val blockSubStyle = block.declarations.foldRight(PartStyleBuilder()) { declaration, builder ->
                 // TODO Interpret value
                 builder[declaration.property.foldToString()] = declaration.value.foldToString()
                 builder

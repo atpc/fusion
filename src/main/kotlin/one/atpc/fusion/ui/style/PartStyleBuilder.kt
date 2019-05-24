@@ -21,7 +21,7 @@ package one.atpc.fusion.ui.style
 
 import one.atpc.fusion.ui.Color
 
-open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
+open class PartStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
 
     constructor(from: PartStyle) : this(from.size) {
         declarationMap.putAll(from.declarationMap)
