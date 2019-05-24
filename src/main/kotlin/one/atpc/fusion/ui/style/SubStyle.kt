@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.ui.style
 
+// Partial style
 class SubStyle private constructor(internal val declarationMap: Map<String, Any?>, copied: Boolean)
     : Iterable<Map.Entry<String, Any?>> by declarationMap.entries {
 

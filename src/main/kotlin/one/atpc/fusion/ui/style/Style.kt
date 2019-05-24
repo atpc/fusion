@@ -21,6 +21,7 @@ package one.atpc.fusion.ui.style
 
 import one.atpc.fusion.util.copy
 
+// A Style is comprised of partial styles
 class Style private constructor(private val subStyleMap: Map<String, SubStyle>) {
 
     internal constructor(subStyles: Map<String, SubStyle>, copied: Boolean)

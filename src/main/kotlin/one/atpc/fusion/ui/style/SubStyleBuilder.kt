@@ -50,6 +50,11 @@ open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
     }
 
 
+    internal operator fun set(property: String, value: Any?) {
+        declarationMap[property] = value
+    }
+
+
     fun toSubStyle(): SubStyle = SubStyle(declarationMap)
 
 }
