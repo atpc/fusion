@@ -20,7 +20,7 @@
 package one.atpc.fusion.ui.style
 
 // Partial style
-class SubStyle private constructor(internal val declarationMap: Map<String, Any?>, copied: Boolean)
+class PartStyle private constructor(internal val declarationMap: Map<String, Any?>, copied: Boolean)
     : Iterable<Map.Entry<String, Any?>> by declarationMap.entries {
 
     constructor(declarations: Map<String, Any?>) : this(declarations.toMap(), copied = true)
@@ -39,8 +39,8 @@ class SubStyle private constructor(internal val declarationMap: Map<String, Any?
     val size: Int = declarationMap.size
 
 
-    infix fun combineWith(other: SubStyle): SubStyle {
-        // The other subStyle has priority, which is why we incorporate it first
+    infix fun combineWith(other: PartStyle): PartStyle {
+        // The other partStyle has priority, which is why we incorporate it first
         val combinedBuilder = SubStyleBuilder(from = this)
         // Incorporate the other Style
         for (entry in other) {

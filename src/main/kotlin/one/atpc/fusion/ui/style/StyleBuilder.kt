@@ -20,17 +20,17 @@
 package one.atpc.fusion.ui.style
 
 open class StyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
-    private val subStyleMap: HashMap<String, SubStyle> = HashMap(initialCapacity)
+    private val partStyleMap: HashMap<String, PartStyle> = HashMap(initialCapacity)
 
-    operator fun get(selector: String): SubStyle? = subStyleMap[selector]
+    operator fun get(selector: String): PartStyle? = partStyleMap[selector]
 
-    operator fun get(selector: Selector): SubStyle? = subStyleMap[selector.value]
+    operator fun get(selector: Selector): PartStyle? = partStyleMap[selector.value]
 
-    operator fun set(selector: String, subStyle: SubStyle): SubStyle? = subStyleMap.put(selector, subStyle)
+    operator fun set(selector: String, partStyle: PartStyle): PartStyle? = partStyleMap.put(selector, partStyle)
 
-    operator fun set(selector: Selector, subStyle: SubStyle): SubStyle? = subStyleMap.put(selector.value, subStyle)
+    operator fun set(selector: Selector, partStyle: PartStyle): PartStyle? = partStyleMap.put(selector.value, partStyle)
 
 
-    fun toStyle(): Style = Style(subStyleMap, copied = false)
+    fun toStyle(): Style = Style(partStyleMap, copied = false)
 
 }

@@ -23,7 +23,7 @@ import one.atpc.fusion.ui.Color
 
 open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
 
-    constructor(from: SubStyle) : this(from.size) {
+    constructor(from: PartStyle) : this(from.size) {
         declarationMap.putAll(from.declarationMap)
     }
 
@@ -55,6 +55,6 @@ open class SubStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
     }
 
 
-    fun toSubStyle(): SubStyle = SubStyle(declarationMap)
+    fun toSubStyle(): PartStyle = PartStyle(declarationMap)
 
 }

@@ -21,7 +21,7 @@ package one.atpc.fusion.ui.style.css
 
 import one.atpc.fusion.ui.style.Style
 import one.atpc.fusion.ui.style.StyleBuilder
-import one.atpc.fusion.ui.style.SubStyle
+import one.atpc.fusion.ui.style.PartStyle
 import one.atpc.fusion.ui.style.SubStyleBuilder
 import one.atpc.fusion.util.compose
 import one.atpc.fusion.util.foldToString
@@ -56,20 +56,20 @@ internal object Parser {
     private fun parseBlocks(blocks: List<DeclarationBlock>): Style {
         val styleBuilder = StyleBuilder()
         blocks.forEach { block ->
-            // Convert the block declarations into a SubStyle
+            // Convert the block declarations into a PartStyle
             val blockSubStyle = block.declarations.foldRight(SubStyleBuilder()) { declaration, builder ->
                 // TODO Interpret value
                 builder[declaration.property.foldToString()] = declaration.value.foldToString()
                 builder
             }.toSubStyle()
             
-            // Add the SubStyle to the specified selectors in the Style
+            // Add the PartStyle to the specified selectors in the Style
             block.selectors.forEach { selector ->
-                val subStyleAtSelector: SubStyle? = styleBuilder[selector]
+                val partStyleAtSelector: PartStyle? = styleBuilder[selector]
 
-                if (subStyleAtSelector != null)
+                if (partStyleAtSelector != null)
                     // Merge styles (the newer – blockSubStyle – overrides the older)
-                    styleBuilder[selector] = subStyleAtSelector combineWith blockSubStyle
+                    styleBuilder[selector] = partStyleAtSelector combineWith blockSubStyle
                 else
                     styleBuilder[selector] = blockSubStyle
             }

@@ -22,23 +22,23 @@ package one.atpc.fusion.ui.style
 import one.atpc.fusion.util.copy
 
 // A Style is comprised of partial styles
-class Style private constructor(private val subStyleMap: Map<String, SubStyle>) {
+class Style private constructor(private val partStyleMap: Map<String, PartStyle>) {
 
-    internal constructor(subStyles: Map<String, SubStyle>, copied: Boolean)
-            : this(if (copied) subStyles else subStyles.copy())
+    internal constructor(partStyles: Map<String, PartStyle>, copied: Boolean)
+            : this(if (copied) partStyles else partStyles.copy())
 
     companion object {
 
-        fun of(subStyles: Map<Selector, SubStyle>) = Style(subStyles.let { original ->
-            val copy = HashMap<String, SubStyle>(original.size)
+        fun of(partStyles: Map<Selector, PartStyle>) = Style(partStyles.let { original ->
+            val copy = HashMap<String, PartStyle>(original.size)
             original.forEach { (k, v) -> copy[k.value] = v }
             copy
         })
 
     }
 
-    operator fun get(selector: String): SubStyle? = subStyleMap[selector]
+    operator fun get(selector: String): PartStyle? = partStyleMap[selector]
 
-    operator fun get(selector: Selector): SubStyle? = subStyleMap[selector.value]
+    operator fun get(selector: Selector): PartStyle? = partStyleMap[selector.value]
 
 }

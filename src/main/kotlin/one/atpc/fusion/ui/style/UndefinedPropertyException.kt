@@ -21,5 +21,5 @@ package one.atpc.fusion.ui.style
 
 open class UndefinedPropertyException(
     @JvmField val property: String,
-    @JvmField val subStyle: SubStyle
-) : RuntimeException("$property not defined in sub-style $subStyle!")
+    @JvmField val partStyle: PartStyle
+) : RuntimeException("$property not defined in part-style $partStyle!")
