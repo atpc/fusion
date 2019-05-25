@@ -19,14 +19,16 @@
 
 package one.atpc.fusion.ui.style.css
 
-import one.atpc.fusion.ui.style.Style
-import one.atpc.fusion.ui.style.StyleBuilder
+import one.atpc.fusion.ui.Color
 import one.atpc.fusion.ui.style.PartStyle
 import one.atpc.fusion.ui.style.PartStyleBuilder
+import one.atpc.fusion.ui.style.Style
+import one.atpc.fusion.ui.style.StyleBuilder
 import one.atpc.fusion.util.compose
 import one.atpc.fusion.util.foldToString
 import one.atpc.fusion.util.get
 import one.atpc.fusion.util.split
+import java.lang.Long.parseLong
 
 internal object Parser {
 
@@ -57,9 +59,11 @@ internal object Parser {
         val styleBuilder = StyleBuilder()
         blocks.forEach { block ->
             // Convert the block declarations into a PartStyle
+            // TODO Use fold() or foldRight()?
             val blockSubStyle = block.declarations.foldRight(PartStyleBuilder()) { declaration, builder ->
-                // TODO Interpret value
-                builder[declaration.property.foldToString()] = declaration.value.foldToString()
+                // Parse value (using the internal Any setter)
+                builder[declaration.property.foldToString()] = ValueParser.parseValue(declaration.value)
+                // Builder is returned since it's the accumulator
                 builder
             }.toSubStyle()
             
@@ -136,6 +140,41 @@ internal object Parser {
                 )
             }
         }
+    }
+
+}
+
+// Parsing CSS values [200px, #ffd9e5, rgb(0, 12, 134), calc(20px - 4em), ...]
+private object ValueParser {
+
+    internal fun parseValue(value: Tokens): Any {
+        // IMPORTANT All this code assumes that the value does not contain whitespace tokens
+        return if (value.size == 1) {
+            val token = value[0]
+            if (token.startsWith("#")) {
+                // (Try to) interpret as hex color
+                val hexColorValue = token.substring(1)
+                Color.rgb(when (hexColorValue.length) {
+                    3 -> parseLong(hexColorValue.fold("") { acc, c -> acc + c + c }, 16) // Expand #RGB to #RRGGBB
+                    6 -> parseLong(hexColorValue, 16)   // Use the hex color value directly
+                    else -> throw ParserException("Illegal CSS color value: '$token'!")
+                }.toUInt())
+            }
+            else {
+                TODO("Missing branch for non-hex-color single-token values")
+                // Keywords, Color names (TODO color names in external properties), etc.
+            }
+        }
+        else {
+            for (token in value) {
+                // Further tokenize the value
+            }
+        }
+    }
+
+    // TODO Stub
+    private fun fineTokenize(value: Tokens): Tokens = value.fold(emptyList()) {
+            acc: Tokens, token: String -> acc + token
     }
 
 }
