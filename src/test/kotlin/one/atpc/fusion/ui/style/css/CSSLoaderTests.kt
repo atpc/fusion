@@ -21,7 +21,7 @@ package one.atpc.fusion.ui.style.css
 
 import io.kotlintest.specs.FreeSpec
 
-class LoaderTests : FreeSpec({
+class CSSLoaderTests : FreeSpec({
     "test loader function" {
         CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
     }
