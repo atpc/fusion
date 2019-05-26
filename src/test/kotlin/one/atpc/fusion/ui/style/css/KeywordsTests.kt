@@ -29,7 +29,7 @@ class KeywordsTests : FreeSpec({
             it should beLowerCase()
         }
 
-        ensureLowercase(colorKeywords.keys)
+        ensureLowercase(colorKeywordMap.keys)
         ensureLowercase(otherValueKeywords)
     }
 })

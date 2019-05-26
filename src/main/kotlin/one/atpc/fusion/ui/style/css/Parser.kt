@@ -163,7 +163,7 @@ private object ValueParser {
             // Check for keywords (keywords are transformed to lowercase):
             else when (val potentialKeyword = token.toLowerCase()) {
                 // Color keywords:
-                in colorKeywords -> colorKeywords[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
+                in colorKeywordMap -> colorKeywordMap[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
                 // Check for other keywords
                 in otherValueKeywords -> potentialKeyword
 

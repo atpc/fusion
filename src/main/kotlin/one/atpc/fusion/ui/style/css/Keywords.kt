@@ -25,7 +25,7 @@ import one.atpc.fusion.ui.Color
 // https://drafts.csswg.org/css-color-3/#colorunits
 
 // TODO Add tests?
-internal val colorKeywords: Map<String, Color> = mapOf(
+internal val colorKeywordMap: Map<String, Color> = mapOf(
     // Basic color names
     "black"   to 0x000000u,
     "silver"  to 0xC0C0C0u,
