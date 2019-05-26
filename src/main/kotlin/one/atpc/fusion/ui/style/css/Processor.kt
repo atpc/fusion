@@ -27,8 +27,9 @@ import java.io.File
 internal fun process(text: String) {
     val result = (Parser::parse compose Lexer::tokenize) (text)
 
+    // TODO Debug code
     // (DEBUG CODE) Write to log file
-    File("loader.log").writeText(result.toString()) // DEBUG toString()
+    File("loader.log").writeText(result.debugString) // DEBUG log output
 }
 
 internal typealias Tokens = List<String>

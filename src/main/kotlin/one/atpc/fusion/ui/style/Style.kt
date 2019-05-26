@@ -41,4 +41,19 @@ class Style private constructor(private val partStyleMap: Map<String, PartStyle>
 
     operator fun get(selector: Selector): PartStyle? = partStyleMap[selector.value]
 
+
+    val debugString: String get() {
+        val builder = StringBuilder()
+
+        for ((selector, partStyle) in partStyleMap) {
+            builder.append("\n$selector {\n")
+            for ((property, value) in partStyle) {
+                builder.append("\t$property: $value;\n")
+            }
+            builder.append("}\n")
+        }
+
+        return builder.toString()
+    }
+
 }
