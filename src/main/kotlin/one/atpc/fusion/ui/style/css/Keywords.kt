@@ -60,7 +60,7 @@ internal val otherValueKeywords: List<String> = listOf(
      * if applied to 'color',
      * equal to `color: inherit`.
      */
-    "currentColor",
+    "currentcolor",     // currentColor
 
     "none"
 )
