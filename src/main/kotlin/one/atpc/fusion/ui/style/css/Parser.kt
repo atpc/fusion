@@ -160,16 +160,14 @@ private object ValueParser {
                     else -> throw ParserException("Illegal CSS color value: '$token'!")
                 }.toUInt())
             }
-            else {
-                // Check for keywords (keywords are lowercase when checked):
-                val potentialKeyword = token.toLowerCase()
+            // Check for keywords (keywords are transformed to lowercase):
+            else when (val potentialKeyword = token.toLowerCase()) {
+                // Color keywords:
+                in colorKeywords -> colorKeywords[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
+                // Check for other keywords
+                in otherValueKeywords -> potentialKeyword
 
-                when (potentialKeyword) {
-                    // Color keywords:
-                    in colorKeywords -> colorKeywords[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
-                    // TODO Check for other keywords
-                    else -> throw ParserException("Unknown keyword: $token!")
-                }
+                else -> throw ParserException("Unknown keyword: $token!")
             }
         }
         else {
