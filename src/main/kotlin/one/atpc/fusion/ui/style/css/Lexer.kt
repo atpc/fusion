@@ -41,6 +41,9 @@ internal object Lexer {
     }
 
 
-    private fun Tokens.clean() = this.filter { t -> t.isNotBlank() }
+    // this.filter { t -> t.isNotBlank() }
+    private fun Tokens.clean(): Tokens = this.fold(emptyList()) {
+        acc, e -> if (e.isNotBlank()) acc + e else acc
+    }
 
 }
