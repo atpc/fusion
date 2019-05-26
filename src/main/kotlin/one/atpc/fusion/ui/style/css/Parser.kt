@@ -151,29 +151,42 @@ private object ValueParser {
         // IMPORTANT All this code assumes that the value does not contain whitespace tokens
         return if (value.size == 1) {
             val token = value[0]
-            if (token.startsWith("#")) {
-                // (Try to) interpret as hex color
-                val hexColorValue = token.substring(1)
-                Color.rgb(when (hexColorValue.length) {
-                    3 -> parseLong(hexColorValue.fold("") { acc, c -> acc + c + c }, 16) // Expand #RGB to #RRGGBB
-                    6 -> parseLong(hexColorValue, 16)   // Use the hex color value directly
-                    else -> throw ParserException("Illegal CSS color value: '$token'!")
-                }.toUInt())
-            }
-            // Check for keywords (keywords are transformed to lowercase):
-            else when (val potentialKeyword = token.toLowerCase()) {
-                // Color keywords:
-                in colorKeywordMap -> colorKeywordMap[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
-                // Check for other keywords
-                in otherValueKeywords -> potentialKeyword
+            when {
+                // Check if token is a hex color
+                token.startsWith('#') -> {
+                    // (Try to) interpret as hex color
+                    val hexColorValue = token.substring(1)
+                    Color.rgb(
+                        when (hexColorValue.length) {
+                            3 -> parseLong(
+                                hexColorValue.fold("") { acc, c -> acc + c + c },
+                                16
+                            ) // Expand #RGB to #RRGGBB
+                            6 -> parseLong(hexColorValue, 16)   // Use the hex color value directly
+                            else -> throw ParserException("Illegal CSS color value: '$token'!")
+                        }.toUInt()
+                    )
+                }
+                // Check if token could be a (measured) number
+                token.hasDigits -> {
+                    TODO("Interpret digits")
+                }
+                // Check for keywords (keywords are transformed to lowercase):
+                else -> when (val potentialKeyword = token.toLowerCase()) {
+                    // Color keywords:
+                    in colorKeywordMap -> colorKeywordMap[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
+                    // Check for other keywords
+                    in otherValueKeywords -> potentialKeyword
 
-                else -> throw ParserException("Unknown keyword: $token!")
+                    else -> throw ParserException("Unknown keyword: $token!")
+                }
             }
         }
         else {
             for (token in value) {
                 // Further tokenize the value
             }
+            TODO("No branch for multi-token values")
         }
     }
 
@@ -181,5 +194,9 @@ private object ValueParser {
     private fun fineTokenize(value: Tokens): Tokens = value.fold(emptyList()) {
             acc: Tokens, token: String -> acc + token
     }
+
+
+    // Utility to simplify checking for digits in String
+    private val String.hasDigits: Boolean get() = this.contains(Regex("\\d"))
 
 }
