@@ -4,10 +4,26 @@ AbstractButton {
     text-color: black;
 }
 
+XText {
+    /* Test color values */
+    color: currentColor;
+    background: transparent;
+
+    /* none keyword test */
+    border: none;
+}
+
 .meta-button:hover {
     background-color: gray;
 }
 
-#cancel {
-    background-color: firebrick;
+.cancel {
+    background-color: red;
+    color: white;
+}
+
+#section-1 {
+    background: gray;
+
+    color: inherit;
 }
