@@ -24,8 +24,9 @@ import one.atpc.fusion.ui.Color
 // Basic color keywords:
 // https://drafts.csswg.org/css-color-3/#colorunits
 
-// TODO Add tests
+// TODO Add tests?
 internal val colorKeywords: Map<String, Color> = mapOf(
+    // Basic color names
     "black"   to 0x000000u,
     "silver"  to 0xC0C0C0u,
     "gray"    to 0x808080u,
@@ -45,4 +46,21 @@ internal val colorKeywords: Map<String, Color> = mapOf(
 ).mapValues { Color.rgb(it.value) } + mapOf(
     // Transparent is a special color keyword
     "transparent" to Color.rgba(0, 0, 0, 0)
+)
+
+
+// All the other keywords
+internal val otherValueKeywords: List<String> = listOf(
+    "initial",
+    "inherit",
+
+    /*
+     * Special color keyword, but not a color itself.
+     * Is the current value of the 'color' property or,
+     * if applied to 'color',
+     * equal to `color: inherit`.
+     */
+    "currentColor",
+
+    "none"
 )
