@@ -42,8 +42,18 @@ internal object Lexer {
 
 
     // this.filter { t -> t.isNotBlank() }
-    private fun Tokens.clean(): Tokens = this.fold(emptyList()) {
-        acc, e -> if (e.isNotBlank()) acc + e else acc
+    // (Now filters comments as well)
+    private fun Tokens.clean(): Tokens {
+        var commentMode = false
+        return this.fold(emptyList()) {
+                acc, e ->
+            when {
+                e.startsWith("/*") -> { commentMode = true; acc }
+                commentMode -> { if (e.endsWith("*/")) commentMode = false; acc }
+                e.isNotBlank() -> acc + e
+                else -> acc
+            }
+        }
     }
 
 }
