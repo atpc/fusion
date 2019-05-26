@@ -161,8 +161,15 @@ private object ValueParser {
                 }.toUInt())
             }
             else {
-                TODO("Missing branch for non-hex-color single-token values")
-                // Keywords, Color names (TODO color names in external properties), etc.
+                // Check for keywords (keywords are lowercase when checked):
+                val potentialKeyword = token.toLowerCase()
+
+                when (potentialKeyword) {
+                    // Color keywords:
+                    in colorKeywords -> colorKeywords[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
+                    // TODO Check for other keywords
+                    else -> throw ParserException("Unknown keyword: $token!")
+                }
             }
         }
         else {
