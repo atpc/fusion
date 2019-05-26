@@ -60,22 +60,22 @@ internal object Parser {
         blocks.forEach { block ->
             // Convert the block declarations into a PartStyle
             // TODO Use fold() or foldRight()?
-            val blockSubStyle = block.declarations.foldRight(PartStyleBuilder()) { declaration, builder ->
+            val blockPartStyle = block.declarations.foldRight(PartStyleBuilder()) { declaration, builder ->
                 // Parse value (using the internal Any setter)
                 builder[declaration.property.foldToString()] = ValueParser.parseValue(declaration.value)
                 // Builder is returned since it's the accumulator
                 builder
-            }.toSubStyle()
+            }.toPartStyle()
             
             // Add the PartStyle to the specified selectors in the Style
             block.selectors.forEach { selector ->
                 val partStyleAtSelector: PartStyle? = styleBuilder[selector]
 
                 if (partStyleAtSelector != null)
-                    // Merge styles (the newer – blockSubStyle – overrides the older)
-                    styleBuilder[selector] = partStyleAtSelector combineWith blockSubStyle
+                    // Merge styles (the newer – blockPartStyle – overrides the older)
+                    styleBuilder[selector] = partStyleAtSelector combineWith blockPartStyle
                 else
-                    styleBuilder[selector] = blockSubStyle
+                    styleBuilder[selector] = blockPartStyle
             }
         }
 

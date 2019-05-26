@@ -55,6 +55,6 @@ open class PartStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) 
     }
 
 
-    fun toSubStyle(): PartStyle = PartStyle(declarationMap)
+    fun toPartStyle(): PartStyle = PartStyle(declarationMap)
 
 }

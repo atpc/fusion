@@ -47,7 +47,7 @@ class PartStyle private constructor(internal val declarationMap: Map<String, Any
             combinedBuilder[entry.key] = entry.value
         }
 
-        return combinedBuilder.toSubStyle()
+        return combinedBuilder.toPartStyle()
     }
 
 }
