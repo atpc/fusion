@@ -39,4 +39,18 @@ enum class MeasureUnit(val symbol: String) {
     VW ("vw"),          // 1% of viewport width
     VH ("vh"),          // 1% of viewport height
     PERCENT ("%"),      // Relative to whatever parent property
+    ;
+
+
+    companion object {
+
+        @JvmStatic
+        fun valueOfSymbol(symbol: String): MeasureUnit = when (val upSymbol = symbol.toUpperCase()) {
+            "" -> NUMERIC
+            "%" -> PERCENT
+            "NUMERIC", "PERCENT" -> throw IllegalArgumentException("Invalid symbol: \"$symbol\"!")
+            else -> valueOf(upSymbol)
+        }
+
+    }
 }
