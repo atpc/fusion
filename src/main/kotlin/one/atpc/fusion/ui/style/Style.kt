@@ -22,7 +22,8 @@ package one.atpc.fusion.ui.style
 import one.atpc.fusion.util.copy
 
 // A Style is comprised of partial styles
-class Style private constructor(private val partStyleMap: Map<String, PartStyle>) {
+class Style private constructor(private val partStyleMap: Map<String, PartStyle>)
+    : Map<String, PartStyle> by partStyleMap {
 
     internal constructor(partStyles: Map<String, PartStyle>, copied: Boolean)
             : this(if (copied) partStyles else partStyles.copy())
@@ -37,7 +38,8 @@ class Style private constructor(private val partStyleMap: Map<String, PartStyle>
 
     }
 
-    operator fun get(selector: String): PartStyle? = partStyleMap[selector]
+
+    override operator fun get(selector: String): PartStyle? = partStyleMap[selector]
 
     operator fun get(selector: Selector): PartStyle? = partStyleMap[selector.value]
 
