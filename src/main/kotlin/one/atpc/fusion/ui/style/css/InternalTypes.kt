@@ -17,20 +17,7 @@
  * along with Fusion.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@file:JvmName("Processor")
-
 package one.atpc.fusion.ui.style.css
 
-import one.atpc.fusion.ui.style.Style
-import one.atpc.fusion.util.compose
-import java.io.File
-
-internal fun process(text: String): Style {
-    val result: Style = (Parser::parse compose Lexer::tokenize) (text)
-
-    // TODO Debug code
-    // (DEBUG CODE) Write to log file
-    File("loader.log").writeText(result.debugString) // DEBUG log output
-
-    return result
-}
+internal typealias Tokens = List<String>
+internal typealias Line = List<String>
