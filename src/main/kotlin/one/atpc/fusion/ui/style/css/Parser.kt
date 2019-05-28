@@ -56,8 +56,7 @@ internal object Parser {
         val styleBuilder = StyleBuilder()
         blocks.forEach { block ->
             // Convert the block declarations into a PartStyle
-            // TODO Use fold() or foldRight()?
-            val blockPartStyle = block.declarations.foldRight(PartStyleBuilder()) { declaration, builder ->
+            val blockPartStyle = block.declarations.fold(PartStyleBuilder()) { builder, declaration ->
                 // Parse value (using the internal Any setter)
                 builder[declaration.property.foldToString()] = ValueParser.parseValue(declaration.value)
                 // Builder is returned since it's the accumulator
