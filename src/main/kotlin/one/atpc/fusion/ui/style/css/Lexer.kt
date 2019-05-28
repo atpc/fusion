@@ -20,13 +20,13 @@
 package one.atpc.fusion.ui.style.css
 
 internal object Lexer {
-    private val splitters: CharArray = charArrayOf('{', '}', ',', ';', ':', ' ', '\t', '\n')
+    private val SPLITTERS: CharArray = charArrayOf('{', '}', ',', ';', ':', ' ', '\t', '\n')
 
     internal fun tokenize(text: String): Tokens = tokenize0(text).clean()
 
     private tailrec fun tokenize0(text: String, tokens: List<String> = emptyList()): List<String> {
         // Find the first splitter
-        val splitterIndex = text.indexOfAny(splitters)
+        val splitterIndex = text.indexOfAny(SPLITTERS)
 
         return if (splitterIndex == -1)
             tokens + listOf(text)
