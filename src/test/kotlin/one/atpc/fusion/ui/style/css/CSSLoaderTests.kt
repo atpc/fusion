@@ -25,4 +25,7 @@ class CSSLoaderTests : FreeSpec({
     "test loader function" {
         CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
     }
+
+    // TODO Ensure erroneous CSS produces errors
+    // (e.g. too many decimal points)
 })

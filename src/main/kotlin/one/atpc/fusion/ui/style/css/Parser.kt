@@ -20,10 +20,7 @@
 package one.atpc.fusion.ui.style.css
 
 import one.atpc.fusion.ui.Color
-import one.atpc.fusion.ui.style.PartStyle
-import one.atpc.fusion.ui.style.PartStyleBuilder
-import one.atpc.fusion.ui.style.Style
-import one.atpc.fusion.ui.style.StyleBuilder
+import one.atpc.fusion.ui.style.*
 import one.atpc.fusion.util.compose
 import one.atpc.fusion.util.foldToString
 import one.atpc.fusion.util.get
@@ -167,10 +164,45 @@ private object ValueParser {
                         }.toUInt()
                     )
                 }
+
                 // Check if token could be a (measured) number
                 token.hasDigits -> {
-                    TODO("Interpret digits")
+                    // Try to separate the token into digits and measure units
+                    val endOfDigits = (
+                        if (token.startsWith('+') || token.startsWith('-')) {
+                            if (token.count { c -> c == '+' || c == '-' } > 1)
+                                throw ParserException("More than one number sign: '$token'!")
+                            else
+                                token.indexOfFirst { c -> !(c.isDigit() || c == '.' || c == '+' || c == '-') }
+                        }
+                        else
+                            token.indexOfFirst { c -> !(c.isDigit() || c == '.') }
+                    )
+
+                    val (digits, measureUnit) = if (endOfDigits == -1)
+                        Pair(token, MeasureUnit.NUMERIC)
+                    else
+                        Pair(
+                            token.substring(0, endOfDigits),
+                            MeasureUnit.valueOfSymbol(token.substring(endOfDigits))
+                        )
+
+                    // Determine if the number is a floating point (has a dot)
+                    val numValue: Number = when (digits.count { c -> c == '.' }) {
+                        0 -> java.lang.Long.valueOf(digits)
+                        1 -> if (digits.endsWith('.'))
+                                throw ParserException("Decimal points must be followed by at least one digit: '$token'!")
+                            else
+                                // Parse to Double
+                                java.lang.Double.valueOf(digits)
+                        // Error: Too many dots
+                        else -> throw ParserException("More than one dot in decimal: '$token'!")
+                    }
+
+                    // Return the parsed value
+                    MeasuredNumber(numValue, measureUnit)
                 }
+
                 // Check for keywords (keywords are transformed to lowercase):
                 else -> when (val potentialKeyword = token.toLowerCase()) {
                     // Color keywords:
@@ -184,7 +216,7 @@ private object ValueParser {
         }
         else {
             for (token in value) {
-                // Further tokenize the value
+                // TODO Further tokenize the value
             }
             TODO("No branch for multi-token values")
         }
@@ -197,6 +229,12 @@ private object ValueParser {
 
 
     // Utility to simplify checking for digits in String
-    private val String.hasDigits: Boolean get() = this.contains(Regex("\\d"))
+    private val String.hasDigits: Boolean get() {
+        for (c in this) {
+            if (c.isDigit())
+                return true
+        }
+        return false
+    }
 
 }
