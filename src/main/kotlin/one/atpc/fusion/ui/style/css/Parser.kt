@@ -109,7 +109,10 @@ internal object Parser {
         val blockStartIndex = this.indexOf(BLOCK_START)
         val blockEndIndex = this.lastIndexOf(BLOCK_END)
 
-        val selectors = this.subList(0, blockStartIndex)
+        // TODO Selector parsing is still not perfect
+        val rawSelectors = this.subList(0, blockStartIndex)
+        val selectors = rawSelectors.split(",").map { it.foldToString() }
+
         val lines = this.subList(blockStartIndex+1, blockEndIndex).splitToLines()
 
         return DeclarationBlock(selectors, lines.map { it.toDeclaration() })
