@@ -41,6 +41,10 @@ open class PartStyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) 
         declarationMap[property] = number
     }
 
+    operator fun set(property: String, numbers: List<MeasuredNumber>?) {
+        declarationMap[property] = numbers
+    }
+
     operator fun set(property: String, color: Color?) {
         declarationMap[property] = color
     }
