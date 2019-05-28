@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.ui.style.css
 
+import one.atpc.fusion.ui.style.Style
 import one.atpc.fusion.util.toString
 import java.io.File
 import java.io.InputStream
@@ -28,16 +29,16 @@ object CSSLoader {
 
     // TODO Stub
     @JvmStatic
-    fun load(file: File, charset: Charset? = null) = load(
+    fun load(file: File, charset: Charset? = null): Style = load(
         if (charset != null) file.readText(charset) else file.readText()
     )
 
     @JvmStatic
-    fun load(inputStream: InputStream, charset: Charset? = null) = load(
+    fun load(inputStream: InputStream, charset: Charset? = null): Style = load(
         if (charset != null) toString(inputStream, charset) else toString(inputStream)
     )
 
     @JvmStatic
-    fun load(text: String) = process(text)
+    fun load(text: String): Style = process(text)
 
 }
