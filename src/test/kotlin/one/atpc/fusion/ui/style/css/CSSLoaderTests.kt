@@ -19,6 +19,7 @@
 
 package one.atpc.fusion.ui.style.css
 
+import io.kotlintest.shouldThrow
 import io.kotlintest.specs.FreeSpec
 
 class CSSLoaderTests : FreeSpec({
@@ -26,6 +27,18 @@ class CSSLoaderTests : FreeSpec({
         CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
     }
 
-    // TODO Ensure erroneous CSS produces errors
-    // (e.g. too many decimal points)
+    // Ensure erroneous CSS produces errors
+    "test bad number values" {
+        listOf(
+            "+-25px",   // More than one plus and minus
+            "++2em",
+            "--3",
+            "23.12.80", // Too many decimals
+            "12."       // Number followed by a dot
+        ).forEach { e ->
+            shouldThrow<ParserException> {
+                CSSLoader.load("selector { value: $e; }")
+            }
+        }
+    }
 })
