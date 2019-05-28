@@ -52,7 +52,7 @@ dependencies {
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.4.0")
 
     // kotlintest
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.2.1")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
 
     testImplementation("org.reflections:reflections:0.9.11")
 }
