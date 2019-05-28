@@ -20,18 +20,22 @@
 package one.atpc.fusion.ui.style.css
 
 import io.kotlintest.matchers.maps.shouldContainKey
+import io.kotlintest.matchers.types.beNull
+import io.kotlintest.shouldNot
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.FreeSpec
 import one.atpc.fusion.ui.style.Style
 
 class CSSLoaderTests : FreeSpec({
+    var testStyle: Style? = null
+
     "test loader function" {
         // Should load without problems
-        val testStyle: Style = CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
-
-        "test pseudo-class parsing" {
-            testStyle.shouldContainKey(".meta-button:hover")
-        }
+        testStyle = CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
+    }
+    "test pseudo-class parsing" {
+        testStyle shouldNot beNull()
+        testStyle!!.shouldContainKey(".meta-button:hover")
     }
 
     // Ensure erroneous CSS produces errors
