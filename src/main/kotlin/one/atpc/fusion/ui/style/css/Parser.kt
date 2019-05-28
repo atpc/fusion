@@ -141,15 +141,14 @@ internal object Parser {
 
 }
 
+
 // Parsing CSS values [200px, #ffd9e5, rgb(0, 12, 134), calc(20px - 4em), ...]
 private object ValueParser {
 
-    internal fun parseValue(value: Tokens): Any {
-        // IMPORTANT All this code assumes that the value does not contain whitespace tokens
-        return if (value.size == 1) {
-            parseValue(value[0])
-        }
-        else {
+    internal fun parseValue(value: Tokens): Any = when (value.size) {
+        0 -> throw ParserException("Value can not be empty: '${value.foldToString()}'!")
+        1 -> parseValue(value[0])
+        else -> {
             // Check if value contains parentheses
             if (value.indexOfFirst { s -> s.indexOfFirst { c -> c == '(' || c == ')'  } != -1 } != -1) {
                 for (token in value) {
@@ -158,11 +157,12 @@ private object ValueParser {
                 TODO("No branch for complex multi-token values")
             }
             else {
-                // TODO Map each token individually:
-                // value.map { token -> parseValue(token) }
+                // (Try to) parse each token individually:
+                value.map { token -> parseValue(token) }
             }
         }
     }
+
 
     private fun parseValue(token: String): Any = when {
         // Check if token is a hex color

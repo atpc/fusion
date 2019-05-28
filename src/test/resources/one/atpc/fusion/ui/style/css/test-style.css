@@ -22,8 +22,7 @@ XText {
     color: white;
     margin-top: -1em;
     opacity: +.5;
-    /* TODO Test multi-value padding later */
-    /*padding: 0.5em 1em; /* vertical, horizontal */
+    padding: 0.5em 1em; /* vertical, horizontal */
     margin-bottom: 20px;
 }
 
