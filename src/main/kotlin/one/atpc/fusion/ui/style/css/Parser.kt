@@ -147,80 +147,89 @@ private object ValueParser {
     internal fun parseValue(value: Tokens): Any {
         // IMPORTANT All this code assumes that the value does not contain whitespace tokens
         return if (value.size == 1) {
-            val token = value[0]
-            when {
-                // Check if token is a hex color
-                token.startsWith('#') -> {
-                    // (Try to) interpret as hex color
-                    val hexColorValue = token.substring(1)
-                    Color.rgb(
-                        when (hexColorValue.length) {
-                            3 -> parseLong(
-                                hexColorValue.fold("") { acc, c -> acc + c + c },
-                                16
-                            ) // Expand #RGB to #RRGGBB
-                            6 -> parseLong(hexColorValue, 16)   // Use the hex color value directly
-                            else -> throw ParserException("Illegal CSS color value: '$token'!")
-                        }.toUInt()
-                    )
-                }
-
-                // Check if token could be a (measured) number
-                token.hasDigits -> {
-                    // Try to separate the token into digits and measure units
-                    val endOfDigits = (
-                        if (token.startsWith('+') || token.startsWith('-')) {
-                            if (token.count { c -> c == '+' || c == '-' } > 1)
-                                throw ParserException("More than one number sign: '$token'!")
-                            else
-                                token.indexOfFirst { c -> !(c.isDigit() || c == '.' || c == '+' || c == '-') }
-                        }
-                        else
-                            token.indexOfFirst { c -> !(c.isDigit() || c == '.') }
-                    )
-
-                    val (digits, measureUnit) = if (endOfDigits == -1)
-                        Pair(token, MeasureUnit.NUMERIC)
-                    else
-                        Pair(
-                            token.substring(0, endOfDigits),
-                            MeasureUnit.valueOfSymbol(token.substring(endOfDigits))
-                        )
-
-                    // Determine if the number is a floating point (has a dot)
-                    val numValue: Number = when (digits.count { c -> c == '.' }) {
-                        0 -> java.lang.Long.valueOf(digits)
-                        1 -> if (digits.endsWith('.'))
-                                throw ParserException("Decimal points must be followed by at least one digit: '$token'!")
-                            else
-                                // Parse to Double
-                                java.lang.Double.valueOf(digits)
-                        // Error: Too many dots
-                        else -> throw ParserException("More than one dot in decimal: '$token'!")
-                    }
-
-                    // Return the parsed value
-                    MeasuredNumber(numValue, measureUnit)
-                }
-
-                // Check for keywords (keywords are transformed to lowercase):
-                else -> when (val potentialKeyword = token.toLowerCase()) {
-                    // Color keywords:
-                    in colorKeywordMap -> colorKeywordMap[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
-                    // Check for other keywords
-                    in otherValueKeywords -> potentialKeyword
-
-                    else -> throw ParserException("Unknown keyword: $token!")
-                }
-            }
+            parseValue(value[0])
         }
         else {
-            for (token in value) {
-                // TODO Further tokenize the value
+            // Check if value contains parentheses
+            if (value.indexOfFirst { s -> s.indexOfFirst { c -> c == '(' || c == ')'  } != -1 } != -1) {
+                for (token in value) {
+                    // TODO Further tokenize the value
+                }
+                TODO("No branch for complex multi-token values")
             }
-            TODO("No branch for multi-token values")
+            else {
+                // TODO Map each token individually:
+                // value.map { token -> parseValue(token) }
+            }
         }
     }
+
+    private fun parseValue(token: String): Any = when {
+        // Check if token is a hex color
+        token.startsWith('#') -> {
+            // (Try to) interpret as hex color
+            val hexColorValue = token.substring(1)
+            Color.rgb(
+                when (hexColorValue.length) {
+                    3 -> parseLong(
+                        hexColorValue.fold("") { acc, c -> acc + c + c },
+                        16
+                    ) // Expand #RGB to #RRGGBB
+                    6 -> parseLong(hexColorValue, 16)   // Use the hex color value directly
+                    else -> throw ParserException("Illegal CSS color value: '$token'!")
+                }.toUInt()
+            )
+        }
+
+        // Check if token could be a (measured) number
+        token.hasDigits -> {
+            // Try to separate the token into digits and measure units
+            val endOfDigits = (
+                    if (token.startsWith('+') || token.startsWith('-')) {
+                        if (token.count { c -> c == '+' || c == '-' } > 1)
+                            throw ParserException("More than one number sign: '$token'!")
+                        else
+                            token.indexOfFirst { c -> !(c.isDigit() || c == '.' || c == '+' || c == '-') }
+                    }
+                    else
+                        token.indexOfFirst { c -> !(c.isDigit() || c == '.') }
+                    )
+
+            val (digits, measureUnit) = if (endOfDigits == -1)
+                Pair(token, MeasureUnit.NUMERIC)
+            else
+                Pair(
+                    token.substring(0, endOfDigits),
+                    MeasureUnit.valueOfSymbol(token.substring(endOfDigits))
+                )
+
+            // Determine if the number is a floating point (has a dot)
+            val numValue: Number = when (digits.count { c -> c == '.' }) {
+                0 -> java.lang.Long.valueOf(digits)
+                1 -> if (digits.endsWith('.'))
+                    throw ParserException("Decimal points must be followed by at least one digit: '$token'!")
+                else
+                // Parse to Double
+                    java.lang.Double.valueOf(digits)
+                // Error: Too many dots
+                else -> throw ParserException("More than one dot in decimal: '$token'!")
+            }
+
+            // Return the parsed value
+            MeasuredNumber(numValue, measureUnit)
+        }
+
+        // Check for keywords (keywords are transformed to lowercase):
+        else -> when (val potentialKeyword = token.toLowerCase()) {
+            // Color keywords:
+            in colorKeywordMap -> colorKeywordMap[potentialKeyword] ?: error("Defined color name '$potentialKeyword' is null!")
+            // Check for other keywords
+            in otherValueKeywords -> potentialKeyword
+
+            else -> throw ParserException("Unknown keyword: $token!")
+        }
+    }
+
 
     // TODO Stub
     private fun fineTokenize(value: Tokens): Tokens = value.fold(emptyList()) {
