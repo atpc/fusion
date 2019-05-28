@@ -19,12 +19,19 @@
 
 package one.atpc.fusion.ui.style.css
 
+import io.kotlintest.matchers.maps.shouldContainKey
 import io.kotlintest.shouldThrow
 import io.kotlintest.specs.FreeSpec
+import one.atpc.fusion.ui.style.Style
 
 class CSSLoaderTests : FreeSpec({
     "test loader function" {
-        CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
+        // Should load without problems
+        val testStyle: Style = CSSLoader.load(this::class.java.getResourceAsStream("/one/atpc/fusion/ui/style/css/test-style.css"))
+
+        "test pseudo-class parsing" {
+            testStyle.shouldContainKey(".meta-button:hover")
+        }
     }
 
     // Ensure erroneous CSS produces errors
