@@ -24,11 +24,7 @@ open class StyleBuilder @JvmOverloads constructor(initialCapacity: Int = 0) {
 
     operator fun get(selector: String): PartStyle? = partStyleMap[selector]
 
-    operator fun get(selector: Selector): PartStyle? = partStyleMap[selector.value]
-
     operator fun set(selector: String, partStyle: PartStyle): PartStyle? = partStyleMap.put(selector, partStyle)
-
-    operator fun set(selector: Selector, partStyle: PartStyle): PartStyle? = partStyleMap.put(selector.value, partStyle)
 
 
     fun toStyle(): Style = Style(partStyleMap, copied = false)

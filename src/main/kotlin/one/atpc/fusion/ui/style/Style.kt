@@ -30,9 +30,9 @@ class Style private constructor(private val partStyleMap: Map<String, PartStyle>
 
     companion object {
 
-        fun of(partStyles: Map<Selector, PartStyle>) = Style(partStyles.let { original ->
+        fun of(partStyles: Map<String, PartStyle>) = Style(partStyles.let { original ->
             val copy = HashMap<String, PartStyle>(original.size)
-            original.forEach { (k, v) -> copy[k.value] = v }
+            original.forEach { (k, v) -> copy[k] = v }
             copy
         })
 
@@ -40,8 +40,6 @@ class Style private constructor(private val partStyleMap: Map<String, PartStyle>
 
 
     override operator fun get(selector: String): PartStyle? = partStyleMap[selector]
-
-    operator fun get(selector: Selector): PartStyle? = partStyleMap[selector.value]
 
 
     val debugString: String get() {
